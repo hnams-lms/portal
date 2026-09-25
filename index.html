@@ -132,19 +132,34 @@ button{font-family:inherit;cursor:pointer;}
 #app.active{display:grid;}
 .sidebar{
   background:linear-gradient(190deg,var(--navy) 0%,var(--navy-deep) 100%);
-  color:#fff;padding:20px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;
+  color:#fff;padding:20px 14px 12px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;
+  contain:layout paint style;
 }
-.sb-brand{display:flex;align-items:center;gap:12px;padding:4px 6px 18px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:14px;}
+.sb-brand{display:flex;align-items:center;gap:12px;padding:4px 6px 18px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:6px;flex-shrink:0;}
 .sb-brand .name{font-size:13px;line-height:1.3;}
 .sb-brand .name b{display:block;font-size:15px;}
+/* Scrollable middle section: brand stays pinned on top, user/logout pinned at bottom,
+   so admin's long tool list never overflows off-screen on any device. */
+.sidebar-nav{
+  flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
+  scroll-behavior:smooth;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding-right:3px;margin-right:-3px;padding-left:14px;margin-left:-14px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 10px,#000 calc(100% - 10px),transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 10px,#000 calc(100% - 10px),transparent 100%);
+}
+.sidebar-nav::-webkit-scrollbar{width:5px;}
+.sidebar-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px;}
+.sidebar-nav::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.32);}
 .nav-group-label{font-size:10.5px;letter-spacing:.5px;color:#7C93A9;padding:14px 10px 6px;font-weight:700;text-transform:uppercase;}
 .nav-item{
-  display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:8px;color:#CFDCE9;font-size:13.6px;font-weight:500;margin-bottom:2px;transition:.15s;
+  display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:8px;color:#CFDCE9;font-size:13.6px;font-weight:500;margin-bottom:2px;
+  transition:background .15s ease,color .15s ease,transform .1s ease;
 }
-.nav-item .ic{width:18px;text-align:center;font-size:15px;}
+.nav-item .ic{width:18px;text-align:center;font-size:15px;flex-shrink:0;}
 .nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
+.nav-item:active{transform:scale(.98);}
 .nav-item.active{background:var(--accent);color:#fff;font-weight:700;}
-.sidebar-bottom{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);}
+.sidebar-bottom{margin-top:0;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);flex-shrink:0;}
 .sb-user{display:flex;align-items:center;gap:10px;padding:8px 6px;}
 .sb-avatar{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
 .sb-user .u-name{font-size:13px;font-weight:600;color:#fff;line-height:1.3;}
@@ -766,6 +781,7 @@ table.plain tbody tr:hover td,table.plain tr:hover td{background:#F8FAFD;}
       <div class="name"><b>CỔNG THÔNG TIN QUẢN LÍ LỚP HỌC</b>Địa 2 · THPT Chuyên Hà Nội - Amsterdam</div>
     </div>
 
+    <div class="sidebar-nav" id="sidebarNav">
     <div class="nav-group-label">Chung</div>
     <div class="nav-item" data-view="dashboard" onclick="goView('dashboard')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span> Tổng quan</div>
     <div class="nav-item" data-view="schedule" onclick="goView('schedule')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span> Thời khoá biểu &amp; Sự kiện</div>
@@ -791,6 +807,7 @@ table.plain tbody tr:hover td,table.plain tr:hover td{background:#F8FAFD;}
     <div class="nav-item admin-only" data-view="attSched" data-perm="attsettings" onclick="goView('attSched')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;display:inline-block"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> Lịch điểm danh</div>
     <div class="nav-item admin-only" data-view="attDoor" data-perm="attsettings" onclick="goView('attDoor')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;display:inline-block"><path d="M3 21h18"/><path d="M6 21V4a1 1 0 0 1 1-1h8l5 3v15"/><path d="M15 3v18"/><circle cx="12" cy="12" r="1"/></svg></span> Quản lý cửa</div>
     <div class="nav-item admin-only" data-perm="attsettings" onclick="openKioskTab()"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;display:inline-block"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span> Mở Kiosk cửa lớp</div>
+    </div>
     <div class="sidebar-bottom">
       <div class="sb-user">
         <div class="sb-avatar" id="sbAvatar">?</div>
@@ -1053,7 +1070,7 @@ table.plain tbody tr:hover td,table.plain tr:hover td{background:#F8FAFD;}
         </div>
         <div id="studentUploadResult" class="xlsx-result"></div>
         <div class="search-bar">
-          <input id="studentSearch" placeholder="Tìm theo tên hoặc mã học sinh…" oninput="renderStudentsTable()">
+          <input id="studentSearch" placeholder="Tìm theo tên hoặc mã học sinh…" oninput="renderStudentsTableD()">
         </div>
         <div style="overflow-x:auto;">
           <table class="plain" id="studentsTable"></table>
@@ -1490,7 +1507,7 @@ exports.dailyZaloReminder = functions.pubsub
           <div class="field"><label>Buổi</label>
             <select id="attSession" onchange="renderAttStatus()"><option value="all">Cả ngày</option><option value="morning">Sáng</option><option value="afternoon">Chiều</option></select>
           </div>
-          <div class="field" style="flex:1;min-width:180px;"><label>Tìm học sinh</label><input id="attSearch" oninput="renderAttStatus()" placeholder="Tên hoặc mã học sinh…"></div>
+          <div class="field" style="flex:1;min-width:180px;"><label>Tìm học sinh</label><input id="attSearch" oninput="renderAttStatusD()" placeholder="Tên hoặc mã học sinh…"></div>
         </div>
         <div class="grid-cards mb-12" id="attCards"></div>
         <div class="tabs-inline mb-12" id="attTabs"></div>
@@ -1517,7 +1534,7 @@ exports.dailyZaloReminder = functions.pubsub
           <div class="field"><label>Đến ngày</label><input type="date" id="ahTo" onchange="renderAttHistory()"></div>
           <div class="field"><label>Buổi</label><select id="ahSession" onchange="renderAttHistory()"><option value="all">Tất cả</option><option value="morning">Sáng</option><option value="afternoon">Chiều</option></select></div>
           <div class="field"><label>Phương thức</label><select id="ahMethod" onchange="renderAttHistory()"><option value="all">Tất cả</option><option value="faceid">FaceID</option><option value="online">Online</option><option value="manual">Thủ công</option><option value="qr">QR Code</option><option value="admin">Điều khiển cửa</option></select></div>
-          <div class="field" style="flex:1;min-width:160px;"><label>Tìm theo tên</label><input id="ahSearch" oninput="renderAttHistory()" placeholder="Họ tên…"></div>
+          <div class="field" style="flex:1;min-width:160px;"><label>Tìm theo tên</label><input id="ahSearch" oninput="renderAttHistoryD()" placeholder="Họ tên…"></div>
         </div>
         <div class="small muted mb-8">Hiển thị <b id="ahCount">0</b> bản ghi (tối đa 300 bản ghi gần nhất).</div>
         <div class="tbl-scroll"><table class="plain" id="ahTable"></table></div>
@@ -1764,6 +1781,17 @@ function hasPerm(key){
 }
 function isStudentUser(){ return !!(state.user && state.user.studentId); }
 function esc(s){ return (s||'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+/* Chống giật lag khi gõ tìm kiếm trên danh sách dài: chỉ render lại sau khi người dùng
+   ngừng gõ ~150ms, thay vì render lại toàn bộ bảng ở mỗi phím bấm. */
+function debounce(fn, wait){
+  let t;
+  return function(...args){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,args), wait||150); };
+}
+const renderStudentsTableD = debounce(()=>renderStudentsTable());
+const renderAttStatusD = debounce(()=>renderAttStatus());
+const renderAttHistoryD = debounce(()=>renderAttHistory());
+const filterPickerD = debounce((q)=>filterPicker(q));
+const ocFilterPickD = debounce(()=>ocFilterPick());
 /* Safe value to embed inside a double-quoted onclick="..." attribute.
    JSON.stringify() itself produces double quotes, which — if inserted raw
    into onclick="fn(...)" — terminates the attribute early and silently
@@ -1998,6 +2026,8 @@ function goView(v){
   document.querySelectorAll('.view').forEach(el=> el.classList.add('hidden'));
   document.getElementById('view-'+v).classList.remove('hidden');
   document.querySelectorAll('.nav-item').forEach(el=> el.classList.toggle('active', el.dataset.view===v));
+  const activeNav = document.querySelector('.nav-item[data-view="'+v+'"]');
+  if(activeNav) activeNav.scrollIntoView({block:'nearest'});
   const titles = {
     dashboard:'Tổng quan', schedule:'Thời khoá biểu & Sự kiện', duty:'Lịch trực nhật',
     lookup:'Tra cứu lịch trực của tôi', students:'Học sinh & tài khoản', tasktypes:'Đầu việc trực nhật',
@@ -2404,7 +2434,7 @@ function openDutyPicker(dk,tid){
     <div class="modal">
       <div class="modal-head"><h3>${esc(t.name)} · ${fmtFull(new Date(dk+'T00:00:00'))}</h3><button class="close-x" onclick="closeModal()">✕</button></div>
       <div class="modal-body">
-        <div class="picker-search"><input placeholder="Tìm học sinh…" oninput="filterPicker(this.value)"></div>
+        <div class="picker-search"><input placeholder="Tìm học sinh…" oninput="filterPickerD(this.value)"></div>
         <div class="picker-list" id="pickerList">${rowsHTML(students) || '<div class="empty-note">Không có học sinh phù hợp giới tính yêu cầu.</div>'}</div>
       </div>
       <div class="modal-foot"><button class="btn outline" onclick="closeModal()">Xong</button></div>
@@ -5363,7 +5393,7 @@ async function openOnlineModal(opts){
     '<div class="section-title">Học sinh tham dự</div>'+
     '<div class="seg"><label><input type="radio" name="oc_pmode" value="all" '+(selMode==='all'?'checked':'')+' onchange="ocTogglePick()"><b>Cả lớp</b><span>Tất cả học sinh đang hoạt động ('+students.length+')</span></label>'+
     '<label><input type="radio" name="oc_pmode" value="selected" '+(selMode==='selected'?'checked':'')+' onchange="ocTogglePick()"><b>Chọn học sinh</b><span>Chỉ những bạn được tick mới nhận lời mời</span></label></div>'+
-    '<div id="oc_pick"><div class="row gap-8 wrap mb-8"><input id="oc_psearch" placeholder="Tìm học sinh…" oninput="ocFilterPick()" style="flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line-strong);border-radius:7px;"><button class="btn small outline" onclick="ocPickAll(true)">Chọn tất cả</button><button class="btn small outline" onclick="ocPickAll(false)">Bỏ chọn</button><span class="small muted" id="oc_pcnt"></span></div>'+
+    '<div id="oc_pick"><div class="row gap-8 wrap mb-8"><input id="oc_psearch" placeholder="Tìm học sinh…" oninput="ocFilterPickD()" style="flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line-strong);border-radius:7px;"><button class="btn small outline" onclick="ocPickAll(true)">Chọn tất cả</button><button class="btn small outline" onclick="ocPickAll(false)">Bỏ chọn</button><span class="small muted" id="oc_pcnt"></span></div>'+
     '<div class="picker-list" style="max-height:200px">'+students.map(s=>'<label class="chk-row picker-row" data-name="'+esc(normName(s.name))+'"><input type="checkbox" class="oc_sel" value="'+esc(s.id)+'" '+((!selSet||selSet[s.id])?'checked':'')+' onchange="ocPickCount()"><span class="nm">'+esc(s.name)+'</span><span class="pill '+(s.gender==='nu'?'pill-nu':'pill-nam')+'">'+(s.gender==='nu'?'Nữ':'Nam')+'</span></label>').join('')+'</div></div>'+
     '<div class="section-title">Xác thực khi vào lớp &amp; điểm danh</div>'+
     '<div class="field"><label>Xác minh khuôn mặt</label><select id="oc_vmode">'+
@@ -6550,7 +6580,7 @@ function mtRenderStageNow(){
   stage.replaceChildren(wrap);
   tiles.forEach(t=>{ const v = S.tileEls[t.key].querySelector('video'); if(v && v.srcObject && v.paused) v.play().catch(()=>{}); });
 }
-window.addEventListener('resize', ()=>{ if(S && S.joined) mtRenderStage(); });
+window.addEventListener('resize', debounce(()=>{ if(S && S.joined) mtRenderStage(); }, 120));
 
 /* ---------- thiết bị ---------- */
 async function mtDevices(){
