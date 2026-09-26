@@ -297,7 +297,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 }
 @media(max-width:1000px){.dash-today-grid{grid-template-columns:1fr;}}
 
-/* Timeline lịch học hôm nay */
 .today-panel{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);
   padding:22px 24px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;
@@ -366,7 +365,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .tl-item.event .tl-title .tag{background:var(--amber-soft);color:var(--amber);}
 .tl-sub{font-size:12px;color:var(--ink-soft);margin-top:3px;font-weight:500;}
 
-/* Duty items */
 .duty-item{
   display:flex;gap:12px;align-items:flex-start;
   padding:12px 14px;margin-bottom:10px;
@@ -387,7 +385,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .duty-item .dnames b{color:var(--ink);font-weight:700;}
 .duty-item .dvacant{color:var(--rose);font-style:italic;font-weight:600;}
 
-/* Danh sách sự kiện đã tạo - card grid */
 .item-card-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
   gap:14px;
@@ -692,7 +689,6 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 .lv-period.selected::before{background:linear-gradient(180deg,#3B82C4,#1A4A7A);}
 .lv-period.selected .info b{color:var(--navy);}
 
-/* --- My leave cards --- */
 .my-leave-card{
   position:relative;background:var(--card);border:1px solid var(--line);
   border-radius:16px;padding:16px 20px;margin-bottom:12px;
@@ -720,7 +716,6 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
   display:flex;justify-content:flex-end;gap:8px;
 }
 
-/* --- Approval cards --- */
 .leave-approve-card{
   position:relative;background:var(--card);border:1px solid var(--line);
   border-left:5px solid #E0A030;border-radius:16px;padding:18px 20px;
@@ -964,7 +959,6 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 #kiosk .k-att-filter button:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);}
 #kiosk .k-att-filter button.on{background:linear-gradient(135deg,#0F2137,#1A4A7A);border-color:#0F2137;color:#fff;box-shadow:0 6px 16px -6px rgba(15,33,55,.5);}
 
-/* Duty in kiosk */
 #kiosk .k-duty-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;
 }
@@ -1237,7 +1231,6 @@ tr.row-present td:first-child{box-shadow:inset 3px 0 0 var(--green);}
 tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
 .rules-box{background:linear-gradient(135deg,#0F2137,#071322);color:#DCEAF6;font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:14px 18px;border-radius:12px;overflow-x:auto;white-space:pre;line-height:1.7;}
 
-/* Item list */
 .item-list{display:flex;flex-direction:column;gap:8px;}
 .item-row{
   display:flex;gap:14px;align-items:center;padding:12px 14px;
@@ -1268,10 +1261,6 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
   .two-col{grid-template-columns:1fr;}
   .seg{flex-direction:column;}
   .leave-type-picker{grid-template-columns:1fr;}
-  .mt-pres{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 100px;}
-  .mt-pres .strip{flex-direction:row;overflow-x:auto;overflow-y:hidden;}
-  .mt-pres .strip .mt-tile{aspect-ratio:16/9;height:100%;}
-  .mt-side{position:absolute;inset:0;width:100%;z-index:6;}
   .dash-today-grid{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
@@ -1327,9 +1316,10 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="nav-item" data-view="schedule" onclick="goView('schedule')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span> Thời khoá biểu &amp; Sự kiện</div>
       <div class="nav-item" data-view="duty" onclick="goView('duty')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4L10 13"/><path d="M6 21l3-3"/><path d="M10 13l-6 2 2 6 6-2z"/><path d="M14 8l3 3"/></svg></span> Lịch trực nhật</div>
       <div class="nav-item student-only" data-view="lookup" onclick="goView('lookup')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span> Tra cứu lịch trực của tôi</div>
+      <div class="nav-item student-only" data-view="classList" onclick="goView('classList')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span> Danh sách lớp</div>
+      <div class="nav-item student-only" data-view="attClass" onclick="goView('attClass')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></span> Điểm danh lớp</div>
       <div class="nav-item student-only" data-view="leaveApply" onclick="goView('leaveApply')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg></span> Đơn từ</div>
       <div class="nav-item" data-view="online" onclick="goView('online')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span> Lớp học online <span class="pill pill-live" id="navOnlineLive" style="display:none;margin-left:auto;padding:2px 8px;font-size:10px;">LIVE</span></div>
-      <div class="nav-item" data-view="meet" onclick="goView('meet')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Meeting</div>
       <div class="nav-group-label admin-only">Quản trị</div>
       <div class="nav-item admin-only" data-view="leaveApprove" data-perm="leaves" onclick="goView('leaveApprove')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span> Duyệt đơn từ</div>
       <div class="nav-item admin-only" data-view="students" data-perm="students" onclick="goView('students')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span> Học sinh &amp; tài khoản</div>
@@ -1451,19 +1441,26 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
             <div class="week-range-label" id="weekLabelDuty">—</div>
           </div>
         </div>
-        <div class="info-box small">Lịch trực nhật chỉ phân từ <b>Thứ 2 đến Thứ 6</b> (lớp không học Thứ 7).</div>
+        
+
+        <!-- Download cho tất cả người dùng -->
+        <div class="xlsx-bar">
+          <b class="small">Xuất lịch trực nhật:</b>
+          <button class="btn outline small" onclick="downloadDutyTemplate()">Xuất lịch tuần đang chọn</button>
+          <input type="month" id="dutyMonthPickStudent" style="padding:8px 12px;border:1.5px solid var(--line-strong);border-radius:8px;width:160px;">
+          <button class="btn outline small" onclick="downloadDutyMonthFromInput('dutyMonthPickStudent')">Xuất lịch tháng đang chọn</button>
+        </div>
+
         <div class="xlsx-bar admin-only" data-perm="duty">
-          <b class="small">Excel lịch trực nhật (theo tuần):</b>
-          <button class="btn outline small" onclick="downloadDutyTemplate()">Tải file mẫu tuần này</button>
-          <button class="btn outline small" onclick="document.getElementById('dutyUploadInput').click()">Tải lên từ Excel</button>
+          <b class="small">Nhập lịch trực nhật (tuần):</b>
+          <button class="btn outline small" onclick="document.getElementById('dutyUploadInput').click()">Nhập file tuần</button>
           <input type="file" id="dutyUploadInput" accept=".xlsx,.xls" onchange="handleDutyUpload(this.files[0])">
         </div>
         <div id="dutyUploadResult" class="xlsx-result"></div>
         <div class="xlsx-bar admin-only" data-perm="duty">
-          <b class="small">Excel lịch trực nhật (cả tháng):</b>
+          <b class="small">Nhập lịch trực nhật (tháng):</b>
           <input type="month" id="dutyMonthPick" style="width:160px;padding:8px 12px;border:1.5px solid var(--line-strong);border-radius:8px;">
-          <button class="btn outline small" onclick="downloadDutyTemplateMonth()">Tải file mẫu cả tháng</button>
-          <button class="btn outline small" onclick="document.getElementById('dutyUploadMonthInput').click()">Tải lên cả tháng</button>
+          <button class="btn outline small" onclick="document.getElementById('dutyUploadMonthInput').click()">Nhập file tháng</button>
           <input type="file" id="dutyUploadMonthInput" accept=".xlsx,.xls" onchange="handleDutyUploadMonth(this.files[0])">
         </div>
         <div id="dutyUploadMonthResult" class="xlsx-result"></div>
@@ -1482,6 +1479,42 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
           <button class="btn primary" style="margin-top:19px;" onclick="doLookup()">Tra cứu</button>
         </div>
         <div id="lookupResults"></div>
+      </div>
+    </div>
+
+    <!-- CLASS LIST (STUDENT ONLY) -->
+    <div class="view" id="view-classList">
+      <div class="view-head">
+        <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div class="lead">Danh sách lớp</div>
+          <button class="btn outline" onclick="downloadClassListExcel()">Xuất danh sách lớp</button>
+        </div>
+      </div>
+      <div class="panel">
+        
+        <div class="search-bar"><input id="classSearch" placeholder="Tìm theo tên hoặc mã học sinh…" oninput="renderClassListView()"></div>
+        <div class="small muted mb-8">Tổng: <b id="classListCount">0</b> học sinh đang hoạt động.</div>
+        <div class="tbl-scroll"><table class="plain" id="classListTable"></table></div>
+      </div>
+    </div>
+
+    <!-- CLASS ATTENDANCE VIEW (STUDENT ONLY) -->
+    <div class="view" id="view-attClass">
+      <div class="view-head">
+        <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div class="lead">Điểm danh lớp</div>
+          <div class="row gap-8 wrap" style="align-items:flex-end;">
+            <div class="field" style="margin:0;"><label>Ngày</label><input type="date" id="acDate" onchange="attClassWatchDay(this.value)"></div>
+            <button class="btn outline small" onclick="acGoToday()">Hôm nay</button>
+            <button class="btn outline small" onclick="attClassWatchDay(document.getElementById('acDate').value || todayKey(), true)">Làm mới</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        
+        <div class="grid-cards mb-12" id="acSummary"></div>
+        <div class="small muted mb-8">Ngày <b id="acDateLabel">—</b></div>
+        <div class="tbl-scroll"><table class="plain" id="acTable"></table></div>
       </div>
     </div>
 
@@ -1611,8 +1644,8 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="panel">
         <div class="xlsx-bar">
           <b class="small">Excel danh sách học sinh:</b>
-          <button class="btn outline small" onclick="downloadStudentTemplate()">Tải file mẫu</button>
-          <button class="btn outline small" onclick="document.getElementById('studentUploadInput').click()">Tải lên từ Excel</button>
+          <button class="btn outline small" onclick="downloadStudentTemplate()">Xuất file mẫu</button>
+          <button class="btn outline small" onclick="document.getElementById('studentUploadInput').click()">Nhập file từ Excel</button>
           <input type="file" id="studentUploadInput" accept=".xlsx,.xls" onchange="handleStudentUpload(this.files[0])">
         </div>
         <div id="studentUploadResult" class="xlsx-result"></div>
@@ -1739,27 +1772,6 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
 
     <!-- ONLINE JOIN -->
     <div class="view" id="view-onlineJoin"><div class="join-wrap" id="joinRoot"></div></div>
-
-    <!-- MEET -->
-    <div class="view" id="view-meet">
-      <div class="view-head">
-        <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
-          <div class="lead">Meet — họp trực tuyến</div>
-          <button class="btn primary" id="btnNewMeet" style="display:none" onclick="openMeetModal()">+ Tạo cuộc họp</button>
-        </div>
-      </div>
-      <div class="panel panel-top">
-        <div class="panel-head"><h3>Vào cuộc họp bằng mã hoặc liên kết</h3></div>
-        <div class="copy-box" style="max-width:600px;">
-          <input id="meetJoinCode" placeholder="Dán liên kết hoặc mã cuộc họp" onkeydown="if(event.key==='Enter')meetJoinFromInput()">
-          <button class="btn primary" onclick="meetJoinFromInput()">Vào họp</button>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h3>Cuộc họp đang mở</h3></div>
-        <div id="meetList" class="oc-list"></div>
-      </div>
-    </div>
 
     <!-- ATT STATUS -->
     <div class="view" id="view-attStatus">
@@ -1964,7 +1976,7 @@ const PERMISSION_DEFS = [
   { key:'settings',    label:'Cài đặt lớp',                                group:'Quản trị' },
   { key:'attendance',  label:'Điểm danh: xem trạng thái & lịch sử',        group:'Điểm danh' },
   { key:'attsettings', label:'Điểm danh: FaceID, QR, lịch, cửa, Kiosk',    group:'Điểm danh' },
-  { key:'online',      label:'Lớp học online & Meet',                      group:'Online' }
+  { key:'online',      label:'Lớp học online',                              group:'Online' }
 ];
 
 const WEEKDAYS = ['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ nhật'];
@@ -2071,7 +2083,6 @@ const ocFilterPickD = debounce(()=>ocFilterPick());
 function attrStr(x){ return esc(JSON.stringify(x)); }
 function slugify(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'') || uid(); }
 
-/* ========== Host / Quyền hạn cho cuộc họp & lớp học online ========== */
 function getHostCandidates(){
   const list = [{ id:'superadmin', name:'Super Admin', role:'Super Admin' }];
   Object.entries(state.admins||{}).forEach(([k,a])=>{
@@ -2095,13 +2106,6 @@ function canHostOnlineClass(oc){
   if(isSuperadmin()) return true;
   if(!oc) return false;
   if(oc.hostId === state.user.id || oc.createdBy === state.user.id) return true;
-  if(oc.admins && oc.admins[state.user.id]) return true;
-  return false;
-}
-function isHostOfOnlineClass(oc){
-  if(!oc || !state.user) return false;
-  if(isSuperadmin()) return true;
-  if(oc.hostId === state.user.id) return true;
   if(oc.admins && oc.admins[state.user.id]) return true;
   return false;
 }
@@ -2293,6 +2297,8 @@ function initWeekPickers(){
   ['schedule','duty'].forEach(scope=>{ const wEl = document.getElementById('weekPickWeek_'+scope); if(wEl) wEl.value = isoWeekValue(state.weekStart); });
   const mEl = document.getElementById('dutyMonthPick');
   if(mEl && !mEl.value){ const now = new Date(); mEl.value = now.getFullYear()+'-'+pad2(now.getMonth()+1); }
+  const mEl2 = document.getElementById('dutyMonthPickStudent');
+  if(mEl2 && !mEl2.value){ const now = new Date(); mEl2.value = now.getFullYear()+'-'+pad2(now.getMonth()+1); }
 }
 function populateWeeklyDaySelect(){
   const sel = document.getElementById('zaloWeeklyDay');
@@ -2347,7 +2353,7 @@ function goView(v){
     attStatus:'attendance', attHistory:'attendance', attFace:'attsettings', attQR:'attsettings', attSched:'attsettings', attDoor:'attsettings' };
   if(permMap[v] && !hasPerm(permMap[v])) return;
   if(v==='admins' && !isSuperadmin()) return;
-  if((v==='lookup' || v==='leaveApply') && !isStudentUser()) return;
+  if((v==='lookup' || v==='leaveApply' || v==='classList' || v==='attClass') && !isStudentUser()) return;
   if(typeof extBeforeView==='function') extBeforeView(v);
   state.currentView = v;
   document.querySelectorAll('.view').forEach(el=> el.classList.add('hidden'));
@@ -2359,7 +2365,8 @@ function goView(v){
     dashboard:'Tổng quan', schedule:'Thời khoá biểu & Sự kiện', duty:'Lịch trực nhật',
     lookup:'Tra cứu lịch trực của tôi', students:'Học sinh & tài khoản', tasktypes:'Đầu việc trực nhật',
     zalo:'Zalo Bot & Thông báo', settings:'Cài đặt lớp',
-    leaveApply:'Đơn từ', leaveApprove:'Duyệt đơn từ', admins:'Quản trị viên'
+    leaveApply:'Đơn từ', leaveApprove:'Duyệt đơn từ', admins:'Quản trị viên',
+    classList:'Danh sách lớp', attClass:'Điểm danh lớp'
   };
   document.getElementById('topbarTitle').textContent = titles[v]||(typeof EXT_TITLES!=='undefined'?EXT_TITLES[v]:null)||'—';
   document.getElementById('topbarDate').textContent = 'Hôm nay ' + fmtFull(new Date());
@@ -2379,6 +2386,8 @@ function refreshCurrentView(){
     case 'leaveApply': renderLeaveApplyView(); break;
     case 'leaveApprove': renderLeaveApprovalList(); break;
     case 'admins': renderAdminsTable(); renderSuperadminForm(); break;
+    case 'classList': renderClassListView(); break;
+    case 'attClass': renderAttClassView(); break;
     default: if(typeof extRefreshView==='function') extRefreshView(state.currentView); break;
   }
 }
@@ -2392,6 +2401,90 @@ function onWeekPickChange(scope){
 }
 function goCurrentWeek(scope){ state.weekStart = getMonday(new Date()); initWeekPickers(); refreshCurrentView(); }
 function weekLabelText(){ const end = addDays(state.weekStart,6); return 'Tuần: ' + fmtShort(state.weekStart)+' – '+fmtFull(end); }
+
+/* =========================================================================
+   CLASS LIST (STUDENT-ONLY VIEW)
+========================================================================= */
+function renderClassListView(){
+  const t = document.getElementById('classListTable'); if(!t) return;
+  const q = normName((document.getElementById('classSearch')||{}).value || '');
+  const list = Object.values(state.students||{})
+    .filter(s=> s.active!==false)
+    .filter(s=> !q || normName(s.name).includes(q) || normName(s.id).includes(q))
+    .sort(cmpStudentName);
+  const cntEl = document.getElementById('classListCount'); if(cntEl) cntEl.textContent = list.length;
+  t.innerHTML = '<tr><th style="width:56px">STT</th><th>Mã HS</th><th>Họ và tên</th><th>Giới tính</th><th>Số buổi trực</th></tr>' +
+    (list.length ? list.map((s,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(s.id)+'</td><td><b>'+esc(s.name)+'</b></td><td><span class="pill '+(s.gender==='nu'?'pill-nu':'pill-nam')+'">'+(s.gender==='nu'?'Nữ':'Nam')+'</span></td><td>'+computeDutyCount(s.id)+'</td></tr>').join('') : '<tr><td colspan="5" class="empty-box">Không có học sinh phù hợp.</td></tr>');
+}
+function downloadClassListExcel(){
+  if(!ensureXLSX()) return;
+  const list = Object.values(state.students||{}).filter(s=>s.active!==false).sort(cmpStudentName);
+  const nCols = 5;
+  const data = [];
+  data.push([xCell('DANH SÁCH LỚP '+((state.classCfg.className)||'Địa 2'),XL_STYLES.title), ...Array(nCols-1).fill(xCell('',XL_STYLES.title))]);
+  data.push([xCell('Tổng: '+list.length+' học sinh · Xuất lúc '+new Date().toLocaleString('vi-VN'),XL_STYLES.smallMuted), ...Array(nCols-1).fill(xCell('',XL_STYLES.smallMuted))]);
+  data.push([xCell('STT',XL_STYLES.header), xCell('Mã HS',XL_STYLES.header), xCell('Họ và tên',XL_STYLES.header), xCell('Giới tính',XL_STYLES.header), xCell('Số buổi trực',XL_STYLES.header)]);
+  list.forEach((s,i)=>{
+    data.push([xCell(i+1,XL_STYLES.stt), xCell(s.id,XL_STYLES.cell), xCell(s.name,XL_STYLES.cellLeft), xCell(s.gender==='nu'?'Nữ':'Nam',XL_STYLES.cell), xCell(computeDutyCount(s.id),XL_STYLES.cell)]);
+  });
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  ws['!merges'] = [{ s:{r:0,c:0}, e:{r:0,c:nCols-1} }, { s:{r:1,c:0}, e:{r:1,c:nCols-1} }];
+  applyColumnWidths(ws, [6,14,28,10,14]);
+  applyRowHeights(ws, data.map((_,idx)=> idx===0?28:(idx===1?18:24)));
+  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'DanhSachLop');
+  XLSX.writeFile(wb, 'Danh_sach_lop_'+todayKey()+'.xlsx');
+  toast('Đã tải danh sách lớp','ok');
+}
+
+/* =========================================================================
+   CLASS ATTENDANCE VIEW (STUDENT-ONLY, READ-ONLY)
+========================================================================= */
+function attClassWatchDay(dk, force){
+  if(!dk){ const el = document.getElementById('acDate'); dk = el ? el.value : todayKey(); if(!dk) dk = todayKey(); }
+  const el = document.getElementById('acDate'); if(el && el.value !== dk) el.value = dk;
+  extUnsub('attClassDay');
+  extSub('attClassDay', db.ref('attendanceDays/'+dk), s=>{
+    state.attDays[dk] = s.val()||{};
+    if(state.currentView==='attClass') _renderAttClassBody(dk);
+  });
+  if(force) state.attDays[dk] = state.attDays[dk] || {};
+  _renderAttClassBody(dk);
+}
+function acGoToday(){ attClassWatchDay(todayKey()); }
+function renderAttClassView(){
+  if(!state.attDays[state.attView && state.attView.dk]){ /* noop */ }
+  const el = document.getElementById('acDate');
+  if(el && !el.value) el.value = todayKey();
+  attClassWatchDay(el ? el.value : todayKey());
+}
+function _renderAttClassBody(dk){
+  const t = document.getElementById('acTable'); if(!t) return;
+  const day = state.attDays[dk]||{};
+  const students = Object.values(state.students||{}).filter(s=>s.active!==false).sort(cmpStudentName);
+  let present=0, absent=0, leave=0;
+  const rows = students.map(s=>{
+    const checks = Object.entries(day[s.id]||{}).map(([k,v])=>Object.assign({key:k},v));
+    checks.sort((a,b)=>a.ts-b.ts);
+    const lv = leaveOnDate(s.id, dk);
+    let st = checks.length ? 'present' : ((lv && lv.status==='approved') ? 'leave' : 'absent');
+    if(st==='present') present++; else if(st==='leave') leave++; else absent++;
+    return {s, checks, st, lv};
+  });
+  const pct = rows.length ? Math.round(present*100/rows.length) : 0;
+  document.getElementById('acSummary').innerHTML =
+    '<div class="att-progress"><div class="row" style="justify-content:space-between"><span class="small muted"><b>Tỉ lệ điểm danh</b></span><b>'+pct+'%</b></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>'+
+    '<div class="stat-card ok"><div class="lbl">Đã điểm danh</div><div class="val">'+present+'/'+rows.length+'</div><div class="foot">'+pct+'%</div></div>'+
+    '<div class="stat-card bad"><div class="lbl">Chưa điểm danh</div><div class="val">'+absent+'</div><div class="foot">chưa có đơn</div></div>'+
+    '<div class="stat-card info"><div class="lbl">Nghỉ có phép</div><div class="val">'+leave+'</div><div class="foot">đơn đã duyệt</div></div>';
+  document.getElementById('acDateLabel').textContent = fmtFull(dateFromKey(dk)) + ' · ' + WEEKDAYS[(dateFromKey(dk).getDay()+6)%7];
+  t.innerHTML = '<tr><th style="width:56px">STT</th><th>Mã HS</th><th>Họ và tên</th><th>Trạng thái</th><th>Phương thức</th><th>Giờ</th></tr>' +
+    (rows.length ? rows.map((r,i)=>{
+      const stLbl = r.st==='present' ? '<span class="pill pill-green">Đã điểm danh</span>' : (r.st==='leave' ? '<span class="pill pill-amber">Nghỉ có phép</span>' : '<span class="pill pill-red">Chưa điểm danh</span>');
+      const meth = r.checks.map(x=>methodPill(x.method)).join(' ') || '—';
+      const time = r.checks.map(x=>fmtHM(x.ts)).join(', ') || '—';
+      return '<tr class="row-'+r.st+'"><td>'+(i+1)+'</td><td>'+esc(r.s.id)+'</td><td><b>'+esc(r.s.name)+'</b></td><td>'+stLbl+'</td><td>'+meth+'</td><td class="nowrap">'+time+'</td></tr>';
+    }).join('') : '<tr><td colspan="6" class="empty-box">Không có dữ liệu.</td></tr>');
+}
 
 /* =========================================================================
    SCHEDULE
@@ -3132,7 +3225,6 @@ function renderDashboard(){
   const absentToday = absentListForDate(todayKey());
   const lessonsCount = todayItems.filter(i=>i.type==='lesson').length;
 
-  /* Dashboard stats — HS chỉ thấy 3 mục */
   if(isStudentUser() && !isAdmin()){
     document.getElementById('dashStats').innerHTML = `
       <div class="stat-card"><div class="lbl">Sĩ số lớp</div><div class="val">${total}</div><div class="foot">${nam} nam · ${nu} nữ</div></div>
@@ -3147,7 +3239,6 @@ function renderDashboard(){
       <div class="stat-card"><div class="lbl">Zalo Bot</div><div class="val">${state.zaloCfg && state.zaloCfg.dailyEnabled ? 'Bật':'Tắt'}</div><div class="foot">${state.zaloCfg && state.zaloCfg.dailyTime || '—'}</div></div>`;
   }
 
-  /* Lịch học & sự kiện hôm nay - dạng timeline */
   const sEl = document.getElementById('dashSchedToday');
   const sCountEl = document.getElementById('dashTodayCount');
   if(sCountEl) sCountEl.textContent = todayItems.length + ' mục';
@@ -3171,7 +3262,6 @@ function renderDashboard(){
     }).join('')+'</div>';
   }
 
-  /* Duty hôm nay - panel riêng */
   const dEl = document.getElementById('dashDutyToday');
   const dCountEl = document.getElementById('dashDutyCount');
   const today = new Date();
@@ -3658,11 +3748,12 @@ function monthWeekStarts(monthValue){
   while(cur<=lastDay){ out.push(new Date(cur)); cur = addDays(cur,7); }
   return out;
 }
-function downloadDutyTemplateMonth(){
+function downloadDutyTemplateMonth(monthValue){
+  if(monthValue && typeof monthValue !== 'string') monthValue = null;
   if(!ensureXLSX()) return;
-  const monthValue = document.getElementById('dutyMonthPick').value;
-  if(!monthValue){ toast('Chọn tháng','err'); return; }
-  const weeks = monthWeekStarts(monthValue);
+  const mv = monthValue || document.getElementById('dutyMonthPick').value;
+  if(!mv){ toast('Chọn tháng','err'); return; }
+  const weeks = monthWeekStarts(mv);
   const tasks = Object.entries(state.taskTypes||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
   const nCols = 1 + DUTY_DAYS;
   const wb = XLSX.utils.book_new();
@@ -3684,8 +3775,14 @@ function downloadDutyTemplateMonth(){
     applyRowHeights(ws, rows.map((_,idx)=> idx===0?26:30));
     XLSX.utils.book_append_sheet(wb, ws, `Tuan${wi+1}`);
   });
-  XLSX.writeFile(wb, `Lich_truc_nhat_thang_${monthValue}.xlsx`);
+  XLSX.writeFile(wb, `Lich_truc_nhat_thang_${mv}.xlsx`);
   toast('Đã tải file','ok');
+}
+function downloadDutyMonthFromInput(inputId){
+  const el = document.getElementById(inputId);
+  const mv = el ? el.value : null;
+  if(!mv){ toast('Vui lòng chọn tháng','err'); return; }
+  downloadDutyTemplateMonth(mv);
 }
 function handleDutyUploadMonth(file){
   if(!file || !ensureXLSX()) return;
@@ -3775,9 +3872,9 @@ function closeModal(){ document.getElementById('modalRoot').innerHTML=''; }
 /* =========================================================================
    EXT: shared infra
 ========================================================================= */
-Object.assign(state, { faceUsers:{}, faceUsersLoaded:false, attSchedules:{}, doors:{}, qrCodes:{}, settings:{}, onlineClasses:{}, onlineClassesLoaded:false, meets:{}, attDays:{}, attMine:{}, attHistoryList:[], attView:{ dk:null, tab:'all' }, joinClassId:null, route:null });
+Object.assign(state, { faceUsers:{}, faceUsersLoaded:false, attSchedules:{}, doors:{}, qrCodes:{}, settings:{}, onlineClasses:{}, onlineClassesLoaded:false, attDays:{}, attMine:{}, attHistoryList:[], attView:{ dk:null, tab:'all' }, joinClassId:null, route:null });
 const ext = { subs:{}, userKey:null, todayKey:null, invitesToasted:false };
-const EXT_TITLES = { online:'Lớp học online', onlineJoin:'Vào lớp học online', meet:'Meet — họp trực tuyến', attStatus:'Trạng thái điểm danh', attHistory:'Lịch sử điểm danh', attFace:'Cài đặt FaceID', attQR:'Secret QR Code', attSched:'Lịch điểm danh', attDoor:'Quản lý cửa' };
+const EXT_TITLES = { online:'Lớp học online', onlineJoin:'Vào lớp học online', attStatus:'Trạng thái điểm danh', attHistory:'Lịch sử điểm danh', attFace:'Cài đặt FaceID', attQR:'Secret QR Code', attSched:'Lịch điểm danh', attDoor:'Quản lý cửa' };
 let serverOffset = 0;
 db.ref('.info/serverTimeOffset').on('value', s=>{ serverOffset = s.val()||0; });
 function serverNow(){ return Date.now() + serverOffset; }
@@ -3885,13 +3982,11 @@ function attachExtListeners(){
   const uk = state.user ? state.user.id : null;
   if(ext.userKey !== uk){ extUnsub('attToday'); ext.userKey = uk; ext.invitesToasted = false; state.attMine = {}; }
   extSub('onlineClasses', db.ref('onlineClasses'), s=>{ state.onlineClasses = s.val()||{}; state.onlineClassesLoaded = true; onOnlineClassesChanged(); });
-  extSub('meets', db.ref('meets'), s=>{ state.meets = s.val()||{}; onMeetsChanged(); });
   extSub('settings', db.ref('settings'), s=>{ state.settings = s.val()||{}; onSettingsChanged(); });
   watchToday();
 }
 setInterval(()=>{ if(state.user && todayKey()!==ext.todayKey){ watchToday(); refreshCurrentView(); } }, 30000);
-function onAttendanceChanged(){ if(!state.user) return; if(['dashboard','attStatus'].includes(state.currentView)) refreshCurrentView(); }
-function onMeetsChanged(){ if(state.user && state.currentView==='meet') renderMeetList(); }
+function onAttendanceChanged(){ if(!state.user) return; if(['dashboard','attStatus','attClass'].includes(state.currentView)) refreshCurrentView(); }
 function onSettingsChanged(){ if(state.user && state.currentView==='settings') renderAttMeetConfigForm(); if(state.user && state.currentView==='attDoor') renderDoorCards(); }
 function onOnlineClassesChanged(){
   if(!state.user) return;
@@ -3905,7 +4000,6 @@ function extRefreshView(v){
   switch(v){
     case 'online': renderOnlineList(); break;
     case 'onlineJoin': renderOnlineJoin(); break;
-    case 'meet': renderMeetList(); break;
     case 'attStatus': renderAttStatus(); break;
     case 'attHistory': renderAttHistory(); break;
     case 'attFace': renderFaceTable(); break;
@@ -4381,7 +4475,6 @@ function gmeetConnect(){
     }catch(e){ toast('Lỗi kết nối Google: '+(e.message||e),'err'); reject(e); }
   });
 }
-/* Tạo 1 sự kiện Google Calendar kèm Google Meet, trả về link Meet (không giới hạn thời gian sử dụng). */
 async function gmeetCreateLink(title, startDate, endDate){
   await gmeetConnect();
   const body = {
@@ -4399,7 +4492,6 @@ async function gmeetCreateLink(title, startDate, endDate){
   if(!link) throw new Error('Không lấy được link Meet từ Google');
   return link;
 }
-/* Gắn vào 1 nút "Tạo Google Meet tự động" cạnh 1 ô input link. btnId: nút bấm, inputId: ô input link, titleGetter: hàm trả về tiêu đề cuộc họp. */
 async function gmeetFillInto(btnId, inputId, titleGetter){
   const btn = document.getElementById(btnId), input = document.getElementById(inputId);
   if(!input) return;
@@ -4690,7 +4782,6 @@ async function kioskMarkPresent(sid){
   if(!confirm('Đánh dấu "'+s.name+'" có mặt?')) return;
   try{ await recordAttendance({ studentId:sid, userId:sid, name:s.name, method:'manual', scheduleName:'Kiosk điểm danh', door:K.door, note:'Đánh dấu tại Kiosk' }); toast('Đã đánh dấu '+s.name,'ok'); }catch(e){ toast('Lỗi','err'); }
 }
-/* NÂNG CẤP: Kiosk hiển thị lịch trực nhật hôm nay */
 function kioskRenderDuty(){
   const box = document.getElementById('kDutyBody'); if(!box) return;
   const dateEl = document.getElementById('kDutyDate');
@@ -4757,15 +4848,6 @@ function renderOnlineList(){
   document.getElementById('btnNewOnline').style.display = adm ? '' : 'none';
   let list = Object.entries(state.onlineClasses||{}).map(([id,o])=>Object.assign({id},o));
   if(!adm) list = list.filter(o=>isInvited(o, sid));
-  else if(!isSuperadmin()){
-    list = list.filter(o=>{
-      if(canEditOnlineClass(o) || canHostOnlineClass(o)) return true;
-      if(o.hostId && o.hostId !== state.user.id) return false;
-      if(o.createdBy && o.createdBy !== state.user.id) return false;
-      if(o.admins && o.admins[state.user.id]) return true;
-      return true;
-    });
-  }
   const isPast = o=>['ended','cancelled'].includes(ocPhase(o));
   const up = list.filter(o=>!isPast(o)).sort((a,b)=>ocTimes(a).start-ocTimes(b).start);
   const past = list.filter(isPast).sort((a,b)=>ocTimes(b).start-ocTimes(a).start);
@@ -4828,7 +4910,7 @@ async function openOnlineModal(opts){
   const hostCands = getHostCandidates();
   const curHostId = o ? o.hostId : state.user.id;
   const hostSelectorHTML = isSuperadmin()
-    ? `<div class="field"><label>Người chủ trì cuộc họp <span class="small muted">(chỉ Super Admin có thể chỉ định)</span></label><select id="oc_host">${hostCands.map(h=>'<option value="'+esc(h.id)+'" '+(h.id===curHostId?'selected':'')+'>'+esc(h.name)+' — '+esc(h.role)+'</option>').join('')}</select><div class="hint">Người chủ trì có quyền điều hành phòng học online: khoá phòng, tắt mic, mời ra, duyệt người tham gia...</div></div>`
+    ? `<div class="field"><label>Người chủ trì cuộc họp <span class="small muted">(chỉ Super Admin có thể chỉ định)</span></label><select id="oc_host">${hostCands.map(h=>'<option value="'+esc(h.id)+'" '+(h.id===curHostId?'selected':'')+'>'+esc(h.name)+' — '+esc(h.role)+'</option>').join('')}</select><div class="hint">Người chủ trì có quyền điều hành phòng học online.</div></div>`
     : `<div class="field"><label>Người chủ trì cuộc họp</label><div class="copy-box"><input readonly value="${esc((state.user.name||''))} (bạn)"><span class="pill pill-purple">Chủ trì</span></div><div class="hint">Chỉ Super Admin có thể chỉ định người chủ trì khác.</div></div>`;
   const adminsList = o && o.admins ? o.admins : {};
   const adminsHTML = `<div class="section-title">Quản trị viên của lớp</div><div class="hint mb-8">Các QTV được thêm vào đây có quyền quản lý lớp học online này (sửa, xoá, điểm danh, vào phòng...).</div>`+
@@ -4996,7 +5078,6 @@ async function saveOnlineClass(id){
     [P2+'status']: old.status || 'scheduled', [P2+'createdBy']: old.createdBy || state.user.id, [P2+'createdByName']: old.createdByName || state.user.name,
     [P2+'createdAt']: old.createdAt || serverNow(), [P2+'updatedAt']: serverNow()
   });
-  if(old.meetId){ up['meets/'+old.meetId] = null; up['meetRoom/'+old.meetId] = null; } /* dọn dữ liệu Meet tích hợp cũ (đã bỏ tính năng này) */
   up[P2+'meetId'] = null; up[P2+'platform'] = platformOf(url);
   up['onlineLinks/'+cid] = { url, platform: platformOf(url) };
   try{
@@ -5026,16 +5107,13 @@ async function ocSetStatus(id, status){
   if(!canEditOnlineClass(o)){ toast('Bạn không có quyền','err'); return; }
   if(status==='cancelled' && !confirm('Huỷ lớp?')) return;
   if(status==='ended' && !confirm('Kết thúc?')) return;
-  const up = { ['onlineClasses/'+id+'/status']: status };
-  if(o.meetId){ up['meets/'+o.meetId+'/status'] = status==='scheduled' ? 'open' : 'ended'; if(status!=='scheduled') up['meetRoom/'+o.meetId+'/ctl/ended'] = serverNow(); else up['meetRoom/'+o.meetId+'/ctl/ended'] = null; }
-  try{ await db.ref().update(up); toast('Đã cập nhật','ok'); closeModal(); }catch(e){ toast('Lỗi','err'); }
+  try{ await db.ref('onlineClasses/'+id+'/status').set(status); toast('Đã cập nhật','ok'); closeModal(); }catch(e){ toast('Lỗi','err'); }
 }
 async function ocDelete(id){
   const o = state.onlineClasses[id]; if(!o) return;
   if(!canEditOnlineClass(o)){ toast('Bạn không có quyền','err'); return; }
   if(!confirm('Xoá lớp "'+o.title+'"?')) return;
   const up = { ['onlineClasses/'+id]:null, ['onlineLinks/'+id]:null, ['onlineAttendance/'+id]:null };
-  if(o.meetId){ up['meets/'+o.meetId] = null; up['meetRoom/'+o.meetId] = null; }
   try{ await db.ref().update(up); toast('Đã xoá','ok'); closeModal(); }catch(e){ toast('Lỗi','err'); }
 }
 async function joinOnlineAsHost(id){
@@ -5106,7 +5184,7 @@ function ocAttExport(){
 }
 
 /* =========================================================================
-   JOIN FLOW — NÂNG CẤP: Phê duyệt TRONG phòng chờ
+   JOIN FLOW
 ========================================================================= */
 const J = { stream:null, draft:null, sig:'', attempts:0, lockUntil:0, busy:false, link:null, linkFor:null };
 function joinFreshDraft(){ return { image:null, ok:false, dist:null, flag:null, msg:'', kind:'' }; }
@@ -5230,65 +5308,11 @@ async function joinLoadExternalLink(id){
     else a.innerHTML = 'Chưa có link';
   }catch(e){ const a = document.getElementById('joinExtBtn'); if(a) a.textContent = 'Lỗi link'; }
 }
-function joinNow(){ joinLoadExternalLink(state.joinClassId); }
 
-/* =========================================================================
-   MEET — chỉ dùng liên kết phòng họp ngoài (Google Meet, Zoom…), không có
-   phòng họp tích hợp trong hệ thống. Có thể tự động tạo link Google Meet
-   qua gmeetCreateLink() (xem phần "GOOGLE MEET" phía trên).
-========================================================================= */
-const $id = x=>document.getElementById(x);
-function renderMeetList(){
-  const box = $id('meetList'); if(!box) return;
-  const adm = canOnline();
-  $id('btnNewMeet').style.display = adm ? '' : 'none';
-  const list = Object.entries(state.meets||{}).map(([id,m])=>Object.assign({id},m)).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  box.innerHTML = list.length ? list.map(m=>{
-    const canEdit = isSuperadmin() || m.hostId === state.user.id;
-    return '<div class="oc-item"><div class="oc-time"><b>'+(m.createdAt?fmtHM(m.createdAt):'')+'</b>'+(m.createdAt?fmtFull(new Date(m.createdAt)):'')+'</div><div class="oc-main"><div class="ttl">'+esc(m.title)+' <span class="pill pill-accent">'+esc(m.platform||'Link ngoài')+'</span></div>'+(m.description?'<div class="meta" style="white-space:pre-wrap">'+esc(m.description)+'</div>':'')+'<div class="meta">Tổ chức: '+esc(m.hostName||'—')+'</div></div>'+
-    '<div class="oc-act"><a class="btn small primary" href="'+esc(m.url||'#')+'" target="_blank" rel="noopener">Tham gia</a><button class="btn small outline icon-only" title="Sao chép link" onclick="copyText('+attrStr(m.url||'')+')">'+ic('link',14)+'</button>'+
-    (canEdit?'<button class="btn small outline icon-only" title="Sửa" onclick="openMeetModal('+attrStr(m.id)+')">'+ic('edit',14)+'</button><button class="btn small danger icon-only" title="Xoá" onclick="meetDelete('+attrStr(m.id)+')">'+ic('trash',14)+'</button>':'')+'</div></div>';
-  }).join('') : '<div class="empty-box">Chưa có cuộc họp.</div>';
-}
-function meetJoinFromInput(){
-  let v = $id('meetJoinCode').value.trim(); if(!v) return;
-  if(!isHttpUrl(v)){ toast('Nhập liên kết hợp lệ (http:// hoặc https://)','err'); return; }
-  window.open(v, '_blank', 'noopener');
-}
-function openMeetModal(id){
-  if(!canOnline()){ toast('Bạn không có quyền','err'); return; }
-  const m = id ? state.meets[id] : null;
-  if(id && !m){ toast('Không tìm thấy','err'); return; }
-  if(id && !(isSuperadmin() || m.hostId === state.user.id)){ toast('Bạn không phải người tạo cuộc họp này','err'); return; }
-  const html = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>'+(id?'Sửa cuộc họp':'Tạo cuộc họp mới')+'</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">'+
-    '<div class="field"><label>Tiêu đề</label><input id="mm_title" value="'+esc(m?m.title:'')+'"></div>'+
-    '<div class="field"><label>Nội dung</label><textarea id="mm_desc" rows="3">'+esc(m?m.description||'':'')+'</textarea></div>'+
-    '<div class="field"><label>Link phòng họp (Google Meet, Zoom…)</label><div class="row gap-8 wrap"><input id="mm_url" style="flex:1;min-width:220px" value="'+esc(m?m.url||'':'')+'"><button type="button" class="btn outline" id="mm_gmeet_btn" onclick="gmeetFillInto(\'mm_gmeet_btn\',\'mm_url\',()=>document.getElementById(\'mm_title\').value||\'Cuộc họp\')">📅 Tạo Google Meet tự động</button></div><div class="hint">Dán link có sẵn, hoặc bấm nút để hệ thống tự tạo link Google Meet mới.</div></div>'+
-    '</div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Huỷ</button><button class="btn primary" onclick="saveMeet('+(id?attrStr(id):'null')+')">'+(id?'Lưu':'Tạo')+'</button></div></div></div>';
-  document.getElementById('modalRoot').innerHTML = html;
-}
-async function saveMeet(id){
-  const title = $id('mm_title').value.trim(); if(!title){ toast('Nhập tiêu đề','err'); return; }
-  const url = $id('mm_url').value.trim();
-  if(!isHttpUrl(url)){ toast('Nhập link phòng họp hợp lệ, hoặc dùng nút "Tạo Google Meet tự động"','err'); return; }
-  const code = id || uid(), M = 'meets/'+code+'/';
-  const up = { [M+'id']:code, [M+'title']:title, [M+'description']:$id('mm_desc').value.trim(), [M+'url']:url, [M+'platform']:platformOf(url), [M+'updatedAt']:serverNow() };
-  if(!id) Object.assign(up, { [M+'hostId']:state.user.id, [M+'hostName']:state.user.name, [M+'createdAt']:serverNow() });
-  try{
-    await db.ref().update(up); closeModal(); toast(id?'Đã lưu':'Đã tạo cuộc họp','ok');
-  }catch(e){ toast('Lỗi','err'); }
-}
-async function meetDelete(id){
-  const m = state.meets[id];
-  if(!m) return;
-  if(!(isSuperadmin() || m.hostId === state.user.id)){ toast('Bạn không có quyền','err'); return; }
-  if(!confirm('Xoá cuộc họp này?')) return;
-  try{ await db.ref('meets/'+id).remove(); toast('Đã xoá','ok'); }catch(e){ toast('Lỗi','err'); }
-}
 const LEAVE_REASONS = { off:['Ốm / sức khoẻ không tốt','Khám bệnh theo lịch','Việc gia đình','Đi thi / hoạt động ngoại khoá'], late:['Kẹt xe / sự cố giao thông','Ốm, đến muộn sau khi khám','Việc gia đình đột xuất'] };
 function injectReasonChips(){
   [['leaveOffReason','off'],['leaveLateReason','late']].forEach(([id,k])=>{
-    const ta = $id(id); if(!ta || (ta.parentElement.nextElementSibling && ta.parentElement.nextElementSibling.classList.contains('chips'))) return;
+    const ta = document.getElementById(id); if(!ta || (ta.parentElement.nextElementSibling && ta.parentElement.nextElementSibling.classList.contains('chips'))) return;
     const box = document.createElement('div'); box.className = 'chips';
     box.innerHTML = LEAVE_REASONS[k].map(t=>'<span class="chip" data-t="'+esc(t)+'">'+esc(t)+'</span>').join('');
     box.onclick = e=>{ const t = e.target.dataset && e.target.dataset.t; if(t){ ta.value = t; ta.focus(); } };
