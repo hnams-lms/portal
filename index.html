@@ -1176,6 +1176,33 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 .invite-card .body b{font-size:15.5px;font-weight:800;}
 .invite-card .meta{font-size:12.5px;color:var(--ink-soft);margin-top:5px;line-height:1.6;font-weight:500;}
 .invite-card .note{font-size:12.5px;margin-top:8px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border-left:3px solid #E0A63C;font-weight:500;}
+.leave-alert-banner{
+  display:flex;gap:16px;align-items:center;padding:16px 20px;margin-bottom:20px;
+  border-radius:var(--radius-lg);cursor:pointer;transition:var(--transition);
+  background:linear-gradient(100deg,#FEF3E2,#FFFBF3);border:1.5px solid #EDBF6F;
+  box-shadow:var(--shadow-sm);position:relative;
+}
+.leave-alert-banner:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--amber);}
+.leave-alert-banner .lab-ic{
+  width:48px;height:48px;border-radius:13px;flex-shrink:0;
+  background:linear-gradient(135deg,#E29A2E,#C47A1A);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 20px -8px rgba(196,122,26,.65);
+  animation:labPulse 1.7s ease-in-out infinite;
+}
+@keyframes labPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+.leave-alert-banner .lab-body{flex:1;min-width:0;}
+.leave-alert-banner .lab-body b{font-size:15.5px;font-weight:800;color:#8A5410;display:block;}
+.leave-alert-banner .lab-sub{font-size:12.5px;color:#A5601A;font-weight:600;margin-top:3px;}
+.leave-alert-banner .lab-arrow{color:var(--amber);flex-shrink:0;}
+.ld-day{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:#F8FAFD;}
+.ld-day:last-child{margin-bottom:0;}
+.ld-day-head{display:flex;align-items:center;gap:6px;font-weight:700;font-size:13.5px;color:var(--navy);margin-bottom:8px;}
+.ld-row{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px;border-top:1px dashed var(--line);flex-wrap:wrap;}
+.ld-row:first-of-type{border-top:none;}
+.ld-time{color:var(--ink-soft);font-weight:600;font-size:12px;}
+.ld-subj{font-weight:700;flex:1;min-width:100px;}
+.ld-teacher{color:var(--ink-soft);font-size:12px;}
 .att-progress{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 20px;box-shadow:var(--shadow-sm);}
 .att-progress .bar{height:10px;border-radius:99px;background:#E8EDF3;overflow:hidden;margin-top:10px;display:flex;box-shadow:inset 0 1px 3px rgba(0,0,0,.08);}
 .att-progress .bar i{display:block;height:100%;background:linear-gradient(90deg,#1E8A5A,#4BB584);transition:width .5s ease;}
@@ -1195,10 +1222,6 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
   cursor:pointer;transition:var(--transition);
 }
 .chips .chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);transform:translateY(-1px);}
-.approval-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.5px;}
-.approval-row:last-child{border-bottom:none;}
-.approval-row .nm{flex:1;font-weight:700;}
-.approval-row .ts{font-size:11.5px;color:var(--ink-soft);font-weight:500;}
 .method-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:800;margin-right:5px;}
 .method-faceid{background:var(--green-soft);color:#15704A;}
 .method-online{background:var(--blue-soft);color:#1A4A7A;}
@@ -1350,6 +1373,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
     <!-- DASHBOARD -->
     <div class="view" id="view-dashboard">
       <div class="view-head"><div class="lead">Xin chào</div></div>
+      <div id="dashLeaveAlert"></div>
       <div class="grid-cards" id="dashStats" style="margin-bottom:20px;"></div>
       <div id="dashInvites"></div>
       <div id="dashAttendance"></div>
@@ -1684,7 +1708,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="panel panel-top">
         <div class="panel-head"><h3>Tích hợp Google Meet tự động</h3></div>
         <div class="hint mb-8">Hệ thống không tạo phòng họp riêng — mọi cuộc họp đều dùng liên kết ngoài (Google Meet, Zoom…). Cấu hình dưới đây cho phép hệ thống <b>tự động tạo liên kết Google Meet</b> qua Google Calendar API khi tạo lớp/cuộc họp, thay vì phải tự tạo trên Google rồi dán vào.</div>
-        <div class="field" style="max-width:520px;"><label>Google OAuth Client ID</label><input id="cfgGmeetClientId" placeholder="xxxxxxxx.apps.googleusercontent.com"></div>
+        <div class="field" style="max-width:520px;"><label>Google OAuth Client ID</label><input id="cfgGmeetClientId" placeholder="1026407730235-m7c0qeg5uejcm7cs2vt9873hh71s24m9.apps.googleusercontent.com"></div>
         <div class="hint mb-8">Tạo tại Google Cloud Console → APIs &amp; Services → Credentials (OAuth Client ID, loại "Web application", thêm domain này vào Authorized JavaScript origins) và bật <b>Google Calendar API</b> cho project đó.</div>
         <div class="row gap-8 wrap">
           <button class="btn outline" onclick="saveGmeetClientId()">Lưu Client ID</button>
@@ -1992,7 +2016,9 @@ const ICX = {
   crown:`<path d="M2 19h20M3 8l4 4 5-7 5 7 4-4-2 11H5z"/>`,
   doorOpen:`<path d="M3 21h18"/><path d="M6 21V4a1 1 0 0 1 1-1h8l5 3v15"/><path d="M15 3v18"/><circle cx="12" cy="12" r="1"/>`,
   userX:`<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/>`,
-  hourglass:`<path d="M6 2h12M6 22h12M6 2v4l6 6 6-6V2M6 22v-4l6-6 6 6v4"/>`
+  hourglass:`<path d="M6 2h12M6 22h12M6 2v4l6 6 6-6V2M6 22v-4l6-6 6 6v4"/>`,
+  bell:`<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>`,
+  chevronRight:`<polyline points="9 18 15 12 9 6"/>`
 };
 function ic(name, size){
   size = size || 16;
@@ -2882,10 +2908,10 @@ function renderLeaveApprovalList(){
     const cls = r.status==='approved' ? 'approved' : (r.status==='rejected' ? 'rejected' : '');
     const typeTagCls = r.type==='late' ? 'late' : (r.createdByAdmin ? 'admin' : '');
     const typeTxt = r.type==='late' ? 'Đến muộn' : 'Nghỉ học';
-    let dateTxt, timeTxt='';
+    let dateTxt, timeTxt='', pdays=[];
     if(r.type==='off'){
       dateTxt = r.dateFrom===r.dateTo ? fmtFull(new Date(r.dateFrom+'T00:00:00')) : (fmtFull(new Date(r.dateFrom+'T00:00:00'))+' – '+fmtFull(new Date(r.dateTo+'T00:00:00')));
-      const pdays = Object.entries(r.periods||{});
+      pdays = Object.entries(r.periods||{});
       if(pdays.length){
         const P = periods();
         timeTxt = pdays.map(([dk,arr])=>{
@@ -2898,6 +2924,7 @@ function renderLeaveApprovalList(){
       timeTxt = 'Dự kiến có mặt lúc '+esc(r.time||'');
     }
     let actionBtns = '';
+    if(pdays.length) actionBtns += '<button class="btn small outline" onclick="openLeavePeriodsDetail('+attrStr(id)+')">'+ic('clipboard',14)+' Chi tiết tiết học</button>';
     if(r.status==='pending'){
       actionBtns += '<button class="btn small success" onclick="decideLeave('+attrStr(id)+',\'approved\')">'+ic('check',14)+' Duyệt</button>';
       actionBtns += '<button class="btn small danger" onclick="decideLeave('+attrStr(id)+',\'rejected\')">'+ic('x',14)+' Từ chối</button>';
@@ -2926,6 +2953,33 @@ function renderLeaveApprovalList(){
   const first = document.querySelector('#leaveApproveTabs label');
   if(first){ const old = first.querySelector('.lv-count'); if(old) old.remove(); if(pend.length){ const b = document.createElement('span'); b.className='lv-count'; b.textContent = pend.length; first.appendChild(b); } }
   if(filter==='pending' && pend.length>1){ el.insertAdjacentHTML('afterbegin','<div class="lv-bulk"><span>'+ic('info',14)+' Có <b>'+pend.length+'</b> đơn đang chờ duyệt</span><button class="btn small primary" onclick="approveAllPending()">'+ic('check',14)+' Duyệt tất cả</button></div>'); }
+}
+function openLeavePeriodsDetail(id){
+  const r = state.leaves[id];
+  if(!r || r.type!=='off' || !r.periods){ toast('Không có dữ liệu tiết học','err'); return; }
+  const P = periods();
+  const pdays = Object.entries(r.periods).sort((a,b)=>a[0].localeCompare(b[0]));
+  const body = pdays.map(([dk,arr])=>{
+    const d = new Date(dk+'T00:00:00');
+    const lessons = itemsForDate(d).filter(it=>it.type==='lesson' && it.periodId);
+    const rows = (arr||[]).slice().sort((a,b)=>{
+      const pa=P.find(x=>x.id===a), pb=P.find(x=>x.id===b); return (pa?hm2min(pa.start):0)-(pb?hm2min(pb.start):0);
+    }).map(pid=>{
+      const p = P.find(x=>x.id===pid);
+      const l = lessons.find(x=>x.periodId===pid);
+      return '<div class="ld-row"><span class="pill pill-accent">Tiết '+(p?p.tiet:'?')+'</span>'
+        +'<span class="ld-time">'+(p?p.start+'–'+p.end:'')+'</span>'
+        +'<span class="ld-subj">'+(l?esc(l.subject||'—'):'<i class="muted">Không có lịch học ghi nhận</i>')+'</span>'
+        +(l&&l.teacher?'<span class="ld-teacher">GV: '+esc(l.teacher)+'</span>':'')
+        +'</div>';
+    }).join('');
+    return '<div class="ld-day"><div class="ld-day-head">'+ic('calendar',15)+' '+fmtFull(d)+' · '+WEEKDAYS[(d.getDay()+6)%7]+'</div>'+(rows||'<div class="empty-note">Không có tiết nào.</div>')+'</div>';
+  }).join('');
+  const html = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>Chi tiết tiết học xin nghỉ</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">'
+    +'<div class="info-box small mb-12"><b>'+esc(r.studentName)+'</b> ('+esc(r.studentId||'')+') · Lý do: '+esc(r.reason||'—')+'</div>'
+    +(body||'<div class="empty-note">Không có tiết học.</div>')
+    +'</div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Đóng</button></div></div></div>';
+  document.getElementById('modalRoot').innerHTML = html;
 }
 function decideLeave(id, status){
   if(!hasPerm('leaves')){ toast('Bạn không có quyền duyệt đơn','err'); return; }
@@ -3058,7 +3112,19 @@ function approveAllPending(){
 /* =========================================================================
    DASHBOARD
 ========================================================================= */
+function renderDashboardLeaveAlert(){
+  const el = document.getElementById('dashLeaveAlert'); if(!el) return;
+  if(!hasPerm('leaves')){ el.innerHTML = ''; return; }
+  const pend = Object.values(state.leaves||{}).filter(r=>r.status==='pending');
+  if(!pend.length){ el.innerHTML = ''; return; }
+  el.innerHTML = '<div class="leave-alert-banner" onclick="goView(\'leaveApprove\')">'
+    +'<div class="lab-ic">'+ic('bell',22)+'</div>'
+    +'<div class="lab-body"><b>'+pend.length+' đơn từ đang chờ duyệt</b><div class="lab-sub">Bấm để xem và xử lý ngay</div></div>'
+    +'<div class="lab-arrow">'+ic('chevronRight',20)+'</div>'
+    +'</div>';
+}
 function renderDashboard(){
+  renderDashboardLeaveAlert();
   const total = Object.keys(state.students||{}).length;
   const nam = Object.values(state.students||{}).filter(s=>s.gender==='nam').length;
   const nu = Object.values(state.students||{}).filter(s=>s.gender==='nu').length;
@@ -3793,8 +3859,6 @@ function ocPhaseLabel(ph){ return ({upcoming:['Sắp diễn ra','pill-muted'], s
 function ocCanVerify(ph){ return ph==='soon' || ph==='live' || ph==='grace'; }
 function isInvited(oc, sid){ if(!sid) return false; if(oc.participantMode==='selected') return !!(oc.participants && oc.participants[sid]); const s = state.students[sid]; return !!(s && s.active!==false); }
 function ocParticipantIds(oc){ if(oc.participantMode==='selected') return Object.keys(oc.participants||{}).filter(id=>state.students[id]); return Object.values(state.students||{}).filter(s=>s.active!==false).map(s=>s.id); }
-function ocApprovedFor(oc, sid){ if(!oc || !sid) return false; if(!oc.requireApproval) return true; return !!(oc.approved && oc.approved[sid]); }
-function ocPendingFor(oc, sid){ if(!oc || !sid) return false; return !!(oc.pending && oc.pending[sid]); }
 function myInvites(){
   const sid = state.user && state.user.studentId; if(!sid) return [];
   const tk = todayKey();
@@ -3848,6 +3912,25 @@ function extRefreshView(v){
     case 'attQR': renderQRTable(); break;
     case 'attSched': renderAttSchedTable(); break;
     case 'attDoor': renderDoorCards(); break;
+  }
+}
+function extHandleDeepLink(){
+  const oid = new URLSearchParams(location.search).get('online');
+  if(!oid) return;
+  let tries = 0;
+  const tryOpen = ()=>{
+    tries++;
+    if(!state.onlineClassesLoaded){ return tries<40; }
+    const oc = state.onlineClasses[oid];
+    if(!oc){ toast('Không tìm thấy lớp học online này (có thể đã bị xoá).','err'); }
+    else if(state.user && state.user.studentId){ openOnlineJoin(oid); }
+    else if(canOnline()){ openOnlineModal({id:oid}); }
+    else { goView('online'); }
+    try{ const u = new URL(location.href); u.searchParams.delete('online'); history.replaceState(null,'',u.toString()); }catch(e){}
+    return false;
+  };
+  if(tryOpen()!==false){
+    const t = setInterval(()=>{ if(tryOpen()===false) clearInterval(t); }, 200);
   }
 }
 function extBeforeView(v){
@@ -4329,7 +4412,6 @@ async function gmeetFillInto(btnId, inputId, titleGetter){
   }catch(e){ toast('Không tạo được Google Meet: '+(e.message||e),'err'); }
   finally{ if(btn){ btn.disabled = false; btn.textContent = '📅 Tạo Google Meet tự động'; } }
 }
-
 /* =========================================================================
    DASHBOARD EXT
 ========================================================================= */
@@ -4368,15 +4450,13 @@ function inviteCardHTML(o, adminView){
   const sid = state.user && state.user.studentId;
   const ver = !!(o.verified && sid && o.verified[sid]);
   const isToday = o.date===todayKey();
-  const approved = ocApprovedFor(o, sid);
   let act;
   if(adminView) act = '<button class="btn small outline" onclick="openOnlineModal({id:'+attrStr(o.id)+'})">Quản lý</button>'+(canHostOnlineClass(o)?'<button class="btn small primary" onclick="joinOnlineAsHost('+attrStr(o.id)+')">Vào phòng</button>':'');
   else if(ver) act = '<button class="btn primary" onclick="openOnlineJoin('+attrStr(o.id)+')">Đã xác thực — vào lớp</button>';
   else act = '<button class="btn primary" onclick="openOnlineJoin('+attrStr(o.id)+')">Tham gia lớp online</button>';
-  const apprTag = (o.requireApproval && !adminView) ? (approved?'<span class="pill pill-green">Đã được duyệt</span>':'<span class="pill pill-amber">Chờ duyệt</span>') : '';
   const hostTag = o.hostName ? '<span class="pill pill-purple">Chủ trì: '+esc(o.hostName)+'</span>' : '';
   const adminsTag = (o.admins && Object.keys(o.admins).length) ? '<span class="pill pill-teal">'+Object.keys(o.admins).length+' QTV</span>' : '';
-  return '<div class="invite-card '+(ph==='live'?'live':'')+'"><div class="ic-wrap">'+ic('video',22)+'</div><div class="body"><b>'+esc(o.title)+'</b> <span class="pill '+lb[1]+'">'+lb[0]+'</span> '+apprTag+' '+hostTag+' '+adminsTag+(ver?' <span class="pill pill-green">Đã xác thực</span>':'')+'<div class="meta">'+(isToday?'Hôm nay':fmtFull(dateFromKey(o.date)))+' · '+fmtHM(t.start)+' – '+fmtHM(t.end)+(o.teacher?' · GV: '+esc(o.teacher):'')+'</div>'+(o.note?'<div class="note"><b>Lưu ý:</b> '+esc(o.note)+'</div>':'')+'</div><div class="row gap-8">'+act+'</div></div>';
+  return '<div class="invite-card '+(ph==='live'?'live':'')+'"><div class="ic-wrap">'+ic('video',22)+'</div><div class="body"><b>'+esc(o.title)+'</b> <span class="pill '+lb[1]+'">'+lb[0]+'</span> '+hostTag+' '+adminsTag+(ver?' <span class="pill pill-green">Đã xác thực</span>':'')+'<div class="meta">'+(isToday?'Hôm nay':fmtFull(dateFromKey(o.date)))+' · '+fmtHM(t.start)+' – '+fmtHM(t.end)+(o.teacher?' · GV: '+esc(o.teacher):'')+'</div>'+(o.note?'<div class="note"><b>Lưu ý:</b> '+esc(o.note)+'</div>':'')+'</div><div class="row gap-8">'+act+'</div></div>';
 }
 
 /* =========================================================================
@@ -4700,13 +4780,12 @@ function renderOnlineList(){
     const mine = !!(o.verified && sid && o.verified[sid]);
     const canEdit = canEditOnlineClass(o);
     const canHost = canHostOnlineClass(o);
-    const pendingN = Object.keys(o.pending||{}).length;
-    let meta = '<div class="meta">'+(o.subject?esc(o.subject)+' · ':'')+(o.teacher?'GV: '+esc(o.teacher)+' · ':'')+(o.meetType==='internal'?'Phòng Meet tích hợp':'Link '+esc(o.platform||'ngoài'))+(o.requireApproval?' · <b>Cần duyệt</b>':'')+'</div>';
+    let meta = '<div class="meta">'+(o.subject?esc(o.subject)+' · ':'')+(o.teacher?'GV: '+esc(o.teacher)+' · ':'')+(o.meetType==='internal'?'Phòng Meet tích hợp':'Link '+esc(o.platform||'ngoài'))+'</div>';
     if(o.hostName) meta += '<div class="meta"><b>Chủ trì:</b> '+esc(o.hostName)+'</div>';
     if(o.admins && Object.keys(o.admins).length) meta += '<div class="meta"><b>Quản trị viên:</b> '+Object.entries(o.admins).map(([k,v])=>esc(v.name||k)).join(', ')+'</div>';
     if(o.note) meta += '<div class="meta"><b>Lưu ý:</b> '+esc(o.note)+'</div>';
     if(adm && (canEdit||canHost)){
-      meta += '<div class="meta">Đã xác thực <b>'+ver+'/'+ids.length+'</b>'+(pendingN?' · <b style="color:#B4631C">'+pendingN+' chờ duyệt</b>':'')+(o.hasPassword?' · có mật khẩu':'')+'</div><div class="prog"><i style="width:'+(ids.length?Math.round(ver*100/ids.length):0)+'%"></i></div>';
+      meta += '<div class="meta">Đã xác thực <b>'+ver+'/'+ids.length+'</b>'+(o.hasPassword?' · có mật khẩu':'')+'</div><div class="prog"><i style="width:'+(ids.length?Math.round(ver*100/ids.length):0)+'%"></i></div>';
     }
     let act = '';
     if(adm && (canEdit || canHost)){
@@ -4715,26 +4794,11 @@ function renderOnlineList(){
         (canEdit?'<button class="btn small outline icon-only" onclick="copyText('+attrStr(classLink(o.id))+')" title="Sao chép link">'+ic('link',14)+'</button>':'')+
         (canEdit?'<button class="btn small outline icon-only" onclick="openOnlineModal({id:'+attrStr(o.id)+'})" title="Sửa">'+ic('edit',14)+'</button>':'');
     } else if(!isPast(o)){
-      const approved = ocApprovedFor(o, sid), pending = ocPendingFor(o, sid);
       act = '<button class="btn primary small" onclick="openOnlineJoin('+attrStr(o.id)+')">'+(mine?'Vào lớp':'Tham gia')+'</button>';
     }
-    const aprBadge = o.requireApproval ? '<span class="pill pill-amber">Cần duyệt</span>' : '';
     const admBadge = (o.admins && Object.keys(o.admins).length) ? '<span class="pill pill-teal">'+Object.keys(o.admins).length+' QTV</span>' : '';
-    return '<div class="oc-item"><div class="oc-time"><b>'+fmtHM(t.start)+' – '+fmtHM(t.end)+'</b>'+WEEKDAYS[(t.start.getDay()+6)%7]+'<br>'+fmtFull(t.start)+'</div><div class="oc-main"><div class="ttl">'+esc(o.title)+' '+aprBadge+' '+admBadge+' <span class="pill '+lb[1]+'">'+lb[0]+'</span>'+(mine&&!adm?' <span class="pill pill-green">Đã xác thực</span>':'')+(o.hostName?' <span class="pill pill-purple">Chủ trì: '+esc(o.hostName)+'</span>':'')+'</div>'+meta+'</div><div class="oc-act">'+act+'</div></div>';
+    return '<div class="oc-item"><div class="oc-time"><b>'+fmtHM(t.start)+' – '+fmtHM(t.end)+'</b>'+WEEKDAYS[(t.start.getDay()+6)%7]+'<br>'+fmtFull(t.start)+'</div><div class="oc-main"><div class="ttl">'+esc(o.title)+' '+admBadge+' <span class="pill '+lb[1]+'">'+lb[0]+'</span>'+(mine&&!adm?' <span class="pill pill-green">Đã xác thực</span>':'')+(o.hostName?' <span class="pill pill-purple">Chủ trì: '+esc(o.hostName)+'</span>':'')+'</div>'+meta+'</div><div class="oc-act">'+act+'</div></div>';
   }).join('');
-}
-function openOnlineApprovalModal(cid){
-  const oc = state.onlineClasses[cid]; if(!oc){ toast('Không tìm thấy','err'); return; }
-  const pending = Object.entries(oc.pending||{}).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
-  const approved = Object.entries(oc.approved||{}).sort((a,b)=>(b[1]||0)-(a[1]||0));
-  const html = `<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>Duyệt người tham gia: ${esc(oc.title)}</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">
-    <div class="info-box small"><b>Lưu ý:</b> Việc phê duyệt chính cũng có thể được thực hiện ngay trong phòng Meet.</div>
-    <div class="section-title">Yêu cầu đang chờ (${pending.length})</div>
-    ${pending.length ? pending.map(([sid,p])=>`<div class="approval-row"><span class="pill pill-nam">${esc(sid)}</span><span class="nm">${esc(p.name||sid)}</span><span class="ts">${p.ts?fmtDT(p.ts):''}</span><button class="btn small primary" onclick="ocApprovePending(${attrStr(cid)},${attrStr(sid)});setTimeout(()=>openOnlineApprovalModal(${attrStr(cid)}),300)">Duyệt</button><button class="btn small danger" onclick="ocRejectPending(${attrStr(cid)},${attrStr(sid)});setTimeout(()=>openOnlineApprovalModal(${attrStr(cid)}),300)">Từ chối</button></div>`).join('') : '<div class="empty-note">Không có yêu cầu nào.</div>'}
-    <div class="section-title">Đã được duyệt (${approved.length})</div>
-    ${approved.length ? approved.map(([sid,t])=>`<div class="approval-row"><span class="pill pill-green">${esc(sid)}</span><span class="nm">${esc((state.students[sid]||{}).name||sid)}</span><span class="ts">${fmtDT(t)}</span><button class="btn small danger" onclick="ocRevokeApproval(${attrStr(cid)},${attrStr(sid)});setTimeout(()=>openOnlineApprovalModal(${attrStr(cid)}),300)">Thu hồi</button></div>`).join('') : '<div class="empty-note">Chưa có ai.</div>'}
-    </div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Đóng</button></div></div></div>`;
-  document.getElementById('modalRoot').innerHTML = html;
 }
 function ocDefaultsFromSlot(dk, periodId){ const d = dateFromKey(dk), dow = (d.getDay()+6)%7; const it = periodId ? itemForSlot(dow, periodId, getMonday(d)) : null; return it ? { title: it.type==='lesson' ? ('Học online: '+it.subject) : it.title, subject: it.type==='lesson'?it.subject:'', teacher: it.teacher||'' } : { title:'', subject:'', teacher:'' }; }
 async function openOnlineModal(opts){
@@ -4797,8 +4861,7 @@ async function openOnlineModal(opts){
     '<div class="field"><label>Mật khẩu tham dự (tuỳ chọn)</label><input id="oc_pw" autocomplete="off" placeholder="'+(o&&o.hasPassword?'Đã đặt — để trống giữ nguyên':'Để trống nếu không cần')+'">'+(o&&o.hasPassword?'<label class="chk-row"><input type="checkbox" id="oc_pw_clear"> Xoá mật khẩu</label>':'')+'</div>'+
     '<div class="field"><label>Thông tin xác thực khác (tuỳ chọn)</label><div id="oc_extra"></div><button type="button" class="btn small outline" onclick="ocAddExtra()">+ Thêm câu hỏi</button></div>'+
     '<div class="two-col"><div class="field"><label>Mở xác thực trước giờ học (phút)</label><input type="number" id="oc_early" min="0" max="240" value="'+(o&&o.earlyMinutes!=null?o.earlyMinutes:15)+'"></div><div class="field"><label>Tính "muộn" sau (phút)</label><input type="number" id="oc_late" min="0" max="120" value="'+(o&&o.lateMinutes!=null?o.lateMinutes:10)+'"></div></div>'+
-    '<div class="field"><label class="chk-row"><input type="checkbox" id="oc_requireApprove" '+(o&&o.requireApproval?'checked':'')+'> <b>Yêu cầu phê duyệt người tham gia</b> — HS sẽ vào phòng chờ và cần GV/QTV duyệt (có thể duyệt ngay trong phòng Meet)</label></div>'+
-    (id?'<div class="section-title">Chia sẻ &amp; điều khiển</div><div class="copy-box mb-8"><input readonly id="oc_link" value="'+esc(classLink(id))+'"><button class="btn outline" onclick="copyText(document.getElementById(\'oc_link\').value)">Sao chép link</button></div><div class="row gap-8 wrap"><button class="btn small outline" onclick="openOnlineApprovalModal('+attrStr(id)+')">Duyệt người tham gia</button><button class="btn small outline" onclick="ocSendZalo('+attrStr(id)+')">Gửi Zalo</button><button class="btn small outline" onclick="openOnlineAttendance('+attrStr(id)+')">Xem điểm danh</button>'+
+    (id?'<div class="section-title">Chia sẻ &amp; điều khiển</div><div class="copy-box mb-8"><input readonly id="oc_link" value="'+esc(classLink(id))+'"><button class="btn outline" onclick="copyText(document.getElementById(\'oc_link\').value)">Sao chép link</button></div><div class="row gap-8 wrap"><button class="btn small outline" onclick="ocSendZalo('+attrStr(id)+')">Gửi Zalo</button><button class="btn small outline" onclick="openOnlineAttendance('+attrStr(id)+')">Xem điểm danh</button>'+
       (o.status==='ended'||o.status==='cancelled'?'<button class="btn small outline" onclick="ocSetStatus('+attrStr(id)+',\'scheduled\')">Mở lại</button>':'<button class="btn small outline" onclick="ocSetStatus('+attrStr(id)+',\'ended\')">Kết thúc</button><button class="btn small warn" onclick="ocSetStatus('+attrStr(id)+',\'cancelled\')">Huỷ</button>')+
       '<button class="btn small danger" onclick="ocDelete('+attrStr(id)+')">Xoá lớp</button></div>':'')+
     '</div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Đóng</button><button class="btn primary" onclick="saveOnlineClass('+(id?attrStr(id):'null')+')">'+(id?'Lưu thay đổi':'Tạo lớp')+'</button></div></div></div>';
@@ -4928,7 +4991,6 @@ async function saveOnlineClass(id){
     [P2+'earlyMinutes']:Math.max(0,parseInt(document.getElementById('oc_early').value,10)||0),
     [P2+'lateMinutes']:Math.max(0,parseInt(document.getElementById('oc_late').value,10)||0),
     [P2+'hasPassword']:hasPassword, [P2+'passwordHash']:passwordHash, [P2+'extraChecks']: extra.length?extra:null,
-    [P2+'requireApproval']: document.getElementById('oc_requireApprove').checked,
     [P2+'hostId']: hostId, [P2+'hostName']: hostName,
     [P2+'admins']: Object.keys(newAdmins).length ? newAdmins : null,
     [P2+'status']: old.status || 'scheduled', [P2+'createdBy']: old.createdBy || state.user.id, [P2+'createdByName']: old.createdByName || state.user.name,
@@ -5058,9 +5120,7 @@ function renderOnlineJoin(force){
   const id = state.joinClassId, oc = id ? state.onlineClasses[id] : null, sid = state.user.studentId;
   const ph = oc ? ocPhase(oc) : null;
   const ver = !!(oc && sid && oc.verified && oc.verified[sid]);
-  const approved = ocApprovedFor(oc, sid);
-  const pending = ocPendingFor(oc, sid);
-  const sig = JSON.stringify([state.onlineClassesLoaded, id, oc && oc.updatedAt, oc && oc.status, ph, ver, approved, pending, !!(oc && isInvited(oc,sid)), !!sid, canOnline(), J.lockUntil>Date.now()]);
+  const sig = JSON.stringify([state.onlineClassesLoaded, id, oc && oc.updatedAt, oc && oc.status, ph, ver, !!(oc && isInvited(oc,sid)), !!sid, canOnline(), J.lockUntil>Date.now()]);
   if(!force && sig===J.sig) return;
   J.sig = sig;
   const back = '<button class="btn outline" onclick="joinBack()">Về danh sách lớp online</button>';
@@ -5077,22 +5137,6 @@ function renderOnlineJoin(force){
   if(!isInvited(oc, sid)){ joinStopCamera(); root.innerHTML = head+'<div class="panel"><div class="verify-msg bad">Bạn không nằm trong danh sách HS được mời.</div><div class="mt-12">'+back+'</div></div>'; return; }
   if(ph==='cancelled'){ joinStopCamera(); root.innerHTML = head+'<div class="panel"><div class="verify-msg bad">Lớp đã bị huỷ.</div><div class="mt-12">'+back+'</div></div>'; return; }
   if(ph==='ended'){ joinStopCamera(); root.innerHTML = head+'<div class="panel"><div class="verify-msg warn">Lớp đã kết thúc'+(ver?' (bạn đã được điểm danh).':'.')+'</div><div class="mt-12">'+back+'</div></div>'; return; }
-  /* NÂNG CẤP: Nếu requireApproval và chưa được duyệt -> vào phòng chờ (WAITING ROOM) */
-  if(oc.requireApproval && !approved && !ver){
-    joinStopCamera();
-    if(pending){
-      root.innerHTML = head+'<div class="panel"><div class="verify-msg wait">'
-        +'<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'
-        +'<span style="font-size:34px">'+ic('hourglass',32)+'</span>'
-        +'<div style="flex:1;min-width:180px;">'
-        +'<b>Đang trong phòng chờ</b><div class="mt-4">Yêu cầu tham gia của bạn đã được gửi tới giáo viên / quản trị viên. Bạn sẽ được đưa vào lớp ngay khi được duyệt. Trang này tự cập nhật.</div>'
-        +'</div></div></div>'
-        +'<div class="mt-16 row gap-8 wrap" style="justify-content:center">'+back+'<button class="btn outline" onclick="ocCancelJoinRequest('+attrStr(id)+')">Huỷ yêu cầu</button></div></div></div>';
-      return;
-    }
-    root.innerHTML = head+'<div class="panel"><div class="verify-msg warn"><b>Lớp này yêu cầu phê duyệt.</b> Bạn cần gửi yêu cầu tới giáo viên. Sau khi gửi, bạn sẽ được đưa vào phòng chờ để giáo viên duyệt ngay trong phòng Meet.</div><div class="mt-12 row gap-8 wrap" style="justify-content:center">'+back+'<button class="btn primary big" onclick="ocRequestAndWait('+attrStr(id)+')">Yêu cầu tham gia</button></div></div></div>';
-    return;
-  }
   if(ver){
     joinStopCamera();
     root.innerHTML = head+'<div class="panel"><div class="success-card"><div class="tick">'+ic('check',34)+'</div><h3 style="margin:0 0 6px">Xác thực hoàn tất</h3><div class="small muted mb-12">Lúc '+fmtHMS(oc.verified[sid])+'.</div><a id="joinExtBtn" class="btn primary big" target="_blank" rel="noopener" style="text-decoration:none;pointer-events:none;opacity:.6">'+ic('video',18)+' Đang lấy link…</a><div class="mt-16">'+back+'</div></div></div>';
@@ -5120,23 +5164,6 @@ function renderOnlineJoin(force){
   root.innerHTML = head+'<div class="panel"><div class="section-title" style="border:none;margin:0 0 6px;padding:0">Xác thực để vào lớp và điểm danh</div><div class="small muted">Hoàn tất các bước dưới đây.</div><div class="steps">'+steps+'<div class="row gap-8 wrap" style="justify-content:space-between"><div>'+back+'</div><button class="btn primary big" id="joinDoneBtn" onclick="joinComplete()" '+(lockLeft>0?'disabled':'')+'>'+(lockLeft>0?'Thử lại sau '+lockLeft+'s':'Hoàn tất xác thực')+'</button></div><div id="joinFinalMsg"></div></div></div>';
   if(needFace && !d.image){ ensureFaceApi().catch(()=>{}); if(J.stream) joinAttachStream(); }
 }
-async function ocCancelJoinRequest(id){
-  const oc = state.onlineClasses[id]; if(!oc) return;
-  const sid = state.user.studentId; if(!sid) return;
-  if(!confirm('Huỷ yêu cầu tham gia lớp này?')) return;
-  try{ await db.ref('onlineClasses/'+id+'/pending/'+sid).remove(); toast('Đã huỷ yêu cầu','ok'); }
-  catch(e){ toast('Lỗi','err'); }
-}
-/* NÂNG CẤP: Gửi yêu cầu và vào thẳng phòng chờ Meet */
-async function ocRequestAndWait(id){
-  const oc = state.onlineClasses[id]; if(!oc) return;
-  const sid = state.user && state.user.studentId; if(!sid){ toast('Không xác định HS','err'); return; }
-  try{
-    await db.ref('onlineClasses/'+id+'/pending/'+sid).set({ name: state.user.name, ts: serverNow() });
-    toast('Đã gửi yêu cầu — vui lòng chờ giáo viên/quản trị viên duyệt','ok');
-  } catch(e){ toast('Lỗi','err'); }
-}
-function joinEnterWaitingRoom(id){ toast('Trang sẽ tự cập nhật khi được duyệt','ok'); }
 function joinAttachStream(){ const v = document.getElementById('joinVideo'); if(!v || !J.stream) return; v.srcObject = J.stream; v.play().catch(()=>{}); const ph = document.getElementById('joinCamPh'); if(ph) ph.style.display = 'none'; const b = document.getElementById('joinShotBtn'); if(b) b.disabled = false; const c = document.getElementById('joinCamBtn'); if(c) c.textContent = 'Camera đang bật'; }
 async function joinStartCamera(){
   try{ joinStopCamera(); J.stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false }); joinAttachStream(); ensureFaceApi().catch(()=>{}); }
