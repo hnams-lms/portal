@@ -10,9 +10,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="https://unpkg.com/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 /* ============================================================
-   DESIGN SYSTEM - NÂNG CẤP
+   DESIGN SYSTEM - NÂNG CẤP V3
 ============================================================ */
 :root{
   --navy:#0F2137;--navy-deep:#071322;--navy-mid:#1A3A5C;
@@ -62,7 +63,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .nowrap{white-space:nowrap;}
 
 /* ============================================================
-   PILLS & BADGES - NÂNG CẤP
+   PILLS & BADGES
 ============================================================ */
 .pill{
   display:inline-flex;align-items:center;gap:5px;padding:4px 12px;
@@ -83,7 +84,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 @keyframes livePulse{0%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(217,49,74,.5);}70%{opacity:.4;transform:scale(.8);box-shadow:0 0 0 8px rgba(217,49,74,0);}100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(217,49,74,0);}}
 
 /* ============================================================
-   BUTTONS - NÂNG CẤP
+   BUTTONS
 ============================================================ */
 .btn{
   border:1.5px solid var(--line);background:var(--card);color:var(--ink);
@@ -120,7 +121,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .icon-btn.danger:hover{border-color:var(--rose);color:var(--rose);background:var(--rose-soft);}
 
 /* ============================================================
-   LOGIN SCREEN - NÂNG CẤP
+   LOGIN SCREEN
 ============================================================ */
 #loginScreen{
   position:fixed;inset:0;z-index:500;
@@ -248,7 +249,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .view-head .lead{font-size:24px;font-weight:900;letter-spacing:-.03em;color:var(--navy);}
 
 /* ============================================================
-   PANELS & CARDS - NÂNG CẤP
+   PANELS & CARDS
 ============================================================ */
 .panel{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);
@@ -286,7 +287,155 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .stat-card.click:hover::before{opacity:1;}
 
 /* ============================================================
-   TKB - THỜI KHOÁ BIỂU NÂNG CẤP HOÀN TOÀN
+   DASHBOARD TODAY - BỐ CỤC MỚI
+============================================================ */
+.dash-today-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-bottom:20px;
+}
+@media(max-width:1000px){.dash-today-grid{grid-template-columns:1fr;}}
+
+/* Timeline lịch học hôm nay */
+.today-panel{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:22px 24px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;
+}
+.today-panel::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-light));
+}
+.today-panel.duty::before{background:linear-gradient(90deg,var(--rose),#E0A0B0);}
+.today-panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.today-panel-head h3{
+  margin:0;font-size:15px;font-weight:800;
+  display:flex;align-items:center;gap:10px;
+}
+.today-panel-head .ic-badge{
+  width:32px;height:32px;border-radius:10px;
+  background:linear-gradient(135deg,#E8F0F8,#D4E4F4);
+  color:var(--blue);display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(37,99,168,.1);
+}
+.today-panel.duty .today-panel-head .ic-badge{
+  background:linear-gradient(135deg,#FDE8ED,#FBD4DC);color:var(--rose);
+}
+.today-count{
+  font-size:11.5px;font-weight:800;letter-spacing:.04em;
+  padding:4px 12px;border-radius:99px;
+  background:var(--blue-soft);color:var(--blue-dark);
+}
+.today-panel.duty .today-count{background:var(--rose-soft);color:var(--rose);}
+
+.timeline{position:relative;padding-left:22px;}
+.timeline::before{
+  content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--blue-light),var(--blue-soft),transparent);
+}
+.tl-item{position:relative;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;}
+.tl-item:last-child{margin-bottom:0;}
+.tl-dot{
+  position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:#fff;border:2.5px solid var(--blue);
+  box-shadow:0 0 0 3px rgba(37,99,168,.12);z-index:1;
+}
+.tl-item.event .tl-dot{border-color:#D98B2B;box-shadow:0 0 0 3px rgba(196,122,26,.12);}
+.tl-item.break .tl-dot{border-color:var(--ink-faint);box-shadow:0 0 0 3px rgba(138,154,171,.12);background:#F4F7FB;}
+.tl-time{
+  flex-shrink:0;width:52px;text-align:right;
+  font-size:12.5px;font-weight:800;color:var(--navy);
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+  line-height:1.3;
+}
+.tl-time small{display:block;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
+.tl-body{flex:1;min-width:0;}
+.tl-title{
+  font-size:13.5px;font-weight:800;color:var(--ink);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.35;
+}
+.tl-title .tag{
+  font-size:10.5px;font-weight:800;letter-spacing:.04em;
+  padding:2px 8px;border-radius:6px;
+  background:var(--blue-soft);color:var(--blue-dark);
+}
+.tl-item.event .tl-title .tag{background:var(--amber-soft);color:var(--amber);}
+.tl-sub{font-size:12px;color:var(--ink-soft);margin-top:3px;font-weight:500;}
+
+/* Duty items */
+.duty-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:12px 14px;margin-bottom:10px;
+  background:linear-gradient(135deg,#FCFAFE,#F8F4FC);
+  border:1px solid #E8DCF2;border-radius:12px;
+  transition:var(--transition);
+}
+.duty-item:hover{transform:translateX(3px);border-color:#D0B8E8;box-shadow:var(--shadow-sm);}
+.duty-item:last-child{margin-bottom:0;}
+.duty-item .dico{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,#FDE8ED,#FBD4DC);color:var(--rose);
+  display:flex;align-items:center;justify-content:center;
+}
+.duty-item .dbody{flex:1;min-width:0;}
+.duty-item .dtitle{font-size:13.5px;font-weight:800;color:var(--navy);}
+.duty-item .dnames{font-size:12.5px;color:var(--ink-soft);margin-top:4px;font-weight:500;line-height:1.5;}
+.duty-item .dnames b{color:var(--ink);font-weight:700;}
+.duty-item .dvacant{color:var(--rose);font-style:italic;font-weight:600;}
+
+/* Danh sách sự kiện đã tạo - card grid */
+.item-card-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:14px;
+}
+.item-card{
+  position:relative;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:16px 18px;transition:var(--transition);
+  cursor:pointer;overflow:hidden;
+}
+.item-card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--blue),var(--blue-light));
+  transition:var(--transition);
+}
+.item-card.event::before{background:linear-gradient(180deg,#E0A030,#D98B2B);}
+.item-card:hover{
+  transform:translateY(-3px);box-shadow:var(--shadow-lg);
+  border-color:var(--blue-light);
+}
+.item-card.event:hover{border-color:#E0A030;}
+.item-card-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:8px;
+}
+.item-card-type{
+  font-size:10.5px;font-weight:800;letter-spacing:.06em;
+  padding:3px 10px;border-radius:6px;
+  background:var(--blue-soft);color:var(--blue-dark);
+}
+.item-card.event .item-card-type{background:var(--amber-soft);color:var(--amber);}
+.item-card-actions{
+  display:flex;gap:4px;opacity:0;transition:var(--transition);
+}
+.item-card:hover .item-card-actions{opacity:1;}
+.item-card-title{
+  font-size:15px;font-weight:800;color:var(--navy);
+  letter-spacing:-.01em;line-height:1.35;margin-bottom:6px;
+}
+.item-card-meta{
+  font-size:12px;color:var(--ink-soft);line-height:1.6;font-weight:500;
+}
+.item-card-meta .row-meta{
+  display:flex;align-items:center;gap:6px;margin-top:3px;
+}
+.item-card-meta .svg-ic{color:var(--ink-faint);flex-shrink:0;}
+
+/* ============================================================
+   TKB
 ============================================================ */
 .sched-scroll{
   overflow-x:auto;border-radius:var(--radius-lg);
@@ -401,7 +550,7 @@ table.sched td.slotcell.clickable:hover .empty-slot-plus{
 }
 
 /* ============================================================
-   DUTY TABLE - NÂNG CẤP
+   DUTY TABLE
 ============================================================ */
 table.duty{border-collapse:collapse;width:100%;table-layout:fixed;border-radius:var(--radius-lg);overflow:hidden;}
 table.duty th,table.duty td{border:1px solid var(--line-strong);}
@@ -428,7 +577,7 @@ table.duty td.dutycell.na{background:#F7F7F5;}
 .empty-note{font-size:11.5px;color:var(--ink-faint);font-style:italic;}
 
 /* ============================================================
-   TABLES - NÂNG CẤP
+   TABLES
 ============================================================ */
 table.plain{width:100%;border-collapse:collapse;font-size:13.5px;}
 table.plain th{
@@ -440,305 +589,6 @@ table.plain td{padding:12px;border-bottom:1px solid var(--line);vertical-align:m
 table.plain tr:last-child td{border-bottom:none;}
 table.plain tbody tr:hover td,table.plain tr:hover td{background:#F8FAFD;}
 table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
-
-/* ============================================================
-   MEET - GIAO DIỆN NÂNG CẤP TOÀN DIỆN
-============================================================ */
-#meetOverlay{
-  position:fixed;inset:0;z-index:450;
-  background:linear-gradient(135deg,#0A1628 0%,#0F2137 40%,#071322 100%);
-  color:#E8EFF6;display:none;flex-direction:column;font-size:14px;
-}
-#meetOverlay.on{display:flex;}
-#meetOverlay button{color:inherit;}
-#meetOverlay ::-webkit-scrollbar-thumb{background:#2B4258;border-radius:4px;}
-#meetOverlay ::-webkit-scrollbar-thumb:hover{background:#3B5A78;}
-
-/* --- Lobby --- */
-.mt-lobby{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:24px;}
-.mt-lobby-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;width:min(1100px,100%);align-items:center;}
-.mt-preview{
-  position:relative;aspect-ratio:16/10;background:linear-gradient(145deg,#12222F,#0A1622);
-  border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6);
-  border:1px solid rgba(255,255,255,.08);
-}
-.mt-preview video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block;}
-.mt-preview .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#6B8BA8;}
-.mt-preview .avatar{width:100px;height:100px;font-size:40px;background:linear-gradient(135deg,#3B82C4,#1A4A7A);box-shadow:0 8px 32px rgba(37,99,168,.5);}
-.mt-preview .pbar{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;gap:16px;}
-.mt-lobby-info h1{font-size:28px;margin:0 0 10px;color:#fff;line-height:1.25;font-weight:900;letter-spacing:-.03em;}
-.mt-lobby-info .desc{color:#8AA8C4;font-size:14px;line-height:1.65;margin-bottom:18px;white-space:pre-wrap;}
-.mt-lobby-info .meta{color:#6B8BA8;font-size:13px;margin-bottom:20px;display:flex;gap:18px;flex-wrap:wrap;font-weight:500;}
-.mt-lobby-info input{background:#12222F;border:1.5px solid #2B4258;color:#fff;border-radius:10px;padding:12px 14px;width:100%;font-size:15px;transition:var(--transition);}
-.mt-lobby-info input:focus{outline:none;border-color:#3B82C4;box-shadow:0 0 0 3px rgba(59,130,196,.2);}
-.mt-lobby-info label{color:#8AA8C4;font-size:12px;font-weight:700;display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em;}
-.mt-notice{margin-top:14px;background:linear-gradient(135deg,#3A2A14,#2A1E0E);color:#F5C97D;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.55;border-left:3px solid #E8B931;}
-.mt-notice.err{background:linear-gradient(135deg,#40202A,#2A1018);color:#F5A3B0;border-left-color:#D9483B;}
-.mt-btn-join{
-  background:linear-gradient(135deg,#2563A8,#1A4A7A);color:#fff;border:none;
-  border-radius:99px;padding:14px 36px;font-size:15.5px;font-weight:800;
-  cursor:pointer;transition:var(--transition);box-shadow:0 8px 24px -8px rgba(37,99,168,.6);
-}
-.mt-btn-join:hover{background:linear-gradient(135deg,#2E70BC,#2563A8);transform:translateY(-2px);box-shadow:0 12px 32px -8px rgba(37,99,168,.7);}
-.mt-btn-join:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.mt-btn-ghost{
-  background:transparent;border:1.5px solid #3B536A;color:#C5D3E0;
-  border-radius:99px;padding:13px 24px;font-size:14px;font-weight:600;
-  cursor:pointer;transition:var(--transition);
-}
-.mt-btn-ghost:hover{background:#16283A;border-color:#5B7A9A;color:#fff;}
-
-/* --- Round buttons --- */
-.round-btn{
-  width:52px;height:52px;border-radius:50%;border:none;
-  background:linear-gradient(145deg,#2A3F55,#1A2A3A);color:#fff;
-  display:inline-flex;align-items:center;justify-content:center;
-  position:relative;transition:var(--transition);flex-shrink:0;cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,.3);
-}
-.round-btn:hover{background:linear-gradient(145deg,#365068,#243A4E);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.4);}
-.round-btn:active{transform:translateY(0);}
-.round-btn.off{background:linear-gradient(145deg,#D9483B,#B3362A);}
-.round-btn.off:hover{background:linear-gradient(145deg,#E85A4D,#C94032);}
-.round-btn.on{background:linear-gradient(145deg,#2563A8,#1A4A7A);}
-.round-btn.on:hover{background:linear-gradient(145deg,#2E70BC,#2563A8);}
-.round-btn.hang{background:linear-gradient(145deg,#D9483B,#B3362A);width:68px;border-radius:28px;}
-.round-btn.hang:hover{background:linear-gradient(145deg,#EA5A4C,#C94032);}
-.round-btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;}
-.round-btn .badge{
-  position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;
-  border-radius:99px;background:#E5484D;color:#fff;font-size:11px;
-  font-weight:800;display:flex;align-items:center;justify-content:center;
-  padding:0 6px;box-shadow:0 2px 8px rgba(229,72,77,.5);
-}
-
-/* --- Room --- */
-.mt-room{flex:1;display:none;flex-direction:column;min-height:0;}
-.mt-room.on{display:flex;}
-.mt-top{
-  display:flex;align-items:center;gap:16px;padding:12px 20px;
-  background:rgba(15,29,43,.85);backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;
-}
-.mt-top .ttl{font-weight:800;font-size:15.5px;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.01em;}
-.mt-top .sub{color:#6B8BA8;font-size:12.5px;white-space:nowrap;font-weight:600;}
-.mt-top .grow{flex:1;}
-.mt-main{flex:1;display:flex;min-height:0;position:relative;}
-
-/* --- Stage --- */
-.mt-stage{flex:1;min-width:0;padding:16px;overflow:auto;display:flex;background:radial-gradient(ellipse at center,#0F1D2B 0%,#071322 100%);}
-.mt-grid{display:grid;gap:12px;width:100%;margin:auto;align-content:center;justify-content:center;grid-template-columns:repeat(var(--cols,2),minmax(0,1fr));}
-.mt-tile{
-  position:relative;background:linear-gradient(145deg,#16283A,#0E1A26);
-  border-radius:14px;overflow:hidden;aspect-ratio:16/9;min-height:0;
-  border:2px solid transparent;transition:var(--transition);
-  box-shadow:0 8px 24px rgba(0,0,0,.3);
-}
-.mt-tile.speaking{border-color:#4FC08D;box-shadow:0 0 0 3px rgba(79,192,141,.3),0 8px 24px rgba(0,0,0,.3);}
-.mt-tile.pinned{border-color:#E8B931;box-shadow:0 0 0 3px rgba(232,185,49,.3),0 8px 24px rgba(0,0,0,.3);}
-.mt-tile video{width:100%;height:100%;object-fit:cover;display:block;background:#0E1A26;}
-.mt-tile.mine video.cam{transform:scaleX(-1);}
-.mt-tile.scr video{object-fit:contain;background:#050B12;}
-.mt-tile .avatar-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#16283A,#0E1A26);}
-.avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#3B82C4,#1A4A7A);color:#fff;font-weight:800;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,99,168,.4);}
-.mt-tile .lbl{
-  position:absolute;left:10px;bottom:10px;
-  background:rgba(6,14,22,.8);backdrop-filter:blur(8px);
-  padding:5px 12px;border-radius:9px;font-size:12.5px;font-weight:700;
-  max-width:calc(100% - 70px);overflow:hidden;text-overflow:ellipsis;
-  white-space:nowrap;display:flex;align-items:center;gap:6px;
-  border:1px solid rgba(255,255,255,.08);
-}
-.mt-tile .flags{position:absolute;right:10px;top:10px;display:flex;gap:6px;}
-.mt-tile .flag{width:30px;height:30px;border-radius:50%;background:rgba(6,14,22,.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff;border:1px solid rgba(255,255,255,.1);}
-.mt-tile .flag.red{background:linear-gradient(135deg,#D9483B,#B3362A);border-color:transparent;}
-.mt-tile .flag.hand{background:linear-gradient(135deg,#E8B931,#C49A1A);color:#3A2A00;border-color:transparent;animation:handWave 1s infinite;}
-@keyframes handWave{0%,100%{transform:rotate(0);}25%{transform:rotate(-12deg);}75%{transform:rotate(12deg);}}
-.mt-tile .pin{position:absolute;right:10px;bottom:10px;width:32px;height:32px;border-radius:50%;background:rgba(6,14,22,.8);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);display:none;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:var(--transition);}
-.mt-tile:hover .pin{display:flex;}
-.mt-tile .pin:hover{background:rgba(232,185,49,.9);color:#3A2A00;border-color:transparent;}
-.mt-tile .conn{position:absolute;left:10px;top:10px;font-size:11px;background:rgba(6,14,22,.8);backdrop-filter:blur(8px);padding:3px 10px;border-radius:99px;color:#F5C97D;font-weight:600;border:1px solid rgba(245,201,125,.2);}
-
-/* --- Presentation mode --- */
-.mt-pres{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:12px;width:100%;height:100%;}
-.mt-pres .big{position:relative;min-height:0;display:flex;}
-.mt-pres .big .mt-tile{aspect-ratio:auto;width:100%;height:100%;border-radius:16px;}
-.mt-pres .strip{display:flex;flex-direction:column;gap:10px;overflow-y:auto;min-height:0;padding-right:4px;}
-.mt-pres .strip .mt-tile{aspect-ratio:16/10;flex-shrink:0;border-radius:12px;}
-
-/* --- Side panel --- */
-.mt-side{
-  width:360px;max-width:100%;
-  background:linear-gradient(180deg,#0F1D2B,#0A1622);
-  border-left:1px solid rgba(255,255,255,.06);
-  display:none;flex-direction:column;flex-shrink:0;min-height:0;
-}
-.mt-side.on{display:flex;}
-.mt-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:rgba(0,0,0,.2);}
-.mt-tabs button{
-  flex:1;background:none;border:none;padding:14px 8px;font-weight:700;
-  font-size:13px;color:#6B8BA8;border-bottom:2px solid transparent;
-  position:relative;cursor:pointer;transition:var(--transition);
-}
-.mt-tabs button:hover{color:#A8C4DC;background:rgba(255,255,255,.03);}
-.mt-tabs button.on{color:#fff;border-bottom-color:#3B82C4;background:rgba(59,130,196,.08);}
-.mt-tabs .dot{
-  display:inline-block;min-width:18px;height:18px;border-radius:99px;
-  background:linear-gradient(135deg,#E5484D,#C9383D);color:#fff;
-  font-size:10.5px;line-height:18px;text-align:center;margin-left:6px;
-  padding:0 5px;font-weight:800;box-shadow:0 2px 6px rgba(229,72,77,.4);
-}
-.mt-pane{flex:1;min-height:0;display:none;flex-direction:column;}
-.mt-pane.on{display:flex;}
-.mt-scroll{flex:1;overflow-y:auto;padding:16px;min-height:0;}
-
-/* --- Chat --- */
-.chat-msg{margin-bottom:14px;font-size:13.5px;line-height:1.5;}
-.chat-msg .who{font-weight:800;color:#8FB8E8;font-size:12.5px;margin-bottom:3px;}
-.chat-msg .when{color:#4A6A88;font-size:11px;margin-left:8px;font-weight:500;}
-.chat-msg .tx{color:#E8EFF6;word-break:break-word;white-space:pre-wrap;}
-.chat-msg .tx a{color:#7DB4F0;text-decoration:underline;}
-.chat-msg.me .who{color:#7FD8AB;}
-.chat-in{display:flex;gap:10px;padding:12px 16px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;background:rgba(0,0,0,.15);}
-.chat-in input,.mt-form input,.mt-form textarea,.mt-form select{
-  flex:1;background:#12222F;border:1.5px solid #2B4258;color:#fff;
-  border-radius:10px;padding:11px 14px;font-size:13.5px;min-width:0;width:100%;
-  transition:var(--transition);
-}
-.chat-in input:focus,.mt-form input:focus,.mt-form textarea:focus,.mt-form select:focus{outline:none;border-color:#3B82C4;box-shadow:0 0 0 3px rgba(59,130,196,.15);}
-.chat-in input{width:auto;}
-.chat-in button{
-  background:linear-gradient(135deg,#2563A8,#1A4A7A);border:none;
-  border-radius:10px;width:46px;color:#fff;display:flex;align-items:center;
-  justify-content:center;cursor:pointer;transition:var(--transition);
-  box-shadow:0 4px 12px -4px rgba(37,99,168,.5);
-}
-.chat-in button:hover{background:linear-gradient(135deg,#2E70BC,#2563A8);transform:translateY(-1px);}
-
-/* --- People list --- */
-.ppl{display:flex;align-items:center;gap:12px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.04);transition:var(--transition);}
-.ppl:hover{background:rgba(255,255,255,.03);}
-.ppl .avatar{width:38px;height:38px;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,.3);}
-.ppl .nm{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px;}
-.ppl .nm small{display:block;color:#6B8BA8;font-weight:500;font-size:11.5px;margin-top:2px;}
-.ppl .ic{color:#6B8BA8;display:flex;gap:8px;align-items:center;}
-.ppl .ic .red{color:#F0645A;}
-.ppl .ic .hand{color:#E8B931;}
-.ppl .acts{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
-.mini-btn{
-  background:linear-gradient(145deg,#1D3247,#152738);border:none;
-  border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:700;
-  color:#C5D3E0;cursor:pointer;transition:var(--transition);
-  display:inline-flex;align-items:center;gap:5px;
-}
-.mini-btn:hover{background:linear-gradient(145deg,#28425B,#1D3247);transform:translateY(-1px);}
-.mini-btn.red{background:linear-gradient(145deg,#4A2229,#3A1A20);color:#F5A3B0;}
-.mini-btn.red:hover{background:linear-gradient(145deg,#5A2A32,#4A2229);}
-.mini-btn.gold{background:linear-gradient(145deg,#5A4210,#4A3508);color:#F5C97D;}
-.mini-btn.gold:hover{background:linear-gradient(145deg,#6A4E14,#5A4210);}
-
-/* --- Polls --- */
-.poll{
-  background:linear-gradient(145deg,#12222F,#0E1A26);
-  border:1px solid rgba(255,255,255,.06);border-radius:14px;
-  padding:16px;margin-bottom:14px;
-}
-.poll .q{font-weight:800;font-size:14.5px;margin-bottom:12px;line-height:1.4;color:#fff;}
-.poll .opt{display:block;position:relative;margin-bottom:9px;cursor:pointer;}
-.poll .opt .bar{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#28517E,#1E3E5E);border-radius:10px;transition:width .3s ease;}
-.poll .opt .in{
-  position:relative;display:flex;align-items:center;gap:10px;
-  padding:10px 14px;border:1.5px solid #27405A;border-radius:10px;
-  transition:var(--transition);
-}
-.poll .opt:hover .in{border-color:#3B82C4;background:rgba(59,130,196,.05);}
-.poll .opt.mine .in{border-color:#5AA0E8;background:rgba(90,160,232,.08);}
-.poll .opt input{width:auto;margin:0;accent-color:#3B82C4;}
-.poll .opt .pc{margin-left:auto;font-size:12px;color:#B7C9DA;font-weight:800;white-space:nowrap;}
-.poll .foot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:12px;color:#6B8BA8;}
-.mt-form{padding:16px;display:flex;flex-direction:column;gap:12px;}
-.mt-form label{font-size:12px;color:#8AA8C4;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
-
-/* --- Bottom bar --- */
-.mt-bar{
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  padding:16px 20px;background:rgba(15,29,43,.9);backdrop-filter:blur(12px);
-  border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;
-  flex-wrap:wrap;position:relative;
-}
-.mt-bar .sep{width:1px;height:36px;background:rgba(255,255,255,.1);margin:0 6px;}
-.mt-pop{
-  position:absolute;bottom:88px;
-  background:linear-gradient(145deg,#12222F,#0E1A26);
-  border:1px solid rgba(255,255,255,.1);border-radius:16px;
-  padding:10px;box-shadow:0 20px 60px rgba(0,0,0,.6);
-  z-index:5;min-width:260px;backdrop-filter:blur(12px);
-}
-.mt-pop .it{
-  display:flex;align-items:center;gap:12px;width:100%;
-  background:none;border:none;text-align:left;padding:11px 14px;
-  border-radius:10px;font-size:13.5px;font-weight:600;
-  cursor:pointer;color:#E8EFF6;transition:var(--transition);
-}
-.mt-pop .it:hover{background:rgba(255,255,255,.08);}
-.mt-pop .it .chk{margin-left:auto;color:#4FC08D;}
-.mt-pop .hd{font-size:11px;color:#6B8BA8;font-weight:800;padding:8px 14px 4px;text-transform:uppercase;letter-spacing:.06em;}
-.react-row{display:flex;gap:6px;padding:6px;}
-.react-row button{background:none;border:none;font-size:26px;border-radius:12px;padding:6px 10px;cursor:pointer;transition:var(--transition);}
-.react-row button:hover{background:rgba(255,255,255,.1);transform:scale(1.15);}
-
-/* --- Floating reactions --- */
-#mtFloat{position:absolute;left:0;bottom:90px;width:280px;height:300px;pointer-events:none;overflow:hidden;z-index:4;}
-.fl{
-  position:absolute;bottom:0;display:flex;flex-direction:column;
-  align-items:center;font-size:36px;animation:flUp 3.8s ease-out forwards;
-}
-.fl small{font-size:11px;background:rgba(6,14,22,.8);backdrop-filter:blur(8px);padding:3px 10px;border-radius:99px;color:#fff;margin-top:4px;font-weight:600;}
-@keyframes flUp{0%{transform:translateY(0) scale(.6);opacity:0;}12%{opacity:1;transform:translateY(-24px) scale(1);}100%{transform:translateY(-260px) scale(1);opacity:0;}}
-
-/* --- Toast & Modal --- */
-.mt-toast{
-  position:absolute;top:70px;left:50%;transform:translateX(-50%);
-  background:linear-gradient(135deg,#1D3247,#152738);color:#fff;
-  padding:12px 22px;border-radius:99px;font-size:13.5px;z-index:8;
-  box-shadow:0 12px 36px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);
-  font-weight:600;animation:toastIn .3s ease;
-}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-12px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
-.mt-modalbg{
-  position:absolute;inset:0;background:rgba(3,9,16,.75);
-  backdrop-filter:blur(4px);display:flex;align-items:center;
-  justify-content:center;z-index:9;padding:20px;
-}
-.mt-modal{
-  background:linear-gradient(145deg,#12222F,#0E1A26);
-  border:1px solid rgba(255,255,255,.1);border-radius:20px;
-  padding:24px 28px;width:min(480px,100%);max-height:90%;
-  overflow:auto;box-shadow:0 32px 80px rgba(0,0,0,.7);
-}
-.mt-modal h3{margin:0 0 16px;color:#fff;font-size:18px;font-weight:800;}
-.mt-modal .row-btns{display:flex;gap:12px;justify-content:flex-end;margin-top:18px;}
-
-/* --- Responsive --- */
-@media(max-width:900px){
-  .mt-lobby-in{grid-template-columns:1fr;gap:24px;}
-  .mt-side{position:absolute;inset:0;width:100%;z-index:6;}
-  .mt-pres{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 100px;}
-  .mt-pres .strip{flex-direction:row;overflow-x:auto;overflow-y:hidden;}
-  .mt-pres .strip .mt-tile{aspect-ratio:16/9;height:100%;}
-  .mt-bar{gap:10px;padding:12px;}
-  .round-btn{width:46px;height:46px;}
-  .round-btn.hang{width:60px;}
-  .mt-bar .sep{display:none;}
-  .mt-top .sub.hide-sm{display:none;}
-}
-@media(max-width:600px){
-  .mt-grid{--cols:1!important;}
-  .mt-lobby{padding:12px;}
-  .mt-lobby-info h1{font-size:22px;}
-  .round-btn{width:42px;height:42px;}
-  .round-btn.hang{width:54px;border-radius:22px;}
-}
 
 /* ============================================================
    LEAVE UI
@@ -865,6 +715,10 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 .my-leave-card .body{font-size:13px;color:var(--ink);line-height:1.65;padding-top:8px;border-top:1px dashed var(--line);}
 .my-leave-card .body .ln{display:flex;align-items:flex-start;gap:8px;margin-top:6px;}
 .my-leave-card .body .ln .svg-ic{color:var(--ink-soft);margin-top:2px;flex-shrink:0;}
+.my-leave-card .revoke-bar{
+  margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);
+  display:flex;justify-content:flex-end;gap:8px;
+}
 
 /* --- Approval cards --- */
 .leave-approve-card{
@@ -993,7 +847,7 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 .angle-previews img{width:64px;height:64px;border-radius:10px;object-fit:cover;border:2.5px solid var(--green);box-shadow:var(--shadow-sm);}
 
 /* ============================================================
-   KIOSK - NÂNG CẤP
+   KIOSK
 ============================================================ */
 #kiosk{
   display:none;min-height:100vh;
@@ -1109,6 +963,33 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 #kiosk .k-att-filter button{border:1.5px solid var(--line-strong);background:#fff;color:var(--ink-soft);padding:7px 14px;border-radius:99px;font-size:12.5px;font-weight:700;cursor:pointer;transition:var(--transition);}
 #kiosk .k-att-filter button:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);}
 #kiosk .k-att-filter button.on{background:linear-gradient(135deg,#0F2137,#1A4A7A);border-color:#0F2137;color:#fff;box-shadow:0 6px 16px -6px rgba(15,33,55,.5);}
+
+/* Duty in kiosk */
+#kiosk .k-duty-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;
+}
+#kiosk .k-duty-item{
+  display:flex;gap:14px;align-items:center;padding:14px 16px;
+  background:linear-gradient(135deg,#FCFAFE,#F8F4FC);
+  border:1px solid #E8DCF2;border-radius:14px;
+  transition:var(--transition);
+}
+#kiosk .k-duty-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:#D0B8E8;}
+#kiosk .k-duty-item .dico{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(135deg,#FDE8ED,#FBD4DC);color:var(--rose);
+  display:flex;align-items:center;justify-content:center;
+}
+#kiosk .k-duty-item .dbody{flex:1;min-width:0;}
+#kiosk .k-duty-item .dtitle{font-size:14.5px;font-weight:800;color:var(--navy);}
+#kiosk .k-duty-item .dnames{font-size:13px;color:var(--ink-soft);margin-top:4px;font-weight:500;line-height:1.5;}
+#kiosk .k-duty-item .dnames b{color:var(--ink);font-weight:700;}
+#kiosk .k-duty-item .dvacant{color:var(--rose);font-style:italic;font-weight:600;}
+#kiosk .k-duty-empty{
+  text-align:center;padding:24px;color:var(--ink-soft);
+  font-size:14px;font-weight:500;
+}
+
 @media(max-width:680px){
   #kiosk .k-actions{grid-template-columns:1fr;}
   #kiosk .k-card{padding:18px;}
@@ -1126,7 +1007,7 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 #k-unlock .sb{font-size:21px;color:#8AA8C4;margin-top:8px;font-weight:600;letter-spacing:.04em;}
 
 /* ============================================================
-   MODAL - NÂNG CẤP
+   MODAL
 ============================================================ */
 .modal-bg{
   position:fixed;inset:0;background:rgba(7,19,34,.6);backdrop-filter:blur(6px);
@@ -1314,20 +1195,6 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
   cursor:pointer;transition:var(--transition);
 }
 .chips .chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);transform:translateY(-1px);}
-#guestScreen{
-  position:fixed;inset:0;z-index:700;display:none;align-items:center;justify-content:center;
-  padding:24px;background:radial-gradient(1200px 700px at 20% -10%,#1D3F63,#0F2137 50%,#071322);
-}
-#guestScreen.on{display:flex;}
-.gs-card{
-  background:var(--card);border-radius:24px;padding:40px 36px;
-  width:min(460px,100%);text-align:center;box-shadow:0 48px 120px -32px rgba(0,0,0,.7);
-}
-.gs-card .gi{width:72px;height:72px;border-radius:20px;margin:0 auto 20px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;}
-.gs-card h2{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-.02em;}
-.gs-card p{color:var(--ink-soft);font-size:13.5px;line-height:1.65;margin:10px 0 24px;font-weight:500;}
-.gs-card .btn{width:100%;justify-content:center;padding:14px;margin-top:10px;}
-.cohost-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;border:1.5px solid var(--line);border-radius:12px;padding:10px;}
 .approval-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.5px;}
 .approval-row:last-child{border-bottom:none;}
 .approval-row .nm{flex:1;font-weight:700;}
@@ -1346,6 +1213,20 @@ tr.row-absent td:first-child{box-shadow:inset 3px 0 0 var(--rose);}
 tr.row-present td:first-child{box-shadow:inset 3px 0 0 var(--green);}
 tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
 .rules-box{background:linear-gradient(135deg,#0F2137,#071322);color:#DCEAF6;font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:14px 18px;border-radius:12px;overflow-x:auto;white-space:pre;line-height:1.7;}
+
+/* Item list */
+.item-list{display:flex;flex-direction:column;gap:8px;}
+.item-row{
+  display:flex;gap:14px;align-items:center;padding:12px 14px;
+  background:linear-gradient(135deg,#F9FBFD,#F3F7FB);
+  border:1px solid var(--line);border-radius:12px;
+  transition:var(--transition);
+}
+.item-row:hover{transform:translateX(3px);border-color:var(--blue-light);box-shadow:var(--shadow-sm);}
+.item-row .tag{flex-shrink:0;}
+.item-row .desc{flex:1;min-width:0;}
+.item-row .desc b{font-size:13.5px;color:var(--ink);font-weight:800;}
+.item-row .desc .meta{font-size:12px;color:var(--ink-soft);margin-top:3px;font-weight:500;}
 
 /* ============================================================
    RESPONSIVE
@@ -1368,6 +1249,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
   .mt-pres .strip{flex-direction:row;overflow-x:auto;overflow-y:hidden;}
   .mt-pres .strip .mt-tile{aspect-ratio:16/9;height:100%;}
   .mt-side{position:absolute;inset:0;width:100%;z-index:6;}
+  .dash-today-grid{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
   .grid-cards{grid-template-columns:1fr;}
@@ -1375,6 +1257,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
   .modal-bg{padding:0;align-items:flex-end;}
   .modal-head{border-radius:16px 16px 0 0;}
   .modal-foot{border-radius:0;}
+  .item-card-grid{grid-template-columns:1fr;}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
@@ -1403,7 +1286,6 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="field"><label>Tên đăng nhập</label><input id="loginUser" placeholder="Tên đăng nhập hoặc mã học sinh" autocomplete="username"></div>
       <div class="field"><label>Mật khẩu</label><input id="loginPass" type="password" placeholder="Mật khẩu" autocomplete="current-password"></div>
       <button class="btn primary" style="width:100%;justify-content:center;padding:13px;font-size:14.5px;" onclick="doLogin()">Đăng nhập</button>
-      <div class="login-guest"><label>Tham gia Meeting</label><div class="copy-box"><input id="guestCode" placeholder="Dán link hoặc mã (vd: abc-defg-hij)" onkeydown="if(event.key==='Enter')guestJoinFromLogin()"><button class="btn outline" onclick="guestJoinFromLogin()">Vào họp</button></div></div>
       <div class="login-hint">Học sinh đăng nhập bằng <b>mã học sinh</b> do quản trị viên cấp.</div>
     </div>
   </div>
@@ -1422,11 +1304,11 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="nav-item" data-view="schedule" onclick="goView('schedule')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span> Thời khoá biểu &amp; Sự kiện</div>
       <div class="nav-item" data-view="duty" onclick="goView('duty')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4L10 13"/><path d="M6 21l3-3"/><path d="M10 13l-6 2 2 6 6-2z"/><path d="M14 8l3 3"/></svg></span> Lịch trực nhật</div>
       <div class="nav-item student-only" data-view="lookup" onclick="goView('lookup')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span> Tra cứu lịch trực của tôi</div>
-      <div class="nav-item student-only" data-view="leaveApply" onclick="goView('leaveApply')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg></span> Đơn xin nghỉ / đến muộn</div>
+      <div class="nav-item student-only" data-view="leaveApply" onclick="goView('leaveApply')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg></span> Đơn từ</div>
       <div class="nav-item" data-view="online" onclick="goView('online')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span> Lớp học online <span class="pill pill-live" id="navOnlineLive" style="display:none;margin-left:auto;padding:2px 8px;font-size:10px;">LIVE</span></div>
       <div class="nav-item" data-view="meet" onclick="goView('meet')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Meeting</div>
       <div class="nav-group-label admin-only">Quản trị</div>
-      <div class="nav-item admin-only" data-view="leaveApprove" data-perm="leaves" onclick="goView('leaveApprove')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span> Duyệt đơn nghỉ / muộn</div>
+      <div class="nav-item admin-only" data-view="leaveApprove" data-perm="leaves" onclick="goView('leaveApprove')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span> Duyệt đơn từ</div>
       <div class="nav-item admin-only" data-view="students" data-perm="students" onclick="goView('students')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span> Học sinh &amp; tài khoản</div>
       <div class="nav-item admin-only" data-view="tasktypes" data-perm="tasktypes" onclick="goView('tasktypes')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 4H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-3"/><path d="M9 12h6M9 16h6M9 8h2"/></svg></span> Đầu việc trực nhật</div>
       <div class="nav-item admin-only" data-view="zalo" data-perm="zalo" onclick="goView('zalo')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.5 8.5 8.5 0 01-4-1L3 21l1-5.5A8.5 8.5 0 1121 11.5z"/></svg></span> Zalo Bot &amp; Thông báo</div>
@@ -1471,8 +1353,22 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="grid-cards" id="dashStats" style="margin-bottom:20px;"></div>
       <div id="dashInvites"></div>
       <div id="dashAttendance"></div>
-      <div class="panel panel-top"><div class="panel-head"><h3>Lịch học &amp; sự kiện hôm nay</h3></div><div id="dashSchedToday" class="item-list"></div></div>
-      <div class="panel panel-top rose"><div class="panel-head"><h3>Lịch trực nhật hôm nay</h3></div><div id="dashDutyToday"></div></div>
+      <div class="dash-today-grid">
+        <div class="today-panel" id="dashTodayPanel">
+          <div class="today-panel-head">
+            <h3><span class="ic-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> Lịch học &amp; sự kiện hôm nay</h3>
+            <span class="today-count" id="dashTodayCount">0</span>
+          </div>
+          <div id="dashSchedToday"></div>
+        </div>
+        <div class="today-panel duty" id="dashDutyPanel">
+          <div class="today-panel-head">
+            <h3><span class="ic-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4L10 13"/><path d="M6 21l3-3"/><path d="M10 13l-6 2 2 6 6-2z"/><path d="M14 8l3 3"/></svg></span> Trực nhật hôm nay</h3>
+            <span class="today-count" id="dashDutyCount">0</span>
+          </div>
+          <div id="dashDutyToday"></div>
+        </div>
+      </div>
     </div>
 
     <!-- SCHEDULE -->
@@ -1501,8 +1397,14 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
         <div class="sched-scroll"><table class="sched" id="schedTable"></table></div>
       </div>
       <div class="panel">
-        <div class="panel-head"><h3>Danh sách sự kiện đã tạo</h3><div class="sub">Nhấp để sửa (chỉ quản trị viên)</div></div>
-        <div class="item-list" id="itemFullList"></div>
+        <div class="panel-head">
+          <div>
+            <h3>Danh sách sự kiện đã tạo</h3>
+            <div class="sub">Nhấp vào thẻ để sửa (chỉ quản trị viên)</div>
+          </div>
+          <div class="tabs-inline" id="itemFullListTabs"></div>
+        </div>
+        <div class="item-card-grid" id="itemFullList"></div>
       </div>
     </div>
 
@@ -1561,12 +1463,12 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
 
     <!-- LEAVE APPLY -->
     <div class="view" id="view-leaveApply">
-      <div class="view-head"><div class="lead">Đơn xin nghỉ học / đến muộn</div></div>
+      <div class="view-head"><div class="lead">Đơn từ</div></div>
       <div class="lv-hero" id="lvHero">
         <div class="ico"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13l2 2 4-4M9 19h6"/></svg></div>
         <div class="grow">
           <h2>Gửi đơn nhanh chóng — Theo dõi minh bạch</h2>
-          <p>Chọn ngày &amp; tiết học cần nghỉ, nêu lý do rồi gửi. Đơn được quản trị viên duyệt và tự động cập nhật vào bảng điểm danh của lớp.</p>
+          <p>Chọn hình thức đơn phù hợp bên dưới. Đơn được quản trị viên duyệt và tự động cập nhật vào bảng điểm danh của lớp. Bạn có thể thu hồi đơn khi còn đang chờ duyệt.</p>
           <div class="stats" id="lvHeroStats"></div>
         </div>
       </div>
@@ -1630,7 +1532,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
     <div class="view" id="view-leaveApprove">
       <div class="view-head">
         <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
-          <div class="lead">Duyệt đơn xin nghỉ / đến muộn</div>
+          <div class="lead">Duyệt đơn từ</div>
           <button class="btn primary" onclick="openAdminCreateLeaveModal()">+ Tạo đơn hộ học sinh</button>
         </div>
       </div>
@@ -1638,7 +1540,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
         <div class="ico"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
         <div class="grow">
           <h2>Duyệt đơn — Nhanh gọn, rõ ràng</h2>
-          <p>Xem danh sách đơn học sinh gửi lên và duyệt/từ chối. Đơn được duyệt sẽ tự động điền vào trạng thái điểm danh của học sinh.</p>
+          <p>Xem danh sách đơn học sinh gửi lên và duyệt/từ chối. Có thể thu hồi quyết định (đưa về trạng thái chờ) hoặc xoá đơn hoàn toàn khỏi lịch sử.</p>
         </div>
       </div>
       <div class="panel">
@@ -1777,13 +1679,19 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
           <div class="field"><label>Ngưỡng nhận diện tại Kiosk</label><input type="number" step="0.01" min="0.2" max="0.7" id="cfgKioskThr" value="0.40"></div>
           <div class="field"><label>Ngưỡng xác thực khuôn mặt lớp online</label><input type="number" step="0.01" min="0.3" max="0.8" id="cfgOnlineThr" value="0.50"></div>
         </div>
-        <div class="section-title">Máy chủ TURN cho Meet tích hợp</div>
-        <div class="two-col">
-          <div class="field"><label>TURN URL</label><input id="cfgTurnUrl"></div>
-          <div class="field"><label>Tên đăng nhập TURN</label><input id="cfgTurnUser"></div>
-        </div>
-        <div class="field" style="max-width:440px;"><label>Mật khẩu TURN</label><input id="cfgTurnPass" type="password" autocomplete="off"></div>
         <button class="btn primary" onclick="saveAttMeetConfig()">Lưu cài đặt</button>
+      </div>
+      <div class="panel panel-top">
+        <div class="panel-head"><h3>Tích hợp Google Meet tự động</h3></div>
+        <div class="hint mb-8">Hệ thống không tạo phòng họp riêng — mọi cuộc họp đều dùng liên kết ngoài (Google Meet, Zoom…). Cấu hình dưới đây cho phép hệ thống <b>tự động tạo liên kết Google Meet</b> qua Google Calendar API khi tạo lớp/cuộc họp, thay vì phải tự tạo trên Google rồi dán vào.</div>
+        <div class="field" style="max-width:520px;"><label>Google OAuth Client ID</label><input id="cfgGmeetClientId" placeholder="xxxxxxxx.apps.googleusercontent.com"></div>
+        <div class="hint mb-8">Tạo tại Google Cloud Console → APIs &amp; Services → Credentials (OAuth Client ID, loại "Web application", thêm domain này vào Authorized JavaScript origins) và bật <b>Google Calendar API</b> cho project đó.</div>
+        <div class="row gap-8 wrap">
+          <button class="btn outline" onclick="saveGmeetClientId()">Lưu Client ID</button>
+          <button class="btn primary" onclick="gmeetConnect()">Kết nối tài khoản Google</button>
+          <span class="pill" id="gmeetStatusPill">Chưa kết nối</span>
+        </div>
+        <div class="hint mt-8">Lưu ý: đây là ứng dụng chạy hoàn toàn trên trình duyệt (không có máy chủ riêng), nên phiên kết nối Google chỉ tồn tại trong khoảng 1 giờ rồi cần bấm "Kết nối" lại — bản thân link Google Meet được tạo ra thì <b>không giới hạn thời gian sử dụng</b> và không tự hết hạn.</div>
       </div>
       <div class="panel panel-top">
         <div class="panel-head"><h3>Liên kết Kiosk cửa lớp</h3></div>
@@ -1940,8 +1848,6 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
 
 <div id="modalRoot"></div>
 <div id="lightbox" onclick="closeLightbox()"><button class="lb-x" onclick="closeLightbox()">&times;</button><img id="lightboxImg" alt=""></div>
-<div id="meetOverlay"></div>
-<div id="guestScreen"><div class="gs-card" id="guestCard"></div></div>
 
 <!-- KIOSK -->
 <div id="kiosk">
@@ -1967,6 +1873,13 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="k-card">
         <div class="k-h3"><h3>Chọn lịch điểm danh</h3><span class="k-count">Hôm nay: <b id="kCount">0</b>/<span id="kTotal">0</span> học sinh đã điểm danh</span></div>
         <div class="k-sched" id="kSched"><span class="muted">Đang tải lịch…</span></div>
+      </div>
+      <div class="k-card" id="kDutyCard">
+        <div class="k-h3">
+          <h3>Lịch trực nhật hôm nay</h3>
+          <span class="k-count" id="kDutyDate"></span>
+        </div>
+        <div id="kDutyBody" class="k-duty-grid"></div>
       </div>
       <div class="k-actions">
         <button class="k-act" id="kBtnFace" disabled onclick="kioskStartFace()"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h.01M15 9h.01M8 14s1.5 2 4 2 4-2 4-2"/></svg>FaceID<small>Quét khuôn mặt</small></button>
@@ -2032,9 +1945,7 @@ const PERMISSION_DEFS = [
 
 const WEEKDAYS = ['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ nhật'];
 const WEEKDAYS_SHORT = ['T2','T3','T4','T5','T6','T7','CN'];
-/* NÂNG CẤP: TKB hiển thị đầy đủ 7 ngày (T2-CN) */
 const SCHEDULE_DAYS = 7;
-/* Lịch trực nhật vẫn chỉ T2-T6 */
 const DUTY_DAYS = 5;
 
 const ICX = {
@@ -2078,7 +1989,10 @@ const ICX = {
   doc:`<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8M8 9h2"/>`,
   info:`<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>`,
   alarm:`<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3 2 6M22 6l-3-3"/>`,
-  crown:`<path d="M2 19h20M3 8l4 4 5-7 5 7 4-4-2 11H5z"/>`
+  crown:`<path d="M2 19h20M3 8l4 4 5-7 5 7 4-4-2 11H5z"/>`,
+  doorOpen:`<path d="M3 21h18"/><path d="M6 21V4a1 1 0 0 1 1-1h8l5 3v15"/><path d="M15 3v18"/><circle cx="12" cy="12" r="1"/>`,
+  userX:`<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/>`,
+  hourglass:`<path d="M6 2h12M6 22h12M6 2v4l6 6 6-6V2M6 22v-4l6-6 6 6v4"/>`
 };
 function ic(name, size){
   size = size || 16;
@@ -2147,7 +2061,6 @@ function canEditOnlineClass(oc){
   if(isSuperadmin()) return true;
   if(!oc) return false;
   if(oc.createdBy === state.user.id || oc.hostId === state.user.id) return true;
-  /* NÂNG CẤP: cho phép admin được thêm vào danh sách admins của lớp */
   if(oc.admins && oc.admins[state.user.id]) return true;
   return false;
 }
@@ -2156,12 +2069,8 @@ function canHostOnlineClass(oc){
   if(isSuperadmin()) return true;
   if(!oc) return false;
   if(oc.hostId === state.user.id || oc.createdBy === state.user.id) return true;
-  /* NÂNG CẤP: cho phép admin được thêm vào danh sách admins của lớp */
   if(oc.admins && oc.admins[state.user.id]) return true;
   return false;
-}
-function canChangeHostOfClass(oc){
-  return isSuperadmin();
 }
 function isHostOfOnlineClass(oc){
   if(!oc || !state.user) return false;
@@ -2205,7 +2114,6 @@ function platformOf(u){
 }
 function baseUrl(){ return location.href.split(/[?#]/)[0]; }
 function classLink(id){ return baseUrl()+'?online='+encodeURIComponent(id); }
-function meetLink(id){ return baseUrl()+'?meet='+encodeURIComponent(id); }
 function kioskLink(){ return baseUrl()+'?kiosk=1'; }
 function copyText(t){
   const done = ()=> toast('Đã sao chép','ok');
@@ -2425,7 +2333,7 @@ function goView(v){
     dashboard:'Tổng quan', schedule:'Thời khoá biểu & Sự kiện', duty:'Lịch trực nhật',
     lookup:'Tra cứu lịch trực của tôi', students:'Học sinh & tài khoản', tasktypes:'Đầu việc trực nhật',
     zalo:'Zalo Bot & Thông báo', settings:'Cài đặt lớp',
-    leaveApply:'Đơn xin nghỉ / đến muộn', leaveApprove:'Duyệt đơn nghỉ / muộn', admins:'Quản trị viên'
+    leaveApply:'Đơn từ', leaveApprove:'Duyệt đơn từ', admins:'Quản trị viên'
   };
   document.getElementById('topbarTitle').textContent = titles[v]||(typeof EXT_TITLES!=='undefined'?EXT_TITLES[v]:null)||'—';
   document.getElementById('topbarDate').textContent = 'Hôm nay ' + fmtFull(new Date());
@@ -2460,7 +2368,7 @@ function goCurrentWeek(scope){ state.weekStart = getMonday(new Date()); initWeek
 function weekLabelText(){ const end = addDays(state.weekStart,6); return 'Tuần: ' + fmtShort(state.weekStart)+' – '+fmtFull(end); }
 
 /* =========================================================================
-   SCHEDULE - NÂNG CẤP: HIỂN THỊ ĐẦY ĐỦ 7 NGÀY (T2-CN)
+   SCHEDULE
 ========================================================================= */
 function itemsForDate(d){
   const key = dateKey(d);
@@ -2481,7 +2389,6 @@ function itemForSlot(dow, periodId, weekStartForDate){
 function renderScheduleView(){
   document.getElementById('weekLabel').textContent = weekLabelText();
   const table = document.getElementById('schedTable');
-  /* NÂNG CẤP: Hiển thị đầy đủ 7 ngày */
   const days = [...Array(SCHEDULE_DAYS)].map((_,i)=> addDays(state.weekStart,i));
   const P = periods();
   let thead = '<thead><tr><th class="colhead">Buổi</th><th class="colhead">Tiết</th><th class="colhead" style="width:98px;">Thời gian</th>' +
@@ -2545,16 +2452,42 @@ function renderSchedItem(it){
   if(it.type==='lesson'){ const c = subjectColor(it.subject); styleAttr = ` style="--subj-bg:${c.bg};--subj-accent:${c.accent};"`; }
   return `<div class="sched-item ${cls}"${styleAttr}>${actions}<div class="t">${title}</div>${sub? `<div class="sub2">${sub}</div>`:''}${bell}</div>`;
 }
+let itemListFilter = 'all';
+function setItemListFilter(f){ itemListFilter = f; renderItemFullList(); }
 function renderItemFullList(){
-  const list = Object.entries(state.items||{}).sort((a,b)=>(a[1].startTime||'').localeCompare(b[1].startTime||''));
+  let list = Object.entries(state.items||{}).sort((a,b)=>{
+    const ta = a[1].recurrence==='once' ? a[1].date : ('W'+(a[1].dayOfWeek||0));
+    const tb = b[1].recurrence==='once' ? b[1].date : ('W'+(b[1].dayOfWeek||0));
+    return (ta||'').localeCompare(tb||'') || (a[1].startTime||'').localeCompare(b[1].startTime||'');
+  });
+  if(itemListFilter!=='all') list = list.filter(([id,it])=> it.type===itemListFilter);
   const el = document.getElementById('itemFullList'); if(!el) return;
-  if(list.length===0){ el.innerHTML = '<div class="empty-note">Chưa có mục nào.</div>'; return; }
+  const tabsEl = document.getElementById('itemFullListTabs');
+  if(tabsEl){
+    const all = Object.values(state.items||{});
+    const cntAll = all.length, cntL = all.filter(x=>x.type==='lesson').length, cntE = all.filter(x=>x.type==='event').length;
+    tabsEl.innerHTML = [
+      ['all','Tất cả',cntAll],['lesson','Lịch học',cntL],['event','Sự kiện',cntE]
+    ].map(t=>'<button class="'+(itemListFilter===t[0]?'on':'')+'" onclick="setItemListFilter(\''+t[0]+'\')">'+t[1]+'<span class="cnt">'+t[2]+'</span></button>').join('');
+  }
+  if(list.length===0){ el.innerHTML = '<div class="empty-box">Chưa có mục nào.</div>'; return; }
   const canEdit = hasPerm('schedule');
   el.innerHTML = list.map(([id,it])=>{
     const when = it.recurrence==='once' ? ('Một lần · '+fmtFull(new Date(it.date+'T00:00:00'))) : ('Hàng tuần · '+WEEKDAYS[it.dayOfWeek]);
     const label = it.type==='lesson' ? it.subject : it.title;
-    const meta = it.type==='lesson' ? `${it.teacher||'—'} · ${it.startTime||''}-${it.endTime||''} · ${when}` : `${it.startTime||''}-${it.endTime||''} · ${when}`;
-    return `<div class="item-row"><div class="tag"><span class="pill ${it.type==='lesson'?'pill-nam':'pill-accent'}">${it.type==='lesson'?'Lịch học':'Sự kiện'}</span></div><div class="desc"><b>${esc(label)}</b><div class="meta">${esc(meta)}</div></div>${canEdit? `<div class="row gap-8"><button class="icon-btn" onclick="openItemModal(${attrStr(id)})">✎</button><button class="icon-btn" onclick="deleteItem(${attrStr(id)})">✕</button></div>`:''}</div>`;
+    const meta2 = it.type==='lesson' ? it.teacher : (it.content||'').slice(0,80);
+    const timeStr = (it.startTime||'') + (it.endTime? ' – '+it.endTime : '');
+    const typeLabel = it.type==='lesson' ? 'Lịch học' : 'Sự kiện';
+    const actionsHTML = canEdit ? '<div class="item-card-actions"><button class="icon-btn" onclick="event.stopPropagation();openItemModal('+attrStr(id)+')" title="Sửa">'+ic('edit',14)+'</button><button class="icon-btn danger" onclick="event.stopPropagation();deleteItem('+attrStr(id)+')" title="Xoá">'+ic('trash',14)+'</button></div>' : '';
+    return '<div class="item-card '+(it.type==='event'?'event':'')+'" '+(canEdit?'onclick="openItemModal('+attrStr(id)+')"':'')+'>'+
+      '<div class="item-card-top"><span class="item-card-type">'+typeLabel+'</span>'+actionsHTML+'</div>'+
+      '<div class="item-card-title">'+esc(label)+'</div>'+
+      '<div class="item-card-meta">'+
+        '<div class="row-meta">'+ic('clock',13)+'<span>'+esc(timeStr||'—')+'</span></div>'+
+        '<div class="row-meta">'+ic('calendar',13)+'<span>'+esc(when)+'</span></div>'+
+        (meta2?'<div class="row-meta">'+ic('info',13)+'<span>'+esc(meta2)+'</span></div>':'')+
+      '</div>'+
+    '</div>';
   }).join('');
 }
 function openItemModal(id, presetDow, presetPeriodId){
@@ -2619,7 +2552,7 @@ function deleteItem(id){
 }
 
 /* =========================================================================
-   DUTY ROSTER - chỉ T2–T6
+   DUTY
 ========================================================================= */
 function renderDutyView(){
   document.getElementById('weekLabelDuty').textContent = weekLabelText();
@@ -2665,7 +2598,7 @@ function dutyDayCardHTML(d){
   return applicableTasks.map(([tid,t])=>{
     const assigned = (dayDuty[tid]||[]);
     const names = assigned.map(sid=>{ const nm = state.students[sid]? state.students[sid].name : sid; return isStudentAbsentOnDate(sid,dk) ? nm+' (nghỉ)' : nm; });
-    return `<div class="item-row"><div class="tag"><span class="pill pill-accent">${esc(t.name)}</span></div><div class="desc">${names.length? esc(names.join(', ')) : '<span class="empty-note">Chưa phân công</span>'}</div></div>`;
+    return `<div class="duty-item"><div class="dico">${ic('clipboard',18)}</div><div class="dbody"><div class="dtitle">${esc(t.name)}</div><div class="dnames">${names.length? '<b>'+esc(names.join(', '))+'</b>' : '<span class="dvacant">Chưa phân công</span>'}</div></div></div>`;
   }).join('');
 }
 function computeDutyCount(sid){
@@ -2780,7 +2713,7 @@ function doLookup(){
 }
 
 /* =========================================================================
-   LEAVE — UI v2
+   LEAVE
 ========================================================================= */
 function updateLeaveHeroStats(){
   const hero = document.getElementById('lvHeroStats'); if(!hero) return;
@@ -2912,6 +2845,7 @@ function renderMyLeaveList(){
       dateTxt = fmtFull(new Date(r.date+'T00:00:00'));
       timeTxt = 'Dự kiến có mặt lúc '+esc(r.time||'');
     }
+    const revokeHTML = r.status==='pending' ? '<div class="revoke-bar"><button class="btn small danger" onclick="revokeMyLeave('+attrStr(id)+')">'+ic('x',14)+' Thu hồi đơn</button></div>' : '';
     return `<div class="my-leave-card ${cls}">
       <div class="hd">
         <div class="ic">${ic(iconName,20)}</div>
@@ -2924,8 +2858,18 @@ function renderMyLeaveList(){
         <div class="ln">${ic('info',14)}<div><b>Lý do:</b> ${esc(r.reason||'—')}</div></div>
         ${r.decidedBy?'<div class="ln">'+ic('check',14)+'<div><b>Xử lý:</b> '+esc(r.decidedBy)+(r.decidedAt?' · '+new Date(r.decidedAt).toLocaleString('vi-VN'):'')+'</div></div>':''}
       </div>
+      ${revokeHTML}
     </div>`;
   }).join('');
+}
+function revokeMyLeave(id){
+  const r = state.leaves[id];
+  if(!r){ toast('Không tìm thấy','err'); return; }
+  if(r.status!=='pending'){ toast('Chỉ có thể thu hồi đơn đang chờ duyệt','err'); return; }
+  const sid = state.user.studentId || state.user.id;
+  if(r.studentId!==sid){ toast('Bạn không có quyền','err'); return; }
+  if(!confirm('Thu hồi đơn này? Đơn sẽ bị xoá khỏi hệ thống.')) return;
+  REF.leaves.child(id).remove().then(()=> toast('Đã thu hồi đơn','ok')).catch(()=> toast('Lỗi','err'));
 }
 function renderLeaveApprovalList(){
   const el = document.getElementById('leaveApprovalList'); if(!el) return;
@@ -2953,7 +2897,14 @@ function renderLeaveApprovalList(){
       dateTxt = fmtFull(new Date(r.date+'T00:00:00'));
       timeTxt = 'Dự kiến có mặt lúc '+esc(r.time||'');
     }
-    const actions = r.status==='pending' ? `<button class="btn small success" onclick="decideLeave(${attrStr(id)},'approved')">${ic('check',14)} Duyệt</button><button class="btn small danger" onclick="decideLeave(${attrStr(id)},'rejected')">${ic('x',14)} Từ chối</button>` : `<span class="small muted">${r.decidedBy? ic('check',12)+' Bởi '+esc(r.decidedBy):''}${r.decidedAt? ' · '+new Date(r.decidedAt).toLocaleString('vi-VN'):''}</span>`;
+    let actionBtns = '';
+    if(r.status==='pending'){
+      actionBtns += '<button class="btn small success" onclick="decideLeave('+attrStr(id)+',\'approved\')">'+ic('check',14)+' Duyệt</button>';
+      actionBtns += '<button class="btn small danger" onclick="decideLeave('+attrStr(id)+',\'rejected\')">'+ic('x',14)+' Từ chối</button>';
+    } else {
+      actionBtns += '<button class="btn small warn" onclick="revertLeaveDecision('+attrStr(id)+')" title="Thu hồi quyết định, đưa về chờ duyệt">'+ic('refresh',14)+' Thu hồi duyệt</button>';
+    }
+    actionBtns += '<button class="btn small danger" onclick="deleteLeaveRecord('+attrStr(id)+')" title="Xoá đơn khỏi lịch sử">'+ic('trash',14)+' Xoá đơn</button>';
     return `<div class="leave-approve-card ${cls}">
       <div class="top">
         <div class="avatar">${esc(initialsOf(r.studentName))}</div>
@@ -2966,8 +2917,9 @@ function renderLeaveApprovalList(){
         ${timeTxt?'<div class="ln">'+ic('clock',14)+'<div><b>Tiết:</b> '+timeTxt+'</div></div>':''}
         <div class="ln">${ic('info',14)}<div><b>Lý do:</b> ${esc(r.reason||'—')}</div></div>
         ${r.createdByAdmin?'<div class="ln">'+ic('crown',14)+'<div><b>Đơn do quản trị viên tạo</b></div></div>':''}
+        ${r.decidedBy?'<div class="ln">'+ic('check',14)+'<div><b>Xử lý:</b> '+esc(r.decidedBy)+(r.decidedAt?' · '+new Date(r.decidedAt).toLocaleString('vi-VN'):'')+'</div></div>':''}
       </div>
-      <div class="actions">${actions}</div>
+      <div class="actions">${actionBtns}</div>
     </div>`;
   }).join('');
   const pend = Object.entries(state.leaves||{}).filter(([id,r])=>r.status==='pending');
@@ -2980,23 +2932,83 @@ function decideLeave(id, status){
   if(status==='rejected' && !confirm('Từ chối đơn này?')) return;
   REF.leaves.child(id).update({ status, decidedAt: Date.now(), decidedBy: state.user.name }).then(()=> toast(status==='approved'?'Đã duyệt':'Đã từ chối','ok'));
 }
+function revertLeaveDecision(id){
+  if(!hasPerm('leaves')){ toast('Bạn không có quyền','err'); return; }
+  const r = state.leaves[id]; if(!r) return;
+  if(!confirm('Thu hồi quyết định duyệt đơn này và đưa về trạng thái CHỜ DUYỆT?')) return;
+  REF.leaves.child(id).update({ status:'pending', decidedAt:null, decidedBy:null }).then(()=> toast('Đã thu hồi quyết định','ok')).catch(()=> toast('Lỗi','err'));
+}
+function deleteLeaveRecord(id){
+  if(!hasPerm('leaves')){ toast('Bạn không có quyền','err'); return; }
+  const r = state.leaves[id]; if(!r) return;
+  if(!confirm('Xoá vĩnh viễn đơn này khỏi lịch sử? Không thể hoàn tác.')) return;
+  REF.leaves.child(id).remove().then(()=> toast('Đã xoá đơn','ok')).catch(()=> toast('Lỗi','err'));
+}
 function openAdminCreateLeaveModal(){
   if(!hasPerm('leaves')){ toast('Bạn không có quyền','err'); return; }
   const list = Object.values(state.students||{}).sort((a,b)=>a.name.localeCompare(b.name,'vi'));
   if(list.length===0){ toast('Chưa có học sinh','err'); return; }
-  const html = `<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal"><div class="modal-head"><h3>Tạo đơn hộ học sinh</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">
+  const html = `<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal xwide"><div class="modal-head"><h3>Tạo đơn hộ học sinh</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">
     <div class="field"><label>Học sinh</label><select id="al_student">${list.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('')}</select></div>
     <div class="radio-tabs"><label><input type="radio" name="al_type" value="off" checked onchange="toggleAdminLeaveType()"> Đơn xin nghỉ học</label><label><input type="radio" name="al_type" value="late" onchange="toggleAdminLeaveType()"> Đơn xin đến muộn</label></div>
-    <div id="al_offFields"><div class="two-col"><div class="field"><label>Từ ngày</label><input type="date" id="al_dateFrom" value="${todayKey()}"></div><div class="field"><label>Đến ngày</label><input type="date" id="al_dateTo" value="${todayKey()}"></div></div><div class="field"><label>Lý do</label><textarea id="al_offReason" rows="3"></textarea></div></div>
+    <div id="al_offFields">
+      <div class="radio-tabs"><label><input type="radio" name="al_offMode" value="single" checked onchange="onAdminLeaveOffModeChange()"> Nghỉ 1 ngày</label><label><input type="radio" name="al_offMode" value="multi" onchange="onAdminLeaveOffModeChange()"> Nghỉ nhiều ngày</label></div>
+      <div class="two-col" id="al_offSingleField"><div class="field"><label>Ngày muốn nghỉ</label><input type="date" id="al_dateSingle" value="${todayKey()}" onchange="renderAdminLeavePeriodsUI()"></div><div></div></div>
+      <div class="two-col hidden" id="al_offMultiFields"><div class="field"><label>Từ ngày</label><input type="date" id="al_dateFrom" value="${todayKey()}" onchange="renderAdminLeavePeriodsUI()"></div><div class="field"><label>Đến ngày</label><input type="date" id="al_dateTo" value="${todayKey()}" onchange="renderAdminLeavePeriodsUI()"></div></div>
+      <div class="info-box amber small"><b>Chọn các tiết nghỉ:</b> Hệ thống hiển thị các tiết học của từng ngày. Bỏ tick nếu HS chỉ nghỉ một số tiết.</div>
+      <div id="al_leavePeriodsUI"></div>
+      <div class="field"><label>Lý do</label><textarea id="al_offReason" rows="3"></textarea></div>
+    </div>
     <div id="al_lateFields" class="hidden"><div class="two-col"><div class="field"><label>Ngày</label><input type="date" id="al_lateDate" value="${todayKey()}"></div><div class="field"><label>Dự kiến có mặt</label><input type="time" id="al_lateTime"></div></div><div class="field"><label>Lý do</label><textarea id="al_lateReason" rows="3"></textarea></div></div>
     <div class="info-box small">Đơn do quản trị viên tạo sẽ <b>tự động chuyển sang trạng thái Đã duyệt</b>.</div>
     </div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Huỷ</button><button class="btn primary" onclick="submitAdminLeave()">Tạo đơn</button></div></div></div>`;
   document.getElementById('modalRoot').innerHTML = html;
+  renderAdminLeavePeriodsUI();
+}
+function onAdminLeaveOffModeChange(){
+  const mode = document.querySelector('input[name=al_offMode]:checked').value;
+  document.getElementById('al_offSingleField').classList.toggle('hidden', mode!=='single');
+  document.getElementById('al_offMultiFields').classList.toggle('hidden', mode!=='multi');
+  renderAdminLeavePeriodsUI();
+}
+function adminLeaveSelectedDates(){
+  const modeEl = document.querySelector('input[name=al_offMode]:checked');
+  if(!modeEl) return null;
+  const mode = modeEl.value;
+  let from, to;
+  if(mode==='single'){ from = to = document.getElementById('al_dateSingle').value; }
+  else { from = document.getElementById('al_dateFrom').value; to = document.getElementById('al_dateTo').value; }
+  if(!from || !to) return null;
+  const fromD = new Date(from+'T00:00:00'), toD = new Date(to+'T00:00:00');
+  if(isNaN(fromD)||isNaN(toD)||fromD>toD) return null;
+  const dates = []; let d = new Date(fromD);
+  while(d<=toD){ dates.push(new Date(d)); d = addDays(d,1); }
+  return { from, to, dates };
+}
+function renderAdminLeavePeriodsUI(){
+  const sel = adminLeaveSelectedDates();
+  const el = document.getElementById('al_leavePeriodsUI');
+  if(!el) return;
+  if(!sel){ el.innerHTML=''; return; }
+  const P = periods();
+  el.innerHTML = sel.dates.map(d=>{
+    const dk = dateKey(d);
+    const dow = (d.getDay()+6)%7;
+    const lessons = itemsForDate(d).filter(it=>it.type==='lesson' && it.periodId);
+    const lessonsByPeriod = {}; lessons.forEach(l=> lessonsByPeriod[l.periodId]=l);
+    const applicablePeriods = P.filter(p=>!p.isBreak && lessonsByPeriod[p.id]);
+    const rows = applicablePeriods.length ? applicablePeriods.map(p=>{
+      const l = lessonsByPeriod[p.id];
+      return `<label class="lv-period selected"><input type="checkbox" class="al-period-cb" data-dk="${dk}" data-pid="${p.id}" checked onchange="lvPeriodToggle(this)"><span class="chk"></span><span class="info"><b>Tiết ${p.tiet} · ${esc(l.subject||'')}</b><small>${p.start}${p.end?' – '+p.end:''}${l.teacher? ' · '+esc(l.teacher):''}</small></span></label>`;
+    }).join('') : '<div class="empty-note">Không có tiết học được ghi nhận ngày này.</div>';
+    return `<div class="lv-day-card"><div class="lv-day-head"><div class="dic">${ic('calendar',18)}</div><div class="txt"><b>${fmtFull(d)}</b><small>${applicablePeriods.length} tiết học</small></div><span class="dow">${WEEKDAYS[dow]}</span></div><div class="lv-period-grid">${rows}</div></div>`;
+  }).join('');
 }
 function toggleAdminLeaveType(){
   const type = document.querySelector('input[name=al_type]:checked').value;
   document.getElementById('al_offFields').classList.toggle('hidden', type!=='off');
   document.getElementById('al_lateFields').classList.toggle('hidden', type!=='late');
+  if(type==='off') renderAdminLeavePeriodsUI();
 }
 function submitAdminLeave(){
   if(!hasPerm('leaves')){ toast('Bạn không có quyền','err'); return; }
@@ -3005,11 +3017,18 @@ function submitAdminLeave(){
   const type = document.querySelector('input[name=al_type]:checked').value;
   let payload;
   if(type==='off'){
-    const from = document.getElementById('al_dateFrom').value, to = document.getElementById('al_dateTo').value || from;
+    const sel = adminLeaveSelectedDates();
+    if(!sel){ toast('Vui lòng chọn ngày hợp lệ','err'); return; }
     const reason = document.getElementById('al_offReason').value.trim();
-    if(!from || !to){ toast('Vui lòng chọn ngày','err'); return; }
     if(!reason){ toast('Vui lòng nhập lý do','err'); return; }
-    payload = { studentId: sid, studentName: s.name, type:'off', mode: from===to?'single':'multi', dateFrom: from, dateTo: to, periods: {}, reason, status:'approved', createdAt: Date.now(), decidedAt: Date.now(), decidedBy: state.user.name, createdByAdmin: true };
+    const periodsByDate = {};
+    document.querySelectorAll('.al-period-cb').forEach(cb=>{
+      if(!cb.checked) return;
+      const dk = cb.dataset.dk;
+      (periodsByDate[dk] = periodsByDate[dk]||[]).push(cb.dataset.pid);
+    });
+    const mode = document.querySelector('input[name=al_offMode]:checked').value;
+    payload = { studentId: sid, studentName: s.name, type:'off', mode, dateFrom: sel.from, dateTo: sel.to, periods: periodsByDate, reason, status:'approved', createdAt: Date.now(), decidedAt: Date.now(), decidedBy: state.user.name, createdByAdmin: true };
   } else {
     const date = document.getElementById('al_lateDate').value, time = document.getElementById('al_lateTime').value;
     const reason = document.getElementById('al_lateReason').value.trim();
@@ -3045,21 +3064,72 @@ function renderDashboard(){
   const nu = Object.values(state.students||{}).filter(s=>s.gender==='nu').length;
   const todayItems = itemsForDate(new Date());
   const absentToday = absentListForDate(todayKey());
-  document.getElementById('dashStats').innerHTML = `
-    <div class="stat-card"><div class="lbl">Sĩ số lớp</div><div class="val">${total}</div><div class="foot">${nam} nam · ${nu} nữ</div></div>
-    <div class="stat-card"><div class="lbl">Sĩ số dự kiến hôm nay</div><div class="val">${total-absentToday.length}/${total}</div><div class="foot">${absentToday.length? absentToday.length+' bạn có đơn xin nghỉ':'không có ai xin nghỉ'}</div></div>
-    <div class="stat-card"><div class="lbl">Lịch hôm nay</div><div class="val">${todayItems.length}</div><div class="foot">tiết học & sự kiện</div></div>
-    <div class="stat-card"><div class="lbl">Đầu việc trực nhật</div><div class="val">${Object.keys(state.taskTypes||{}).length}</div><div class="foot">đang áp dụng</div></div>
-    <div class="stat-card"><div class="lbl">Zalo Bot</div><div class="val">${state.zaloCfg && state.zaloCfg.dailyEnabled ? 'Bật':'Tắt'}</div><div class="foot">${state.zaloCfg && state.zaloCfg.dailyTime || '—'}</div></div>`;
+  const lessonsCount = todayItems.filter(i=>i.type==='lesson').length;
+
+  /* Dashboard stats — HS chỉ thấy 3 mục */
+  if(isStudentUser() && !isAdmin()){
+    document.getElementById('dashStats').innerHTML = `
+      <div class="stat-card"><div class="lbl">Sĩ số lớp</div><div class="val">${total}</div><div class="foot">${nam} nam · ${nu} nữ</div></div>
+      <div class="stat-card info"><div class="lbl">Sĩ số dự kiến hôm nay</div><div class="val">${total-absentToday.length}/${total}</div><div class="foot">${absentToday.length? absentToday.length+' bạn có đơn xin nghỉ':'không có ai xin nghỉ'}</div></div>
+      <div class="stat-card ok"><div class="lbl">Lịch học hôm nay</div><div class="val">${lessonsCount}</div><div class="foot">${todayItems.length-lessonsCount} sự kiện kèm theo</div></div>`;
+  } else {
+    document.getElementById('dashStats').innerHTML = `
+      <div class="stat-card"><div class="lbl">Sĩ số lớp</div><div class="val">${total}</div><div class="foot">${nam} nam · ${nu} nữ</div></div>
+      <div class="stat-card info"><div class="lbl">Sĩ số dự kiến hôm nay</div><div class="val">${total-absentToday.length}/${total}</div><div class="foot">${absentToday.length? absentToday.length+' bạn có đơn xin nghỉ':'không có ai xin nghỉ'}</div></div>
+      <div class="stat-card ok"><div class="lbl">Lịch hôm nay</div><div class="val">${todayItems.length}</div><div class="foot">tiết học & sự kiện</div></div>
+      <div class="stat-card"><div class="lbl">Đầu việc trực nhật</div><div class="val">${Object.keys(state.taskTypes||{}).length}</div><div class="foot">đang áp dụng</div></div>
+      <div class="stat-card"><div class="lbl">Zalo Bot</div><div class="val">${state.zaloCfg && state.zaloCfg.dailyEnabled ? 'Bật':'Tắt'}</div><div class="foot">${state.zaloCfg && state.zaloCfg.dailyTime || '—'}</div></div>`;
+  }
+
+  /* Lịch học & sự kiện hôm nay - dạng timeline */
   const sEl = document.getElementById('dashSchedToday');
-  sEl.innerHTML = todayItems.length===0 ? '<div class="empty-note">Không có lịch học / sự kiện hôm nay.</div>' :
-    todayItems.map(it=>{
+  const sCountEl = document.getElementById('dashTodayCount');
+  if(sCountEl) sCountEl.textContent = todayItems.length + ' mục';
+  if(todayItems.length===0){
+    sEl.innerHTML = '<div class="empty-box" style="padding:24px">Không có lịch học / sự kiện nào hôm nay.</div>';
+  } else {
+    sEl.innerHTML = '<div class="timeline">'+todayItems.map(it=>{
       const label = it.type==='lesson'? it.subject : it.title;
       const meta = it.type==='lesson' ? (it.teacher||'') : (it.content||'');
-      return `<div class="item-row"><div class="tag"><span class="pill ${it.type==='lesson'?'pill-nam':'pill-accent'}">${it.type==='lesson'?'Lịch học':'Sự kiện'}</span></div><div class="desc"><b>${it.startTime||''} · ${esc(label)}</b><div class="meta">${esc(meta)}</div></div></div>`;
-    }).join('');
+      const startT = it.startTime || '—';
+      const endT = it.endTime || '';
+      const tag = it.type==='lesson' ? 'Lịch học' : 'Sự kiện';
+      return `<div class="tl-item ${it.type==='event'?'event':''}">
+        <span class="tl-dot"></span>
+        <div class="tl-time">${esc(startT)}${endT?'<small>'+esc(endT)+'</small>':''}</div>
+        <div class="tl-body">
+          <div class="tl-title"><span class="tag">${tag}</span>${esc(label)}</div>
+          ${meta?'<div class="tl-sub">'+esc(meta)+'</div>':''}
+        </div>
+      </div>`;
+    }).join('')+'</div>';
+  }
+
+  /* Duty hôm nay - panel riêng */
   const dEl = document.getElementById('dashDutyToday');
-  dEl.innerHTML = dutyDayCardHTML(new Date());
+  const dCountEl = document.getElementById('dashDutyCount');
+  const today = new Date();
+  const dow = (today.getDay()+6)%7;
+  if(dow>4){
+    if(dCountEl) dCountEl.textContent = '0 việc';
+    dEl.innerHTML = '<div class="empty-box" style="padding:24px">Hôm nay là '+(dow===5?'Thứ 7':'Chủ nhật')+', lớp không trực nhật.</div>';
+  } else {
+    const dk = dateKey(today);
+    const dayDuty = (state.duty && state.duty[dk]) || {};
+    const applicableTasks = Object.entries(state.taskTypes||{})
+      .filter(([tid,t])=> t.dayOfWeek===null || t.dayOfWeek===undefined || t.dayOfWeek===dow)
+      .sort((a,b)=>(a[1].order||0)-(b[1].order||0));
+    if(dCountEl) dCountEl.textContent = applicableTasks.length + ' việc';
+    if(applicableTasks.length===0){
+      dEl.innerHTML = '<div class="empty-box" style="padding:24px">Chưa có đầu việc trực nhật nào.</div>';
+    } else {
+      dEl.innerHTML = applicableTasks.map(([tid,t])=>{
+        const assigned = (dayDuty[tid]||[]);
+        const names = assigned.map(sid=>{ const nm = state.students[sid]? state.students[sid].name : sid; return isStudentAbsentOnDate(sid,dk) ? nm+' (nghỉ)' : nm; });
+        return `<div class="duty-item"><div class="dico">${ic('clipboard',18)}</div><div class="dbody"><div class="dtitle">${esc(t.name)}</div><div class="dnames">${names.length? '<b>'+esc(names.join(', '))+'</b>' : '<span class="dvacant">Chưa phân công</span>'}</div></div></div>`;
+      }).join('');
+    }
+  }
 }
 
 /* =========================================================================
@@ -3204,7 +3274,7 @@ function saveTaskType(id){
 function deleteTaskType(id){ if(!confirm('Xoá đầu việc này?')) return; REF.taskTypes.child(id).remove().then(()=> toast('Đã xoá','ok')); }
 
 /* =========================================================================
-   SETTINGS — periods
+   SETTINGS
 ========================================================================= */
 let workingPeriods = null;
 function renderPeriodsTable(){ workingPeriods = JSON.parse(JSON.stringify(periods())); drawPeriodsTable(); }
@@ -3401,7 +3471,7 @@ setInterval(()=>{
 }, 15000);
 
 /* =========================================================================
-   EXCEL — styles + templates
+   EXCEL
 ========================================================================= */
 const XLSX_BORDER = { top:{style:'thin',color:{rgb:'999999'}}, bottom:{style:'thin',color:{rgb:'999999'}}, left:{style:'thin',color:{rgb:'999999'}}, right:{style:'thin',color:{rgb:'999999'}} };
 const XL_STYLES = {
@@ -3687,7 +3757,7 @@ async function recordAttendance(o){
 }
 
 /* =========================================================================
-   ONLINE CLASS - NÂNG CẤP: THÊM NHIỀU ADMIN
+   ONLINE CLASS
 ========================================================================= */
 function ocTimes(oc){
   const d = dateFromKey(oc.date);
@@ -4178,19 +4248,86 @@ async function attControlDoor(door, action){
 }
 async function attSaveDoorDuration(){ const v = parseInt(document.getElementById('doorDefaultDur').value,10)||5; try{ await db.ref('settings/defaultDoorDuration').set(v); toast('Đã lưu','ok'); }catch(e){ toast('Lỗi','err'); } }
 function renderAttMeetConfigForm(){
-  const s = state.settings||{}, t = s.turn||{};
+  const s = state.settings||{};
   const set = (id,v)=>{ const el=document.getElementById(id); if(el && document.activeElement!==el) el.value = v; };
   set('cfgKioskThr', s.kioskFaceThreshold!=null ? s.kioskFaceThreshold : 0.40);
   set('cfgOnlineThr', s.onlineFaceThreshold!=null ? s.onlineFaceThreshold : 0.50);
-  set('cfgTurnUrl', t.urls||''); set('cfgTurnUser', t.username||''); set('cfgTurnPass', t.credential||'');
+  set('cfgGmeetClientId', s.gmeetClientId||'');
   set('kioskLinkBox', kioskLink());
+  gmeetUpdateStatusPill();
 }
 async function saveAttMeetConfig(){
   const k = parseFloat(document.getElementById('cfgKioskThr').value), o = parseFloat(document.getElementById('cfgOnlineThr').value);
   if(!(k>=0.2&&k<=0.7) || !(o>=0.3&&o<=0.8)){ toast('Ngưỡng không hợp lệ','err'); return; }
-  const urls = document.getElementById('cfgTurnUrl').value.trim();
-  if(urls && !urls.split(',').every(u=>/^turns?:/i.test(u.trim()))){ toast('TURN URL sai','err'); return; }
-  try{ await db.ref('settings').update({ kioskFaceThreshold:k, onlineFaceThreshold:o, turn: urls ? { urls, username:document.getElementById('cfgTurnUser').value.trim(), credential:document.getElementById('cfgTurnPass').value } : null }); toast('Đã lưu','ok'); }catch(e){ toast('Lỗi','err'); }
+  try{ await db.ref('settings').update({ kioskFaceThreshold:k, onlineFaceThreshold:o }); toast('Đã lưu','ok'); }catch(e){ toast('Lỗi','err'); }
+}
+async function saveGmeetClientId(){
+  const v = document.getElementById('cfgGmeetClientId').value.trim();
+  try{ await db.ref('settings/gmeetClientId').set(v||null); toast('Đã lưu Client ID','ok'); }catch(e){ toast('Lỗi','err'); }
+}
+/* =========================================================================
+   GOOGLE MEET — tự động tạo liên kết qua Google Calendar API (client-side)
+========================================================================= */
+const GM = { token:null, expiresAt:0, tokenClient:null };
+function gmeetUpdateStatusPill(){
+  const el = document.getElementById('gmeetStatusPill'); if(!el) return;
+  const ok = GM.token && Date.now() < GM.expiresAt;
+  el.textContent = ok ? 'Đã kết nối Google' : 'Chưa kết nối';
+  el.className = 'pill ' + (ok ? 'pill-green' : 'pill-muted');
+}
+function gmeetClientId(){ return (state.settings && state.settings.gmeetClientId) || ''; }
+function gmeetConnect(){
+  return new Promise((resolve, reject)=>{
+    const cid = gmeetClientId();
+    if(!cid){ toast('Chưa cấu hình Google OAuth Client ID trong Cài đặt','err'); reject(new Error('no client id')); return; }
+    if(typeof google==='undefined' || !google.accounts || !google.accounts.oauth2){ toast('Chưa tải xong thư viện Google, thử lại sau giây lát','err'); reject(new Error('gis not loaded')); return; }
+    if(GM.token && Date.now() < GM.expiresAt - 5000){ resolve(GM.token); return; }
+    try{
+      GM.tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: cid,
+        scope: 'https://www.googleapis.com/auth/calendar.events',
+        callback: (resp)=>{
+          if(resp && resp.access_token){
+            GM.token = resp.access_token; GM.expiresAt = Date.now() + (parseInt(resp.expires_in,10)||3500)*1000;
+            gmeetUpdateStatusPill(); toast('Đã kết nối Google','ok'); resolve(GM.token);
+          } else reject(new Error('no token'));
+        },
+        error_callback: (err)=>{ toast('Kết nối Google thất bại','err'); reject(err); }
+      });
+      GM.tokenClient.requestAccessToken({ prompt: GM.token ? '' : 'consent' });
+    }catch(e){ toast('Lỗi kết nối Google: '+(e.message||e),'err'); reject(e); }
+  });
+}
+/* Tạo 1 sự kiện Google Calendar kèm Google Meet, trả về link Meet (không giới hạn thời gian sử dụng). */
+async function gmeetCreateLink(title, startDate, endDate){
+  await gmeetConnect();
+  const body = {
+    summary: title || 'Cuộc họp',
+    start: { dateTime: (startDate instanceof Date ? startDate : new Date()).toISOString() },
+    end: { dateTime: (endDate instanceof Date ? endDate : new Date(Date.now()+3600000)).toISOString() },
+    conferenceData: { createRequest: { requestId: 'req-'+Date.now()+'-'+Math.random().toString(36).slice(2,8), conferenceSolutionKey: { type:'hangoutsMeet' } } }
+  };
+  const res = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1', {
+    method:'POST', headers:{ 'Authorization':'Bearer '+GM.token, 'Content-Type':'application/json' }, body: JSON.stringify(body)
+  });
+  if(!res.ok){ const t = await res.text().catch(()=>''); throw new Error('Google API lỗi ('+res.status+') '+t.slice(0,200)); }
+  const data = await res.json();
+  const link = data.hangoutLink || (data.conferenceData && data.conferenceData.entryPoints && (data.conferenceData.entryPoints.find(e=>e.entryPointType==='video')||{}).uri);
+  if(!link) throw new Error('Không lấy được link Meet từ Google');
+  return link;
+}
+/* Gắn vào 1 nút "Tạo Google Meet tự động" cạnh 1 ô input link. btnId: nút bấm, inputId: ô input link, titleGetter: hàm trả về tiêu đề cuộc họp. */
+async function gmeetFillInto(btnId, inputId, titleGetter){
+  const btn = document.getElementById(btnId), input = document.getElementById(inputId);
+  if(!input) return;
+  const title = (titleGetter && titleGetter()) || (document.title||'Cuộc họp');
+  if(btn){ btn.disabled = true; btn.textContent = 'Đang tạo…'; }
+  try{
+    const link = await gmeetCreateLink(title, new Date(), new Date(Date.now()+3600000));
+    input.value = link;
+    toast('Đã tạo link Google Meet','ok');
+  }catch(e){ toast('Không tạo được Google Meet: '+(e.message||e),'err'); }
+  finally{ if(btn){ btn.disabled = false; btn.textContent = '📅 Tạo Google Meet tự động'; } }
 }
 
 /* =========================================================================
@@ -4245,7 +4382,7 @@ function inviteCardHTML(o, adminView){
 /* =========================================================================
    KIOSK
 ========================================================================= */
-const K = { door:null, users:{}, students:{}, schedules:[], active:[], selected:null, doorData:{status:'locked'}, day:{}, settings:{}, leaves:{}, stream:null, running:false, busy:false, faceMode:false, qr:null, unlockT:null, ovT:null, lockT:null, tick:null, last:{}, recent:[], subs:[], modelsReady:false, attFilter:'all' };
+const K = { door:null, users:{}, students:{}, schedules:[], active:[], selected:null, doorData:{status:'locked'}, day:{}, settings:{}, leaves:{}, duty:{}, taskTypes:{}, stream:null, running:false, busy:false, faceMode:false, qr:null, unlockT:null, ovT:null, lockT:null, tick:null, last:{}, recent:[], subs:[], modelsReady:false, attFilter:'all' };
 function kioskBoot(){
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('app').classList.remove('active');
@@ -4269,12 +4406,14 @@ function kioskInit(){
   kioskLoadModels();
   const on = (ref, fn)=>{ const cb = ref.on('value', fn); K.subs.push({ref, cb}); };
   on(db.ref('users'), s=>{ K.users = s.val()||{}; });
-  on(db.ref('students'), s=>{ K.students = s.val()||{}; state.students = K.students; kioskRenderCount(); kioskRenderAttList(); });
+  on(db.ref('students'), s=>{ K.students = s.val()||{}; state.students = K.students; kioskRenderCount(); kioskRenderAttList(); kioskRenderDuty(); });
   on(db.ref('schedules'), s=>{ const d=s.val()||{}; K.schedules = Object.keys(d).map(k=>Object.assign({id:k},d[k])); kioskFilterSchedules(); });
   on(db.ref('doors/'+K.door), s=>{ K.doorData = s.val()||{status:'locked'}; kioskRenderDoor(); });
   on(db.ref('settings'), s=>{ K.settings = s.val()||{}; });
   on(db.ref('attendanceDays/'+todayKey()), s=>{ K.day = s.val()||{}; kioskRenderCount(); kioskRenderAttList(); });
   on(db.ref('leaveRequests'), s=>{ K.leaves = s.val()||{}; kioskRenderAttList(); });
+  on(db.ref('duty'), s=>{ K.duty = s.val()||{}; kioskRenderDuty(); });
+  on(db.ref('dutyTaskTypes'), s=>{ K.taskTypes = s.val()||{}; kioskRenderDuty(); });
   K.tick = setInterval(()=>{ kioskRenderDoor(); kioskFilterSchedules(true); }, 1000);
 }
 async function kioskLoadModels(){ try{ await ensureFaceApi(); K.modelsReady = true; kioskButtons(); } catch(e){ K.modelsReady = false; } }
@@ -4325,7 +4464,7 @@ async function kioskRefresh(){
     const [u,st,sc] = await Promise.all([db.ref('users').once('value'), db.ref('students').once('value'), db.ref('schedules').once('value')]);
     K.users = u.val()||{}; K.students = st.val()||{}; state.students = K.students;
     const d = sc.val()||{}; K.schedules = Object.keys(d).map(k=>Object.assign({id:k},d[k]));
-    kSchedSig=''; kioskFilterSchedules(); kioskRenderCount(); kioskRenderAttList(); toast('Đã làm mới','ok');
+    kSchedSig=''; kioskFilterSchedules(); kioskRenderCount(); kioskRenderAttList(); kioskRenderDuty(); toast('Đã làm mới','ok');
     if(!K.modelsReady) kioskLoadModels();
   }catch(e){ toast('Lỗi','err'); }
 }
@@ -4471,12 +4610,46 @@ async function kioskMarkPresent(sid){
   if(!confirm('Đánh dấu "'+s.name+'" có mặt?')) return;
   try{ await recordAttendance({ studentId:sid, userId:sid, name:s.name, method:'manual', scheduleName:'Kiosk điểm danh', door:K.door, note:'Đánh dấu tại Kiosk' }); toast('Đã đánh dấu '+s.name,'ok'); }catch(e){ toast('Lỗi','err'); }
 }
+/* NÂNG CẤP: Kiosk hiển thị lịch trực nhật hôm nay */
+function kioskRenderDuty(){
+  const box = document.getElementById('kDutyBody'); if(!box) return;
+  const dateEl = document.getElementById('kDutyDate');
+  const today = new Date();
+  const dow = (today.getDay()+6)%7;
+  if(dateEl) dateEl.textContent = fmtFull(today) + ' · ' + WEEKDAYS[dow];
+  if(dow>4){
+    box.innerHTML = '<div class="k-duty-empty" style="grid-column:1/-1">Hôm nay là '+(dow===5?'Thứ 7':'Chủ nhật')+' — lớp không trực nhật.</div>';
+    return;
+  }
+  const dk = dateKey(today);
+  const dayDuty = (K.duty && K.duty[dk]) || {};
+  const applicableTasks = Object.entries(K.taskTypes||{})
+    .filter(([tid,t])=> t.dayOfWeek===null || t.dayOfWeek===undefined || t.dayOfWeek===dow)
+    .sort((a,b)=>(a[1].order||0)-(b[1].order||0));
+  if(applicableTasks.length===0){
+    box.innerHTML = '<div class="k-duty-empty" style="grid-column:1/-1">Chưa có đầu việc trực nhật nào được cấu hình.</div>';
+    return;
+  }
+  box.innerHTML = applicableTasks.map(([tid,t])=>{
+    const assigned = (dayDuty[tid]||[]);
+    const names = assigned.map(sid=>{
+      const nm = K.students[sid]? K.students[sid].name : sid;
+      const abs = (()=>{
+        let lv=null;
+        Object.values(K.leaves||{}).forEach(r=>{ if(r.type!=='off' || r.studentId!==sid || r.status==='rejected') return; if(dk>=r.dateFrom && dk<=r.dateTo){ if(!lv || r.status==='approved') lv=r; } });
+        return lv && lv.status==='approved';
+      })();
+      return abs ? nm+' (nghỉ)' : nm;
+    });
+    return '<div class="k-duty-item"><div class="dico">'+ic('clipboard',20)+'</div><div class="dbody"><div class="dtitle">'+esc(t.name)+'</div><div class="dnames">'+(names.length? '<b>'+esc(names.join(', '))+'</b>' : '<span class="dvacant">Chưa phân công</span>')+'</div></div></div>';
+  }).join('');
+}
 setInterval(()=>{ if(document.getElementById('kiosk').classList.contains('on') && document.getElementById('kAttList') && document.getElementById('kAttList').style.display!=='none') kioskRenderAttList(); }, 5000);
-setInterval(()=>{ if(document.getElementById('kiosk').classList.contains('on')) kioskRenderCount(); }, 4000);
+setInterval(()=>{ if(document.getElementById('kiosk').classList.contains('on')){ kioskRenderCount(); } }, 4000);
+setInterval(()=>{ if(document.getElementById('kiosk').classList.contains('on')){ const tk = todayKey(); if(tk!==K._lastDutyDay){ K._lastDutyDay = tk; kioskRenderDuty(); } } }, 20000);
 
 /* =========================================================================
    ONLINE CLASS — Modal / List / Approval / Host assignment
-   NÂNG CẤP: THÊM NHIỀU ADMIN
 ========================================================================= */
 function slotOnlineHTML(d, dow, p){
   const dk = dateKey(d), oc = classForSlot(dk, p.id);
@@ -4527,12 +4700,12 @@ function renderOnlineList(){
     const mine = !!(o.verified && sid && o.verified[sid]);
     const canEdit = canEditOnlineClass(o);
     const canHost = canHostOnlineClass(o);
+    const pendingN = Object.keys(o.pending||{}).length;
     let meta = '<div class="meta">'+(o.subject?esc(o.subject)+' · ':'')+(o.teacher?'GV: '+esc(o.teacher)+' · ':'')+(o.meetType==='internal'?'Phòng Meet tích hợp':'Link '+esc(o.platform||'ngoài'))+(o.requireApproval?' · <b>Cần duyệt</b>':'')+'</div>';
     if(o.hostName) meta += '<div class="meta"><b>Chủ trì:</b> '+esc(o.hostName)+'</div>';
     if(o.admins && Object.keys(o.admins).length) meta += '<div class="meta"><b>Quản trị viên:</b> '+Object.entries(o.admins).map(([k,v])=>esc(v.name||k)).join(', ')+'</div>';
     if(o.note) meta += '<div class="meta"><b>Lưu ý:</b> '+esc(o.note)+'</div>';
     if(adm && (canEdit||canHost)){
-      const pendingN = Object.keys(o.pending||{}).length;
       meta += '<div class="meta">Đã xác thực <b>'+ver+'/'+ids.length+'</b>'+(pendingN?' · <b style="color:#B4631C">'+pendingN+' chờ duyệt</b>':'')+(o.hasPassword?' · có mật khẩu':'')+'</div><div class="prog"><i style="width:'+(ids.length?Math.round(ver*100/ids.length):0)+'%"></i></div>';
     }
     let act = '';
@@ -4543,47 +4716,19 @@ function renderOnlineList(){
         (canEdit?'<button class="btn small outline icon-only" onclick="openOnlineModal({id:'+attrStr(o.id)+'})" title="Sửa">'+ic('edit',14)+'</button>':'');
     } else if(!isPast(o)){
       const approved = ocApprovedFor(o, sid), pending = ocPendingFor(o, sid);
-      if(o.requireApproval && !approved){
-        act = pending ? '<span class="pill pill-amber">Đang chờ duyệt</span>' : '<button class="btn primary small" onclick="ocRequestJoin('+attrStr(o.id)+')">Yêu cầu tham gia</button>';
-      } else {
-        act = '<button class="btn primary small" onclick="openOnlineJoin('+attrStr(o.id)+')">'+(mine?'Vào lớp':'Tham gia')+'</button>';
-      }
+      act = '<button class="btn primary small" onclick="openOnlineJoin('+attrStr(o.id)+')">'+(mine?'Vào lớp':'Tham gia')+'</button>';
     }
     const aprBadge = o.requireApproval ? '<span class="pill pill-amber">Cần duyệt</span>' : '';
     const admBadge = (o.admins && Object.keys(o.admins).length) ? '<span class="pill pill-teal">'+Object.keys(o.admins).length+' QTV</span>' : '';
     return '<div class="oc-item"><div class="oc-time"><b>'+fmtHM(t.start)+' – '+fmtHM(t.end)+'</b>'+WEEKDAYS[(t.start.getDay()+6)%7]+'<br>'+fmtFull(t.start)+'</div><div class="oc-main"><div class="ttl">'+esc(o.title)+' '+aprBadge+' '+admBadge+' <span class="pill '+lb[1]+'">'+lb[0]+'</span>'+(mine&&!adm?' <span class="pill pill-green">Đã xác thực</span>':'')+(o.hostName?' <span class="pill pill-purple">Chủ trì: '+esc(o.hostName)+'</span>':'')+'</div>'+meta+'</div><div class="oc-act">'+act+'</div></div>';
   }).join('');
 }
-async function ocRequestJoin(id){
-  const oc = state.onlineClasses[id]; if(!oc){ toast('Không tìm thấy','err'); return; }
-  const sid = state.user && state.user.studentId; if(!sid){ toast('Không xác định HS','err'); return; }
-  if(!confirm('Gửi yêu cầu tham gia lớp "'+oc.title+'"?')) return;
-  try{ await db.ref('onlineClasses/'+id+'/pending/'+sid).set({ name: state.user.name, ts: serverNow() }); toast('Đã gửi yêu cầu — chờ duyệt','ok'); }
-  catch(e){ toast('Lỗi','err'); }
-}
-async function ocApprovePending(cid, sid){
-  const oc = state.onlineClasses[cid]; if(!oc) return;
-  const p = (oc.pending||{})[sid]; if(!p) return;
-  try{ await db.ref('onlineClasses/'+cid+'/approved/'+sid).set(serverNow()); await db.ref('onlineClasses/'+cid+'/pending/'+sid).remove(); toast('Đã duyệt '+p.name,'ok'); }
-  catch(e){ toast('Lỗi','err'); }
-}
-async function ocRejectPending(cid, sid){
-  const oc = state.onlineClasses[cid]; if(!oc) return;
-  const p = (oc.pending||{})[sid]; if(!p) return;
-  if(!confirm('Từ chối '+p.name+'?')) return;
-  try{ await db.ref('onlineClasses/'+cid+'/pending/'+sid).remove(); toast('Đã từ chối','ok'); }catch(e){ toast('Lỗi','err'); }
-}
-async function ocRevokeApproval(cid, sid){
-  const oc = state.onlineClasses[cid]; if(!oc) return;
-  const s = state.students[sid] || {name:sid};
-  if(!confirm('Thu hồi quyền của '+s.name+'?')) return;
-  try{ await db.ref('onlineClasses/'+cid+'/approved/'+sid).remove(); toast('Đã thu hồi','ok'); }catch(e){ toast('Lỗi','err'); }
-}
 function openOnlineApprovalModal(cid){
   const oc = state.onlineClasses[cid]; if(!oc){ toast('Không tìm thấy','err'); return; }
   const pending = Object.entries(oc.pending||{}).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
   const approved = Object.entries(oc.approved||{}).sort((a,b)=>(b[1]||0)-(a[1]||0));
   const html = `<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>Duyệt người tham gia: ${esc(oc.title)}</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">
+    <div class="info-box small"><b>Lưu ý:</b> Việc phê duyệt chính cũng có thể được thực hiện ngay trong phòng Meet.</div>
     <div class="section-title">Yêu cầu đang chờ (${pending.length})</div>
     ${pending.length ? pending.map(([sid,p])=>`<div class="approval-row"><span class="pill pill-nam">${esc(sid)}</span><span class="nm">${esc(p.name||sid)}</span><span class="ts">${p.ts?fmtDT(p.ts):''}</span><button class="btn small primary" onclick="ocApprovePending(${attrStr(cid)},${attrStr(sid)});setTimeout(()=>openOnlineApprovalModal(${attrStr(cid)}),300)">Duyệt</button><button class="btn small danger" onclick="ocRejectPending(${attrStr(cid)},${attrStr(sid)});setTimeout(()=>openOnlineApprovalModal(${attrStr(cid)}),300)">Từ chối</button></div>`).join('') : '<div class="empty-note">Không có yêu cầu nào.</div>'}
     <div class="section-title">Đã được duyệt (${approved.length})</div>
@@ -4591,7 +4736,6 @@ function openOnlineApprovalModal(cid){
     </div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Đóng</button></div></div></div>`;
   document.getElementById('modalRoot').innerHTML = html;
 }
-function makeMeetCode(){ const L = 'abcdefghijkmnpqrstuvwxyz'; const r = n=>Array.from({length:n},()=>L[Math.floor(Math.random()*L.length)]).join(''); let c; do{ c = r(3)+'-'+r(4)+'-'+r(3); }while(state.meets[c]); return c; }
 function ocDefaultsFromSlot(dk, periodId){ const d = dateFromKey(dk), dow = (d.getDay()+6)%7; const it = periodId ? itemForSlot(dow, periodId, getMonday(d)) : null; return it ? { title: it.type==='lesson' ? ('Học online: '+it.subject) : it.title, subject: it.type==='lesson'?it.subject:'', teacher: it.teacher||'' } : { title:'', subject:'', teacher:'' }; }
 async function openOnlineModal(opts){
   opts = opts || {};
@@ -4606,9 +4750,7 @@ async function openOnlineModal(opts){
   const customEnd = o && o.customEnd ? o.customEnd : '';
   const selMode = o ? (o.participantMode||'all') : 'all';
   const selSet = o && o.participantMode==='selected' ? (o.participants||{}) : null;
-  const mtype = o ? o.meetType : 'internal';
-  let link = null; if(o && o.meetType==='external'){ try{ link = (await db.ref('onlineLinks/'+id).once('value')).val(); }catch(e){} }
-  let meetDoc = null; if(o && o.meetId) meetDoc = state.meets[o.meetId] || null;
+  let link = null; if(id){ try{ link = (await db.ref('onlineLinks/'+id).once('value')).val(); }catch(e){} }
   const students = Object.values(state.students||{}).filter(s=>s.active!==false).sort(cmpStudentName);
   const noFace = students.filter(s=>!hasFaceEnrolled(s.id)).length;
   const extras = o ? toArr(o.extraChecks) : [];
@@ -4619,20 +4761,19 @@ async function openOnlineModal(opts){
     const lbl = p.buoi+' · Tiết '+p.tiet+' ('+p.start+'-'+p.end+')'+(it&&it.type==='lesson'?' · '+it.subject:'');
     return '<label class="chk-row" style="padding:6px 8px;border:1px solid #E3E8EF;border-radius:8px;margin-bottom:4px;"><input type="checkbox" class="ocp_chk" value="'+esc(p.id)+'" '+(curPids.includes(p.id)?'checked':'')+'><span style="flex:1">'+esc(lbl)+'</span></label>';
   }).join('');
-  /* HOST selector — chỉ superadmin được đổi */
   const hostCands = getHostCandidates();
   const curHostId = o ? o.hostId : state.user.id;
   const hostSelectorHTML = isSuperadmin()
     ? `<div class="field"><label>Người chủ trì cuộc họp <span class="small muted">(chỉ Super Admin có thể chỉ định)</span></label><select id="oc_host">${hostCands.map(h=>'<option value="'+esc(h.id)+'" '+(h.id===curHostId?'selected':'')+'>'+esc(h.name)+' — '+esc(h.role)+'</option>').join('')}</select><div class="hint">Người chủ trì có quyền điều hành phòng học online: khoá phòng, tắt mic, mời ra, duyệt người tham gia...</div></div>`
     : `<div class="field"><label>Người chủ trì cuộc họp</label><div class="copy-box"><input readonly value="${esc((state.user.name||''))} (bạn)"><span class="pill pill-purple">Chủ trì</span></div><div class="hint">Chỉ Super Admin có thể chỉ định người chủ trì khác.</div></div>`;
-  /* NÂNG CẤP: Danh sách admins của lớp */
   const adminsList = o && o.admins ? o.admins : {};
   const adminsHTML = `<div class="section-title">Quản trị viên của lớp</div><div class="hint mb-8">Các QTV được thêm vào đây có quyền quản lý lớp học online này (sửa, xoá, điểm danh, vào phòng...).</div>`+
     `<div class="row gap-8 wrap mb-8"><select id="oc_add_admin" style="flex:1;min-width:200px;padding:8px 12px;border:1.5px solid var(--line-strong);border-radius:8px;">`+
     `<option value="">— Chọn quản trị viên để thêm —</option>`+
     getHostCandidates().filter(h=>!adminsList[h.id]).map(h=>`<option value="${esc(h.id)}">${esc(h.name)} — ${esc(h.role)}</option>`).join('')+
     `</select><button type="button" class="btn small primary" onclick="ocAddAdmin()">+ Thêm</button></div>`+
-    (Object.keys(adminsList).length ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">${Object.entries(adminsList).map(([aid,av])=>`<span class="chip" style="background:var(--purple-soft);color:var(--purple);">${esc(av.name||aid)} <button type="button" onclick="ocRemoveAdmin('${esc(aid)}')" style="border:none;background:rgba(0,0,0,.1);color:inherit;width:16px;height:16px;border-radius:50%;font-size:10px;line-height:1;cursor:pointer;">✕</button></span>`).join('')}</div>` : '<div class="empty-note mb-8">Chưa có QTV nào được thêm.</div>');
+    (Object.keys(adminsList).length ? `<div id="oc_admins_chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">${Object.entries(adminsList).map(([aid,av])=>`<span class="chip" style="background:var(--purple-soft);color:var(--purple);">${esc(av.name||aid)} <button type="button" onclick="ocRemoveAdminFromModal('${esc(aid)}')" style="border:none;background:rgba(0,0,0,.1);color:inherit;width:16px;height:16px;border-radius:50%;font-size:10px;line-height:1;cursor:pointer;">✕</button></span>`).join('')}</div>` : '<div class="empty-note mb-8">Chưa có QTV nào được thêm.</div>')+
+    '<div id="oc_admins_temp" style="display:none"></div>';
   const html = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal xwide">'+
     '<div class="modal-head"><h3>'+(id?'Quản lý lớp học online':'Tạo lớp học online')+'</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">'+
     '<div class="section-title">Thông tin lớp</div>'+
@@ -4647,9 +4788,7 @@ async function openOnlineModal(opts){
     '<div class="section-title">Người chủ trì</div>'+hostSelectorHTML+
     adminsHTML+
     '<div class="section-title">Phòng học</div>'+
-    '<div class="seg"><label><input type="radio" name="oc_mtype" value="internal" '+(mtype==='internal'?'checked':'')+' onchange="ocToggleMeet()"><b>Phòng Meet tích hợp</b><span>Tạo ngay trên hệ thống.</span></label><label><input type="radio" name="oc_mtype" value="external" '+(mtype==='external'?'checked':'')+' onchange="ocToggleMeet()"><b>Link nền tảng khác</b><span>Google Meet, Zoom…</span></label></div>'+
-    '<div id="oc_ext" class="field"><label>Link phòng họp</label><input id="oc_url" value="'+esc(link?link.url:'')+'"></div>'+
-    '<div id="oc_int"><div class="two-col"><div class="field"><label>Số người tối đa</label><input type="number" id="oc_max" min="2" max="60" value="'+(meetDoc&&meetDoc.maxParticipants?meetDoc.maxParticipants:25)+'"></div><div class="field"><label>&nbsp;</label><label class="chk-row"><input type="checkbox" id="oc_share" '+(meetDoc&&meetDoc.sharePolicy==='all'?'checked':'')+'> Cho phép chia sẻ màn hình</label></div></div></div>'+
+    '<div class="field"><label>Link phòng họp (Google Meet, Zoom…)</label><div class="row gap-8 wrap"><input id="oc_url" style="flex:1;min-width:220px" value="'+esc(link?link.url:'')+'"><button type="button" class="btn outline" id="oc_gmeet_btn" onclick="gmeetFillInto(\'oc_gmeet_btn\',\'oc_url\',()=>document.getElementById(\'oc_title\').value||\'Lớp học online\')">📅 Tạo Google Meet tự động</button></div><div class="hint">Dán link có sẵn, hoặc bấm nút để hệ thống tự tạo link Google Meet mới (yêu cầu đã kết nối Google trong Cài đặt lớp).</div></div>'+
     '<div class="section-title">Học sinh tham dự</div>'+
     '<div class="seg"><label><input type="radio" name="oc_pmode" value="all" '+(selMode==='all'?'checked':'')+' onchange="ocTogglePick()"><b>Cả lớp</b><span>Tất cả HS đang hoạt động ('+students.length+')</span></label><label><input type="radio" name="oc_pmode" value="selected" '+(selMode==='selected'?'checked':'')+' onchange="ocTogglePick()"><b>Chọn học sinh</b><span>Chỉ người được tick</span></label></div>'+
     '<div id="oc_pick"><div class="row gap-8 wrap mb-8"><input id="oc_psearch" placeholder="Tìm học sinh…" oninput="ocFilterPickD()" style="flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line-strong);border-radius:7px;"><button class="btn small outline" onclick="ocPickAll(true)">Chọn tất cả</button><button class="btn small outline" onclick="ocPickAll(false)">Bỏ chọn</button><span class="small muted" id="oc_pcnt"></span></div><div class="picker-list" style="max-height:200px">'+students.map(s=>'<label class="chk-row picker-row" data-name="'+esc(normName(s.name))+'"><input type="checkbox" class="oc_sel" value="'+esc(s.id)+'" '+((!selSet||selSet[s.id])?'checked':'')+' onchange="ocPickCount()"><span class="nm">'+esc(s.name)+'</span><span class="pill '+(s.gender==='nu'?'pill-nu':'pill-nam')+'">'+(s.gender==='nu'?'Nữ':'Nam')+'</span></label>').join('')+'</div></div>'+
@@ -4658,14 +4797,14 @@ async function openOnlineModal(opts){
     '<div class="field"><label>Mật khẩu tham dự (tuỳ chọn)</label><input id="oc_pw" autocomplete="off" placeholder="'+(o&&o.hasPassword?'Đã đặt — để trống giữ nguyên':'Để trống nếu không cần')+'">'+(o&&o.hasPassword?'<label class="chk-row"><input type="checkbox" id="oc_pw_clear"> Xoá mật khẩu</label>':'')+'</div>'+
     '<div class="field"><label>Thông tin xác thực khác (tuỳ chọn)</label><div id="oc_extra"></div><button type="button" class="btn small outline" onclick="ocAddExtra()">+ Thêm câu hỏi</button></div>'+
     '<div class="two-col"><div class="field"><label>Mở xác thực trước giờ học (phút)</label><input type="number" id="oc_early" min="0" max="240" value="'+(o&&o.earlyMinutes!=null?o.earlyMinutes:15)+'"></div><div class="field"><label>Tính "muộn" sau (phút)</label><input type="number" id="oc_late" min="0" max="120" value="'+(o&&o.lateMinutes!=null?o.lateMinutes:10)+'"></div></div>'+
-    '<div class="field"><label class="chk-row"><input type="checkbox" id="oc_requireApprove" '+(o&&o.requireApproval?'checked':'')+'> <b>Yêu cầu phê duyệt người tham gia</b> — HS cần được GV/QTV duyệt trước khi vào lớp</label></div>'+
+    '<div class="field"><label class="chk-row"><input type="checkbox" id="oc_requireApprove" '+(o&&o.requireApproval?'checked':'')+'> <b>Yêu cầu phê duyệt người tham gia</b> — HS sẽ vào phòng chờ và cần GV/QTV duyệt (có thể duyệt ngay trong phòng Meet)</label></div>'+
     (id?'<div class="section-title">Chia sẻ &amp; điều khiển</div><div class="copy-box mb-8"><input readonly id="oc_link" value="'+esc(classLink(id))+'"><button class="btn outline" onclick="copyText(document.getElementById(\'oc_link\').value)">Sao chép link</button></div><div class="row gap-8 wrap"><button class="btn small outline" onclick="openOnlineApprovalModal('+attrStr(id)+')">Duyệt người tham gia</button><button class="btn small outline" onclick="ocSendZalo('+attrStr(id)+')">Gửi Zalo</button><button class="btn small outline" onclick="openOnlineAttendance('+attrStr(id)+')">Xem điểm danh</button>'+
       (o.status==='ended'||o.status==='cancelled'?'<button class="btn small outline" onclick="ocSetStatus('+attrStr(id)+',\'scheduled\')">Mở lại</button>':'<button class="btn small outline" onclick="ocSetStatus('+attrStr(id)+',\'ended\')">Kết thúc</button><button class="btn small warn" onclick="ocSetStatus('+attrStr(id)+',\'cancelled\')">Huỷ</button>')+
       '<button class="btn small danger" onclick="ocDelete('+attrStr(id)+')">Xoá lớp</button></div>':'')+
     '</div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Đóng</button><button class="btn primary" onclick="saveOnlineClass('+(id?attrStr(id):'null')+')">'+(id?'Lưu thay đổi':'Tạo lớp')+'</button></div></div></div>';
   document.getElementById('modalRoot').innerHTML = html;
   extras.forEach(x=>ocAddExtra(x));
-  ocToggleMeet(); ocTogglePick(); ocPickCount();
+  ocTogglePick(); ocPickCount();
   document.querySelectorAll('.ocp_chk').forEach(c=>c.addEventListener('change', ocUpdateTimeDisplay));
   ocUpdateTimeDisplay();
 }
@@ -4674,6 +4813,7 @@ function ocUpdateTimeDisplay(){
   const pids = Array.from(document.querySelectorAll('.ocp_chk:checked')).map(x=>x.value);
   const P = periods(); const ps = pids.map(id=>P.find(p=>p.id===id)).filter(Boolean);
   const el = document.getElementById('oc_time_display');
+  if(!el) return;
   if(ps.length){ const s = ps.reduce((a,p)=> hm2min(p.start)<hm2min(a.start)?p:a, ps[0]); const e = ps.reduce((a,p)=> hm2min(p.end)>hm2min(a.end)?p:a, ps[0]); el.value = 'Tự động: '+s.start+' – '+e.end; }
   else el.value = '— (chưa chọn tiết) —';
 }
@@ -4687,9 +4827,8 @@ function ocRebuildPeriods(){
   document.querySelectorAll('.ocp_chk').forEach(c=>c.addEventListener('change', ocUpdateTimeDisplay));
   ocUpdateTimeDisplay();
 }
-function ocToggleMeet(){ const v = document.querySelector('input[name=oc_mtype]:checked').value; document.getElementById('oc_ext').style.display = v==='external' ? '' : 'none'; document.getElementById('oc_int').style.display = v==='internal' ? '' : 'none'; }
 function ocTogglePick(){ document.getElementById('oc_pick').style.display = document.querySelector('input[name=oc_pmode]:checked').value==='selected' ? '' : 'none'; }
-function ocFilterPick(){ const q = normName(document.getElementById('oc_psearch').value); document.querySelectorAll('#oc_pick .picker-row').forEach(r=>{ r.style.display = r.dataset.name.includes(q) ? '' : 'none'; }); }
+function ocFilterPick(){ const el = document.getElementById('oc_psearch'); if(!el) return; const q = normName(el.value); document.querySelectorAll('#oc_pick .picker-row').forEach(r=>{ r.style.display = r.dataset.name.includes(q) ? '' : 'none'; }); }
 function ocPickAll(v){ document.querySelectorAll('.oc_sel').forEach(c=>{ if(c.closest('.picker-row').style.display!=='none') c.checked = v; }); ocPickCount(); }
 function ocPickCount(){ const n = document.querySelectorAll('.oc_sel:checked').length; const el = document.getElementById('oc_pcnt'); if(el) el.textContent = 'Đã chọn '+n; }
 function ocAddExtra(x){
@@ -4700,39 +4839,31 @@ function ocAddExtra(x){
   d.innerHTML = '<div class="field"><label>Câu hỏi</label><input class="ocx_l" value="'+esc(x?x.label:'')+'"></div><div class="field" style="display:flex;gap:8px;align-items:flex-end"><div style="flex:1"><label>Đáp án</label><input class="ocx_a" autocomplete="off" placeholder="'+(x?'Để trống giữ đáp án cũ':'Đáp án')+'"></div><button type="button" class="icon-btn" style="margin-bottom:16px" onclick="this.closest(\'.two-col\').remove()">✕</button></div>';
   box.appendChild(d);
 }
-/* NÂNG CẤP: quản lý admins của lớp */
 function ocAddAdmin(){
   const sel = document.getElementById('oc_add_admin'); if(!sel || !sel.value) return;
   const id = sel.value;
   const cand = getHostCandidates().find(h=>h.id===id);
   if(!cand) return;
-  /* Lưu tạm vào DOM data, sẽ ghi khi saveOnlineClass */
   let box = document.getElementById('oc_admins_temp');
   if(!box){
     box = document.createElement('div'); box.id = 'oc_admins_temp'; box.style.display = 'none';
-    document.getElementById('oc_add_admin').parentElement.parentElement.appendChild(box);
+    document.querySelector('.modal-body').appendChild(box);
   }
   const inp = document.createElement('input'); inp.type = 'hidden'; inp.className = 'oc_admin_entry'; inp.value = id; inp.dataset.name = cand.name; inp.dataset.role = cand.role;
   box.appendChild(inp);
-  /* Hiển thị chip */
-  const chipsBox = document.querySelector('#oc_add_admin').parentElement.parentElement.querySelector('div[style*="flex-wrap"]');
-  if(chipsBox){
-    chipsBox.insertAdjacentHTML('beforeend', '<span class="chip" style="background:var(--purple-soft);color:var(--purple);">'+esc(cand.name)+' <button type="button" onclick="ocRemoveAdminTemp(\''+esc(id)+'\')" style="border:none;background:rgba(0,0,0,.1);color:inherit;width:16px;height:16px;border-radius:50%;font-size:10px;line-height:1;cursor:pointer;">✕</button></span>');
+  let chipsBox = document.getElementById('oc_admins_chips');
+  if(!chipsBox){
+    sel.parentElement.insertAdjacentHTML('afterend', '<div id="oc_admins_chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>');
+    chipsBox = document.getElementById('oc_admins_chips');
   }
+  chipsBox.insertAdjacentHTML('beforeend', '<span class="chip" data-aid="'+esc(id)+'" style="background:var(--purple-soft);color:var(--purple);">'+esc(cand.name)+' <button type="button" onclick="ocRemoveAdminFromModal(\''+esc(id)+'\')" style="border:none;background:rgba(0,0,0,.1);color:inherit;width:16px;height:16px;border-radius:50%;font-size:10px;line-height:1;cursor:pointer;">✕</button></span>');
+  const opt = sel.querySelector('option[value="'+id+'"]'); if(opt) opt.remove();
   sel.value = '';
 }
-function ocRemoveAdminTemp(id){
+function ocRemoveAdminFromModal(id){
   const box = document.getElementById('oc_admins_temp');
-  if(box){ box.querySelectorAll('.oc_admin_entry').forEach(el=>{ if(el.value===id) el.remove(); }); }
-  document.querySelectorAll('.oc_admin_entry').forEach(el=>{ if(el.value===id) el.remove(); });
-  /* Xoá chip */
-  document.querySelectorAll('#oc_add_admin').forEach(sel=>{
-    const chipsBox = sel.parentElement.parentElement.querySelector('div[style*="flex-wrap"]');
-    if(chipsBox) chipsBox.querySelectorAll('.chip').forEach(c=>{ if(c.textContent.includes(id)) c.remove(); });
-  });
-  /* Rebuild: đơn giản là đóng/mở lại modal */
-  closeModal();
-  toast('Đã xoá — mở lại để lưu','ok');
+  if(box) box.querySelectorAll('.oc_admin_entry').forEach(el=>{ if(el.value===id) el.remove(); });
+  document.querySelectorAll('#oc_admins_chips .chip').forEach(c=>{ if(c.dataset.aid===id) c.remove(); });
 }
 async function saveOnlineClass(id){
   const title = document.getElementById('oc_title').value.trim();
@@ -4751,14 +4882,13 @@ async function saveOnlineClass(id){
   if(ps.length){ sStart = ps.reduce((a,p)=> hm2min(p.start)<hm2min(a.start)?p:a, ps[0]).start; sEnd = ps.reduce((a,p)=> hm2min(p.end)>hm2min(a.end)?p:a, ps[0]).end; }
   if(customCb.checked){ sStart = cStart; sEnd = cEnd; }
   if(!sStart || !sEnd){ toast('Không xác định được thời gian','err'); return; }
-  const meetType = document.querySelector('input[name=oc_mtype]:checked').value;
+  const meetType = 'external';
   const url = document.getElementById('oc_url').value.trim();
-  if(meetType==='external' && !isHttpUrl(url)){ toast('Link phải bắt đầu bằng http(s)://','err'); return; }
+  if(!isHttpUrl(url)){ toast('Nhập link phòng họp hợp lệ (bắt đầu bằng http:// hoặc https://), hoặc dùng nút "Tạo Google Meet tự động"','err'); return; }
   const pmode = document.querySelector('input[name=oc_pmode]:checked').value;
   const sel = Array.from(document.querySelectorAll('.oc_sel:checked')).map(c=>c.value);
   if(pmode==='selected' && !sel.length){ toast('Chọn ít nhất 1 HS','err'); return; }
   const cid = id || uid(), old = id ? (state.onlineClasses[id]||{}) : {};
-  /* Host */
   let hostId, hostName;
   const hostSel = document.getElementById('oc_host');
   if(isSuperadmin() && hostSel){
@@ -4783,13 +4913,10 @@ async function saveOnlineClass(id){
     if(!hash){ toast('Câu hỏi "'+label+'" chưa có đáp án','err'); return; }
     extra.push({label, hash});
   }
-  /* Admins của lớp */
   const newAdmins = {};
   document.querySelectorAll('.oc_admin_entry').forEach(el=>{ newAdmins[el.value] = { name: el.dataset.name, role: el.dataset.role }; });
-  /* Giữ admins cũ chưa bị xoá */
   if(old.admins){ Object.entries(old.admins).forEach(([k,v])=>{ if(!newAdmins[k]) newAdmins[k] = v; }); }
   const up = {}, P2 = 'onlineClasses/'+cid+'/';
-  let meetId = old.meetId || null;
   Object.assign(up, {
     [P2+'id']:cid, [P2+'title']:title, [P2+'subject']:document.getElementById('oc_subject').value.trim(), [P2+'teacher']:document.getElementById('oc_teacher').value.trim(),
     [P2+'note']:document.getElementById('oc_note').value.trim(), [P2+'date']:date, [P2+'periodIds']: pids, [P2+'periodId']: pids[0]||null,
@@ -4807,21 +4934,9 @@ async function saveOnlineClass(id){
     [P2+'status']: old.status || 'scheduled', [P2+'createdBy']: old.createdBy || state.user.id, [P2+'createdByName']: old.createdByName || state.user.name,
     [P2+'createdAt']: old.createdAt || serverNow(), [P2+'updatedAt']: serverNow()
   });
-  if(meetType==='internal'){
-    if(!meetId) meetId = makeMeetCode();
-    const M = 'meets/'+meetId+'/', mx = Math.min(60, Math.max(2, parseInt(document.getElementById('oc_max').value,10)||25));
-    const isNew = !state.meets[meetId];
-    Object.assign(up, { [M+'id']:meetId, [M+'title']:title, [M+'description']:document.getElementById('oc_note').value.trim(), [M+'kind']:'class', [M+'classId']:cid,
-      [M+'hostId']: hostId, [M+'hostName']: hostName,
-      [M+'coHosts']: Object.keys(newAdmins).length ? newAdmins : null,
-      [M+'maxParticipants']:mx, [M+'sharePolicy']: document.getElementById('oc_share').checked ? 'all' : 'host', [M+'updatedAt']:serverNow() });
-    if(isNew) Object.assign(up, { [M+'status']:'open', [M+'micPolicy']:'free', [M+'chatPolicy']:'all', [M+'locked']:false, [M+'createdAt']:serverNow() });
-    up[P2+'meetId'] = meetId; up['onlineLinks/'+cid] = null; up[P2+'platform'] = 'Meet tích hợp';
-  } else {
-    if(old.meetId){ up['meets/'+old.meetId] = null; up['meetRoom/'+old.meetId] = null; }
-    up[P2+'meetId'] = null; up[P2+'platform'] = platformOf(url);
-    up['onlineLinks/'+cid] = { url, platform: platformOf(url) };
-  }
+  if(old.meetId){ up['meets/'+old.meetId] = null; up['meetRoom/'+old.meetId] = null; } /* dọn dữ liệu Meet tích hợp cũ (đã bỏ tính năng này) */
+  up[P2+'meetId'] = null; up[P2+'platform'] = platformOf(url);
+  up['onlineLinks/'+cid] = { url, platform: platformOf(url) };
   try{
     await db.ref().update(up);
     toast(id ? 'Đã cập nhật lớp' : 'Đã tạo lớp — HS sẽ thấy lời mời','ok');
@@ -4865,7 +4980,6 @@ async function joinOnlineAsHost(id){
   const o = state.onlineClasses[id]; if(!o) return;
   if(!isAdmin()){ toast('Bạn không có quyền','err'); return; }
   if(!canHostOnlineClass(o)){ toast('Bạn không phải chủ trì lớp này','err'); return; }
-  if(o.meetType==='internal' && o.meetId){ meetOpen(o.meetId, { classId:id }); return; }
   try{ const l = (await db.ref('onlineLinks/'+id).once('value')).val(); if(l && l.url) window.open(l.url, '_blank', 'noopener'); else toast('Lớp chưa có link','err'); }catch(e){ toast('Lỗi','err'); }
 }
 const ocAtt = { id:null, data:{}, open:false };
@@ -4930,7 +5044,7 @@ function ocAttExport(){
 }
 
 /* =========================================================================
-   JOIN FLOW
+   JOIN FLOW — NÂNG CẤP: Phê duyệt TRONG phòng chờ
 ========================================================================= */
 const J = { stream:null, draft:null, sig:'', attempts:0, lockUntil:0, busy:false, link:null, linkFor:null };
 function joinFreshDraft(){ return { image:null, ok:false, dist:null, flag:null, msg:'', kind:'' }; }
@@ -4963,17 +5077,26 @@ function renderOnlineJoin(force){
   if(!isInvited(oc, sid)){ joinStopCamera(); root.innerHTML = head+'<div class="panel"><div class="verify-msg bad">Bạn không nằm trong danh sách HS được mời.</div><div class="mt-12">'+back+'</div></div>'; return; }
   if(ph==='cancelled'){ joinStopCamera(); root.innerHTML = head+'<div class="panel"><div class="verify-msg bad">Lớp đã bị huỷ.</div><div class="mt-12">'+back+'</div></div>'; return; }
   if(ph==='ended'){ joinStopCamera(); root.innerHTML = head+'<div class="panel"><div class="verify-msg warn">Lớp đã kết thúc'+(ver?' (bạn đã được điểm danh).':'.')+'</div><div class="mt-12">'+back+'</div></div>'; return; }
+  /* NÂNG CẤP: Nếu requireApproval và chưa được duyệt -> vào phòng chờ (WAITING ROOM) */
   if(oc.requireApproval && !approved && !ver){
     joinStopCamera();
-    if(pending){ root.innerHTML = head+'<div class="panel"><div class="verify-msg wait"><b>Yêu cầu tham gia đã được gửi</b> — Chờ giáo viên/quản trị viên duyệt. Trang tự cập nhật.</div><div class="mt-12 row gap-8" style="justify-content:center">'+back+'</div></div></div>'; return; }
-    root.innerHTML = head+'<div class="panel"><div class="verify-msg warn"><b>Lớp này yêu cầu phê duyệt.</b> Nhấn nút để gửi yêu cầu tới giáo viên.</div><div class="mt-12 row gap-8" style="justify-content:center">'+back+'<button class="btn primary big" onclick="ocRequestJoin('+attrStr(id)+')">Yêu cầu tham gia</button></div></div></div>';
+    if(pending){
+      root.innerHTML = head+'<div class="panel"><div class="verify-msg wait">'
+        +'<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'
+        +'<span style="font-size:34px">'+ic('hourglass',32)+'</span>'
+        +'<div style="flex:1;min-width:180px;">'
+        +'<b>Đang trong phòng chờ</b><div class="mt-4">Yêu cầu tham gia của bạn đã được gửi tới giáo viên / quản trị viên. Bạn sẽ được đưa vào lớp ngay khi được duyệt. Trang này tự cập nhật.</div>'
+        +'</div></div></div>'
+        +'<div class="mt-16 row gap-8 wrap" style="justify-content:center">'+back+'<button class="btn outline" onclick="ocCancelJoinRequest('+attrStr(id)+')">Huỷ yêu cầu</button></div></div></div>';
+      return;
+    }
+    root.innerHTML = head+'<div class="panel"><div class="verify-msg warn"><b>Lớp này yêu cầu phê duyệt.</b> Bạn cần gửi yêu cầu tới giáo viên. Sau khi gửi, bạn sẽ được đưa vào phòng chờ để giáo viên duyệt ngay trong phòng Meet.</div><div class="mt-12 row gap-8 wrap" style="justify-content:center">'+back+'<button class="btn primary big" onclick="ocRequestAndWait('+attrStr(id)+')">Yêu cầu tham gia</button></div></div></div>';
     return;
   }
   if(ver){
     joinStopCamera();
-    const ext = oc.meetType==='external';
-    root.innerHTML = head+'<div class="panel"><div class="success-card"><div class="tick">'+ic('check',34)+'</div><h3 style="margin:0 0 6px">Xác thực hoàn tất</h3><div class="small muted mb-12">Lúc '+fmtHMS(oc.verified[sid])+'.</div>'+(ext ? '<a id="joinExtBtn" class="btn primary big" target="_blank" rel="noopener" style="text-decoration:none;pointer-events:none;opacity:.6">'+ic('video',18)+' Đang lấy link…</a>' : '<button class="btn primary big" onclick="joinNow()">'+ic('video',18)+' Tham gia lớp</button>')+'<div class="mt-16">'+back+'</div></div></div>';
-    if(ext) joinLoadExternalLink(id);
+    root.innerHTML = head+'<div class="panel"><div class="success-card"><div class="tick">'+ic('check',34)+'</div><h3 style="margin:0 0 6px">Xác thực hoàn tất</h3><div class="small muted mb-12">Lúc '+fmtHMS(oc.verified[sid])+'.</div><a id="joinExtBtn" class="btn primary big" target="_blank" rel="noopener" style="text-decoration:none;pointer-events:none;opacity:.6">'+ic('video',18)+' Đang lấy link…</a><div class="mt-16">'+back+'</div></div></div>';
+    joinLoadExternalLink(id);
     return;
   }
   if(!ocCanVerify(ph)){
@@ -4997,6 +5120,23 @@ function renderOnlineJoin(force){
   root.innerHTML = head+'<div class="panel"><div class="section-title" style="border:none;margin:0 0 6px;padding:0">Xác thực để vào lớp và điểm danh</div><div class="small muted">Hoàn tất các bước dưới đây.</div><div class="steps">'+steps+'<div class="row gap-8 wrap" style="justify-content:space-between"><div>'+back+'</div><button class="btn primary big" id="joinDoneBtn" onclick="joinComplete()" '+(lockLeft>0?'disabled':'')+'>'+(lockLeft>0?'Thử lại sau '+lockLeft+'s':'Hoàn tất xác thực')+'</button></div><div id="joinFinalMsg"></div></div></div>';
   if(needFace && !d.image){ ensureFaceApi().catch(()=>{}); if(J.stream) joinAttachStream(); }
 }
+async function ocCancelJoinRequest(id){
+  const oc = state.onlineClasses[id]; if(!oc) return;
+  const sid = state.user.studentId; if(!sid) return;
+  if(!confirm('Huỷ yêu cầu tham gia lớp này?')) return;
+  try{ await db.ref('onlineClasses/'+id+'/pending/'+sid).remove(); toast('Đã huỷ yêu cầu','ok'); }
+  catch(e){ toast('Lỗi','err'); }
+}
+/* NÂNG CẤP: Gửi yêu cầu và vào thẳng phòng chờ Meet */
+async function ocRequestAndWait(id){
+  const oc = state.onlineClasses[id]; if(!oc) return;
+  const sid = state.user && state.user.studentId; if(!sid){ toast('Không xác định HS','err'); return; }
+  try{
+    await db.ref('onlineClasses/'+id+'/pending/'+sid).set({ name: state.user.name, ts: serverNow() });
+    toast('Đã gửi yêu cầu — vui lòng chờ giáo viên/quản trị viên duyệt','ok');
+  } catch(e){ toast('Lỗi','err'); }
+}
+function joinEnterWaitingRoom(id){ toast('Trang sẽ tự cập nhật khi được duyệt','ok'); }
 function joinAttachStream(){ const v = document.getElementById('joinVideo'); if(!v || !J.stream) return; v.srcObject = J.stream; v.play().catch(()=>{}); const ph = document.getElementById('joinCamPh'); if(ph) ph.style.display = 'none'; const b = document.getElementById('joinShotBtn'); if(b) b.disabled = false; const c = document.getElementById('joinCamBtn'); if(c) c.textContent = 'Camera đang bật'; }
 async function joinStartCamera(){
   try{ joinStopCamera(); J.stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false }); joinAttachStream(); ensureFaceApi().catch(()=>{}); }
@@ -5063,68 +5203,52 @@ async function joinLoadExternalLink(id){
     else a.innerHTML = 'Chưa có link';
   }catch(e){ const a = document.getElementById('joinExtBtn'); if(a) a.textContent = 'Lỗi link'; }
 }
-function joinNow(){ const oc = state.onlineClasses[state.joinClassId]; if(!oc) return; if(oc.meetType==='internal' && oc.meetId) meetOpen(oc.meetId, { classId:oc.id }); }
+function joinNow(){ joinLoadExternalLink(state.joinClassId); }
 
 /* =========================================================================
-   MEET — NÂNG CẤP GIAO DIỆN TOÀN DIỆN
+   MEET — chỉ dùng liên kết phòng họp ngoài (Google Meet, Zoom…), không có
+   phòng họp tích hợp trong hệ thống. Có thể tự động tạo link Google Meet
+   qua gmeetCreateLink() (xem phần "GOOGLE MEET" phía trên).
 ========================================================================= */
-const MT_ROLES = ['mic','cam','scr','scrAudio'];
-const MT_KINDS = ['audio','video','video','audio'];
-let S = null;
 const $id = x=>document.getElementById(x);
-const mtRand = n=>Math.random().toString(36).slice(2,2+(n||6));
 function renderMeetList(){
   const box = $id('meetList'); if(!box) return;
   const adm = canOnline();
   $id('btnNewMeet').style.display = adm ? '' : 'none';
-  const list = Object.entries(state.meets||{}).map(([id,m])=>Object.assign({id},m)).filter(m=>m.kind!=='class' && m.status!=='ended').sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  const list = Object.entries(state.meets||{}).map(([id,m])=>Object.assign({id},m)).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   box.innerHTML = list.length ? list.map(m=>{
-    const canEdit = isSuperadmin() || m.hostId === state.user.id || (m.coHosts && (m.coHosts[state.user.id]||m.coHosts[state.user.studentId]));
-    return '<div class="oc-item"><div class="oc-time"><b>'+(m.createdAt?fmtHM(m.createdAt):'')+'</b>'+(m.createdAt?fmtFull(new Date(m.createdAt)):'')+'</div><div class="oc-main"><div class="ttl">'+esc(m.title)+(m.allowGuests?' <span class="pill pill-amber">Khách</span>':'')+(Object.keys(m.coHosts||{}).length?' <span class="pill pill-accent">'+Object.keys(m.coHosts).length+' đồng QTV</span>':'')+'</div>'+(m.description?'<div class="meta" style="white-space:pre-wrap">'+esc(m.description)+'</div>':'')+'<div class="meta">Tổ chức: '+esc(m.hostName||'—')+' · mã <span class="mono">'+esc(m.id)+'</span></div></div>'+
-    '<div class="oc-act"><button class="btn small primary" onclick="meetOpen('+attrStr(m.id)+')">Tham gia</button><button class="btn small outline icon-only" title="Sao chép link" onclick="copyText('+attrStr(meetLink(m.id))+')">'+ic('link',14)+'</button>'+
+    const canEdit = isSuperadmin() || m.hostId === state.user.id;
+    return '<div class="oc-item"><div class="oc-time"><b>'+(m.createdAt?fmtHM(m.createdAt):'')+'</b>'+(m.createdAt?fmtFull(new Date(m.createdAt)):'')+'</div><div class="oc-main"><div class="ttl">'+esc(m.title)+' <span class="pill pill-accent">'+esc(m.platform||'Link ngoài')+'</span></div>'+(m.description?'<div class="meta" style="white-space:pre-wrap">'+esc(m.description)+'</div>':'')+'<div class="meta">Tổ chức: '+esc(m.hostName||'—')+'</div></div>'+
+    '<div class="oc-act"><a class="btn small primary" href="'+esc(m.url||'#')+'" target="_blank" rel="noopener">Tham gia</a><button class="btn small outline icon-only" title="Sao chép link" onclick="copyText('+attrStr(m.url||'')+')">'+ic('link',14)+'</button>'+
     (canEdit?'<button class="btn small outline icon-only" title="Sửa" onclick="openMeetModal('+attrStr(m.id)+')">'+ic('edit',14)+'</button><button class="btn small danger icon-only" title="Xoá" onclick="meetDelete('+attrStr(m.id)+')">'+ic('trash',14)+'</button>':'')+'</div></div>';
   }).join('') : '<div class="empty-box">Chưa có cuộc họp.</div>';
 }
 function meetJoinFromInput(){
   let v = $id('meetJoinCode').value.trim(); if(!v) return;
-  try{ const u = new URL(v); const c = u.searchParams.get('meet'); if(c) v = c; }catch(e){}
-  v = v.replace(/[^A-Za-z0-9_-]/g,''); if(!v){ toast('Mã không hợp lệ','err'); return; }
-  meetOpen(v);
+  if(!isHttpUrl(v)){ toast('Nhập liên kết hợp lệ (http:// hoặc https://)','err'); return; }
+  window.open(v, '_blank', 'noopener');
 }
 function openMeetModal(id){
   if(!canOnline()){ toast('Bạn không có quyền','err'); return; }
   const m = id ? state.meets[id] : null;
   if(id && !m){ toast('Không tìm thấy','err'); return; }
-  if(id && !(isSuperadmin() || m.hostId === state.user.id)){ toast('Bạn không phải chủ trì cuộc họp này','err'); return; }
-  const students = Object.values(state.students||{}).filter(s=>s.active!==false).sort(cmpStudentName);
-  const coHosts = m ? (m.coHosts||{}) : {};
+  if(id && !(isSuperadmin() || m.hostId === state.user.id)){ toast('Bạn không phải người tạo cuộc họp này','err'); return; }
   const html = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>'+(id?'Sửa cuộc họp':'Tạo cuộc họp mới')+'</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">'+
     '<div class="field"><label>Tiêu đề</label><input id="mm_title" value="'+esc(m?m.title:'')+'"></div>'+
     '<div class="field"><label>Nội dung</label><textarea id="mm_desc" rows="3">'+esc(m?m.description||'':'')+'</textarea></div>'+
-    '<div class="two-col"><div class="field"><label>Số người tối đa</label><input type="number" id="mm_max" min="2" max="60" value="'+(m&&m.maxParticipants?m.maxParticipants:20)+'"></div><div class="field"><label>Chia sẻ màn hình</label><select id="mm_share"><option value="all" '+(!m||m.sharePolicy!=='host'?'selected':'')+'>Mọi người</option><option value="host" '+(m&&m.sharePolicy==='host'?'selected':'')+'>Chỉ chủ trì</option></select></div></div>'+
-    '<label class="chk-row"><input type="checkbox" id="mm_guest" '+(!m||m.allowGuests?'checked':'')+'> Cho phép khách vào bằng link</label>'+
-    '<div class="section-title">Đồng quản trị (co-host)</div>'+
-    '<div class="hint mb-8">Đồng quản trị có quyền điều hành phòng: mời ra, tắt mic, tạo bình chọn...</div>'+
-    '<div class="row gap-8 wrap mb-8"><input id="mm_chsearch" placeholder="Tìm học sinh…" oninput="mmFilterCoHosts()" style="flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line-strong);border-radius:7px;"><span class="small muted" id="mm_chcnt"></span></div>'+
-    '<div class="cohost-list" id="mm_chlist">'+students.map(s=>'<label class="chk-row picker-row" data-name="'+esc(normName(s.name))+'"><input type="checkbox" class="mm_ch" value="'+esc(s.id)+'" '+(coHosts[s.id]?'checked':'')+' onchange="mmCountCoHosts()"><span class="nm" style="flex:1">'+esc(s.name)+'</span><span class="pill pill-nam">'+esc(s.id)+'</span></label>').join('')+'</div>'+
+    '<div class="field"><label>Link phòng họp (Google Meet, Zoom…)</label><div class="row gap-8 wrap"><input id="mm_url" style="flex:1;min-width:220px" value="'+esc(m?m.url||'':'')+'"><button type="button" class="btn outline" id="mm_gmeet_btn" onclick="gmeetFillInto(\'mm_gmeet_btn\',\'mm_url\',()=>document.getElementById(\'mm_title\').value||\'Cuộc họp\')">📅 Tạo Google Meet tự động</button></div><div class="hint">Dán link có sẵn, hoặc bấm nút để hệ thống tự tạo link Google Meet mới.</div></div>'+
     '</div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Huỷ</button><button class="btn primary" onclick="saveMeet('+(id?attrStr(id):'null')+')">'+(id?'Lưu':'Tạo')+'</button></div></div></div>';
   document.getElementById('modalRoot').innerHTML = html;
-  mmCountCoHosts();
 }
-function mmFilterCoHosts(){ const q = normName(document.getElementById('mm_chsearch').value); document.querySelectorAll('#mm_chlist .picker-row').forEach(r=> r.style.display = r.dataset.name.includes(q) ? '' : 'none'); }
-function mmCountCoHosts(){ const n = document.querySelectorAll('.mm_ch:checked').length; const el = document.getElementById('mm_chcnt'); if(el) el.textContent = 'Đã chọn '+n; }
 async function saveMeet(id){
   const title = $id('mm_title').value.trim(); if(!title){ toast('Nhập tiêu đề','err'); return; }
-  const coHosts = {};
-  document.querySelectorAll('.mm_ch:checked').forEach(c=>{ const sid=c.value; const s = state.students[sid]; if(s) coHosts[sid] = { name:s.name, addedAt: serverNow() }; });
-  const code = id || makeMeetCode(), M = 'meets/'+code+'/';
-  const up = { [M+'id']:code, [M+'title']:title, [M+'description']:$id('mm_desc').value.trim(), [M+'kind']:'standalone',
-    [M+'maxParticipants']:Math.min(60,Math.max(2,parseInt($id('mm_max').value,10)||20)), [M+'sharePolicy']:$id('mm_share').value, [M+'allowGuests']:$id('mm_guest').checked, [M+'coHosts']: Object.keys(coHosts).length?coHosts:null, [M+'updatedAt']:serverNow() };
-  if(!id) Object.assign(up, { [M+'hostId']:state.user.id, [M+'hostName']:state.user.name, [M+'status']:'open', [M+'micPolicy']:'free', [M+'chatPolicy']:'all', [M+'locked']:false, [M+'createdAt']:serverNow() });
+  const url = $id('mm_url').value.trim();
+  if(!isHttpUrl(url)){ toast('Nhập link phòng họp hợp lệ, hoặc dùng nút "Tạo Google Meet tự động"','err'); return; }
+  const code = id || uid(), M = 'meets/'+code+'/';
+  const up = { [M+'id']:code, [M+'title']:title, [M+'description']:$id('mm_desc').value.trim(), [M+'url']:url, [M+'platform']:platformOf(url), [M+'updatedAt']:serverNow() };
+  if(!id) Object.assign(up, { [M+'hostId']:state.user.id, [M+'hostName']:state.user.name, [M+'createdAt']:serverNow() });
   try{
-    await db.ref().update(up); closeModal();
-    if(!id) document.getElementById('modalRoot').innerHTML = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal"><div class="modal-head"><h3>Đã tạo cuộc họp</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body"><div class="field"><label>Link riêng</label><div class="copy-box"><input id="mm_link" readonly value="'+esc(meetLink(code))+'"><button class="btn outline" onclick="copyText(document.getElementById(\'mm_link\').value)">Sao chép</button></div></div></div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Đóng</button><button class="btn primary" onclick="closeModal();meetOpen('+attrStr(code)+')">Vào phòng</button></div></div></div>';
-    else toast('Đã lưu','ok');
+    await db.ref().update(up); closeModal(); toast(id?'Đã lưu':'Đã tạo cuộc họp','ok');
   }catch(e){ toast('Lỗi','err'); }
 }
 async function meetDelete(id){
@@ -5132,733 +5256,8 @@ async function meetDelete(id){
   if(!m) return;
   if(!(isSuperadmin() || m.hostId === state.user.id)){ toast('Bạn không có quyền','err'); return; }
   if(!confirm('Xoá cuộc họp này?')) return;
-  try{ await db.ref('meetRoom/'+id+'/ctl/ended').set(serverNow()); await db.ref().update({ ['meets/'+id]:null }); setTimeout(()=>db.ref('meetRoom/'+id).remove().catch(()=>{}), 4000); toast('Đã xoá','ok'); }catch(e){ toast('Lỗi','err'); }
+  try{ await db.ref('meets/'+id).remove(); toast('Đã xoá','ok'); }catch(e){ toast('Lỗi','err'); }
 }
-function mtIceServers(){
-  const list = [{ urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302'] }, { urls:'stun:global.stun.twilio.com:3478' }];
-  const t = state.settings && state.settings.turn;
-  if(t && t.urls) list.push({ urls:t.urls.split(',').map(x=>x.trim()).filter(Boolean), username:t.username||'', credential:t.credential||'' });
-  else list.push({ urls:['turn:openrelay.metered.ca:80','turn:openrelay.metered.ca:443','turn:openrelay.metered.ca:443?transport=tcp'], username:'openrelayproject', credential:'openrelayproject' });
-  return list;
-}
-async function meetOpen(meetId, ctx){
-  ctx = ctx || {};
-  if(S){ toast('Bạn đang trong cuộc họp khác','err'); return; }
-  if(!window.RTCPeerConnection || !navigator.mediaDevices){ toast('Trình duyệt không hỗ trợ WebRTC.','err'); return; }
-  let m;
-  try{ m = (await db.ref('meets/'+meetId).once('value')).val(); }catch(e){ toast('Lỗi kết nối','err'); return; }
-  if(!m){ toast('Không tìm thấy cuộc họp','err'); return; }
-  if(m.status==='ended'){ toast('Cuộc họp đã kết thúc','err'); return; }
-  try{ state.settings = (await db.ref('settings').once('value')).val() || state.settings || {}; }catch(e){}
-  const u = state.user, guest = !u || !!u.guest;
-  let host = false;
-  if(!guest){
-    if(m.hostId === u.id || isSuperadmin()) host = true;
-    if(!host && m.coHosts){
-      if(m.coHosts[u.id]) host = true;
-      if(u.studentId && m.coHosts[u.studentId]) host = true;
-    }
-  }
-  if(m.kind==='class'){
-    if(guest){ toast('Phòng chỉ dành cho HS','err'); return; }
-    if(!host){
-      let oc = state.onlineClasses[m.classId];
-      if(!oc){ try{ oc = (await db.ref('onlineClasses/'+m.classId).once('value')).val(); }catch(e){} }
-      const sid = u.studentId;
-      if(!oc || !sid || !isInvited(oc,sid)){ toast('Bạn không nằm trong danh sách','err'); return; }
-      if(oc.requireApproval && !(oc.approved && oc.approved[sid]) && !(oc.verified && oc.verified[sid])){ toast('Chưa được duyệt','err'); return; }
-      if(!(oc.verified && oc.verified[sid])){ toast('Bạn cần xác thực trước','err'); openOnlineJoin(m.classId); return; }
-      if(oc.status==='cancelled' || oc.status==='ended'){ toast('Lớp đã kết thúc','err'); return; }
-    }
-  } else if(guest && !m.allowGuests){ toast('Cần đăng nhập','err'); return; }
-  let gName = null;
-  if(guest){ gName = (u && u.name) || null; }
-  S = { id:meetId, meta:m, ctx, me:{ uid: guest ? ((u&&u.id)||('guest_'+mtRand(6))) : u.id, name: guest ? (gName||'') : u.name, host, guest }, peerId:null,
-    peers:{}, participants:{}, local:{ mic:null, cam:null, scr:null, scrAudio:null, micOn:false, camOn:false, scrOn:false, camStream:null, scrStream:null },
-    dev:{ cam:localStorage.getItem('mt_cam')||'', mic:localStorage.getItem('mt_mic')||'', spk:localStorage.getItem('mt_spk')||'' },
-    chat:[], polls:{}, votes:{}, allow:{}, unread:0, tab:'chat', panel:false, pinned:null, layout:'auto', speaking:{}, joined:false, leaving:false, kicked:false,
-    tileEls:{}, analysers:{}, timers:[], refs:[], joinTs:0, pop:null, ice:mtIceServers(), ac:null, pollDraft:null };
-  $id('meetOverlay').classList.add('on');
-  document.body.style.overflow = 'hidden';
-  mtBuildLobby();
-}
-function mtToast(t){
-  const root = $id('meetOverlay'); if(!root) return;
-  const old = root.querySelector('.mt-toast'); if(old) old.remove();
-  const d = document.createElement('div'); d.className = 'mt-toast'; d.textContent = t; root.appendChild(d); setTimeout(()=>d.remove(), 3200);
-}
-function mtBuildLobby(){
-  const m = S.meta, r = $id('meetOverlay');
-  r.innerHTML = '<div class="mt-lobby"><div class="mt-lobby-in"><div><div class="mt-preview" id="ltPrev"><div class="ph" id="ltPh"><div class="avatar" id="ltAv"></div><span id="ltPhTxt">Camera đang tắt</span></div><video id="ltVideo" autoplay playsinline muted style="display:none"></video><div class="pbar"><button class="round-btn off" id="ltMic" onclick="mtLobbyToggle(\'mic\')">'+ic('micOff',20)+'</button><button class="round-btn off" id="ltCam" onclick="mtLobbyToggle(\'cam\')">'+ic('videoOff',20)+'</button></div></div><div id="ltNote"></div></div><div class="mt-lobby-info"><h1>'+esc(m.title||'Cuộc họp')+'</h1>'+(m.description?'<div class="desc">'+esc(m.description)+'</div>':'')+'<div class="meta"><span>Tổ chức: '+esc(m.hostName||'—')+'</span><span id="ltCount">Đang kiểm tra phòng…</span></div>'+(S.me.guest?'<div style="margin-bottom:14px"><label>Tên của bạn</label><input id="ltName" maxlength="40" placeholder="Nhập họ tên" value="'+esc(S.me.name)+'"></div>':'<div class="meta">Tên: <b style="color:#fff">'+esc(S.me.name)+'</b>'+(S.me.host?' · <b style="color:#F5C97D">Chủ trì</b>':'')+'</div>')+'<div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap"><button class="mt-btn-join" id="ltJoin" onclick="mtJoinRoom()">Tham gia ngay</button><button class="mt-btn-ghost" onclick="mtCloseLobby()">Huỷ</button></div></div></div></div>';
-  $id('ltAv').textContent = initialsOf(S.me.name||'?');
-  mtLobbyCount();
-}
-async function mtLobbyCount(){
-  try{
-    const n = (await db.ref('meetRoom/'+S.id+'/participants').once('value')).numChildren();
-    const el = $id('ltCount'); if(el) el.textContent = n ? ('Đang có '+n+' người') : 'Chưa có ai';
-    if(S.meta.locked && !S.me.host){ const b=$id('ltJoin'); if(b) b.disabled = true; $id('ltNote').innerHTML = '<div class="mt-notice err">Phòng đang bị khoá.</div>'; }
-  }catch(e){}
-}
-async function mtLobbyToggle(kind){
-  if(kind==='cam'){ if(S.local.camOn){ mtStopTrack('cam'); S.local.camOn = false; } else { const ok = await mtAcquire('cam'); if(!ok) return; S.local.camOn = true; } }
-  else { if(S.local.micOn){ S.local.micOn = false; if(S.local.mic) S.local.mic.enabled = false; } else { const ok = await mtAcquire('mic'); if(!ok) return; S.local.micOn = true; S.local.mic.enabled = true; } }
-  mtLobbyRender();
-}
-function mtLobbyRender(){
-  const L = S.local, v = $id('ltVideo'); if(!v) return;
-  const cam = $id('ltCam'), mic = $id('ltMic');
-  cam.className = 'round-btn '+(L.camOn?'':'off'); cam.innerHTML = ic(L.camOn?'video':'videoOff',20);
-  mic.className = 'round-btn '+(L.micOn?'':'off'); mic.innerHTML = ic(L.micOn?'mic':'micOff',20);
-  if(L.camOn && L.cam){ if(!L.camStream) L.camStream = new MediaStream([L.cam]); v.srcObject = L.camStream; v.style.display = ''; $id('ltPh').style.display = 'none'; v.play().catch(()=>{}); }
-  else { v.srcObject = null; v.style.display = 'none'; $id('ltPh').style.display = ''; }
-}
-function mtCloseLobby(){ if(!S) return; ['cam','mic'].forEach(k=>mtStopTrack(k)); S = null; $id('meetOverlay').classList.remove('on'); $id('meetOverlay').innerHTML = ''; document.body.style.overflow = ''; }
-async function mtAcquire(kind){
-  try{
-    if(kind==='cam'){
-      if(S.local.cam && S.local.cam.readyState==='live') return true;
-      const c = { width:{ideal:640}, height:{ideal:360}, frameRate:{ideal:24} }; if(S.dev.cam) c.deviceId = { ideal:S.dev.cam };
-      const st = await navigator.mediaDevices.getUserMedia({ video:c });
-      S.local.cam = st.getVideoTracks()[0]; S.local.cam.contentHint = 'motion'; S.local.camStream = new MediaStream([S.local.cam]);
-      S.local.cam.onended = ()=>{ if(S && S.local.camOn){ S.local.camOn = false; S.local.cam = null; S.local.camStream = null; if(S.joined){ mtPushTrack('cam'); mtSyncMe(); mtUpdateBar(); mtRenderStage(); } else mtLobbyRender(); } };
-    } else {
-      if(S.local.mic && S.local.mic.readyState==='live') return true;
-      const c = { echoCancellation:true, noiseSuppression:true, autoGainControl:true }; if(S.dev.mic) c.deviceId = { ideal:S.dev.mic };
-      const st = await navigator.mediaDevices.getUserMedia({ audio:c });
-      S.local.mic = st.getAudioTracks()[0]; S.local.mic.enabled = false;
-      mtWatchAudio('me', new MediaStream([S.local.mic]));
-    }
-    return true;
-  }catch(e){
-    const denied = e && (e.name==='NotAllowedError'||e.name==='SecurityError');
-    const msg = denied ? 'Trình duyệt chặn thiết bị.' : 'Không mở được thiết bị: '+(e.message||e);
-    if(S.joined) mtToast(msg); else { const n = $id('ltNote'); if(n) n.innerHTML = '<div class="mt-notice err">'+esc(msg)+'</div>'; }
-    return false;
-  }
-}
-function mtStopTrack(kind){
-  const L = S.local;
-  if(kind==='cam' && L.cam){ L.cam.onended = null; L.cam.stop(); L.cam = null; L.camStream = null; }
-  if(kind==='mic' && L.mic){ L.mic.stop(); L.mic = null; delete S.analysers.me; }
-  if(kind==='scr'){ if(L.scr){ L.scr.onended = null; L.scr.stop(); } if(L.scrAudio) L.scrAudio.stop(); L.scr = null; L.scrAudio = null; L.scrStream = null; }
-}
-function mtPushTrack(kind){
-  const L = S.local;
-  Object.values(S.peers).forEach(p=>{
-    const s = p.senders;
-    if(kind==='cam' && s.cam) s.cam.replaceTrack(L.cam && L.camOn ? L.cam : null).catch(()=>{});
-    if(kind==='mic' && s.mic) s.mic.replaceTrack(L.mic || null).catch(()=>{});
-    if(kind==='scr'){ if(s.scr) s.scr.replaceTrack(L.scr||null).catch(()=>{}); if(s.scrAudio) s.scrAudio.replaceTrack(L.scrAudio||null).catch(()=>{}); }
-  });
-}
-function mtCanUnmute(){ return S.me.host || S.meta.micPolicy!=='host' || !!S.allow[S.me.uid]; }
-function mtCanShare(){ return S.me.host || S.meta.sharePolicy==='all'; }
-function mtCanChat(){ return S.me.host || S.meta.chatPolicy!=='off'; }
-async function mtToggleMic(){
-  if(S.local.micOn){ S.local.micOn = false; if(S.local.mic) S.local.mic.enabled = false; }
-  else { if(!mtCanUnmute()){ mtToast('Chủ trì chưa cho phép bật micro'); return; } const first = !S.local.mic; if(!await mtAcquire('mic')) return; S.local.micOn = true; S.local.mic.enabled = true; if(first) mtPushTrack('mic'); }
-  mtSyncMe(); mtUpdateBar(); mtRenderStage();
-}
-async function mtToggleCam(){
-  if(S.local.camOn){ S.local.camOn = false; mtStopTrack('cam'); }
-  else { if(!await mtAcquire('cam')) return; S.local.camOn = true; }
-  mtPushTrack('cam'); mtApplyQuality(); mtSyncMe(); mtUpdateBar(); mtRenderStage();
-}
-async function mtToggleShare(){
-  if(S.local.scrOn){ mtStopShare(); return; }
-  if(!mtCanShare()){ mtToast('Chỉ chủ trì được chia sẻ màn hình'); return; }
-  if(!navigator.mediaDevices.getDisplayMedia){ mtToast('Không hỗ trợ'); return; }
-  try{
-    const st = await navigator.mediaDevices.getDisplayMedia({ video:{ frameRate:{ ideal:15, max:30 } }, audio:true });
-    const vt = st.getVideoTracks()[0]; vt.contentHint = 'detail';
-    S.local.scr = vt; S.local.scrAudio = st.getAudioTracks()[0] || null; S.local.scrStream = new MediaStream([vt]); S.local.scrOn = true;
-    vt.onended = ()=>{ if(S && S.local.scrOn) mtStopShare(); };
-    mtPushTrack('scr'); mtApplyQuality(); mtSyncMe(); mtUpdateBar(); mtRenderStage();
-  }catch(e){ if(e && e.name!=='NotAllowedError') mtToast('Không chia sẻ được'); }
-}
-function mtStopShare(){ S.local.scrOn = false; mtStopTrack('scr'); mtPushTrack('scr'); mtSyncMe(); mtUpdateBar(); mtRenderStage(); }
-function mtToggleHand(){ S.hand = !S.hand; mtSyncMe(); mtUpdateBar(); if(S.hand) mtToast('Bạn đã giơ tay'); }
-function mtSyncMe(){
-  if(!S || !S.joined) return;
-  const L = S.local, d = { mic:!!(L.micOn && L.mic), cam:!!(L.camOn && L.cam), screen:!!L.scrOn, hand:!!S.hand };
-  S.participants[S.peerId] = Object.assign({}, S.participants[S.peerId]||{}, d);
-  db.ref('meetRoom/'+S.id+'/participants/'+S.peerId).update(d).catch(()=>{});
-}
-function mtProfile(n){
-  if(n<=3) return { cam:700e3, camScale:1, camFps:24, scr:2000e3, scrFps:15 };
-  if(n<=6) return { cam:400e3, camScale:1, camFps:20, scr:1400e3, scrFps:12 };
-  if(n<=10) return { cam:250e3, camScale:1.5, camFps:18, scr:1000e3, scrFps:10 };
-  if(n<=20) return { cam:120e3, camScale:2, camFps:15, scr:700e3, scrFps:8 };
-  return { cam:70e3, camScale:2.67, camFps:12, scr:450e3, scrFps:6 };
-}
-async function mtTune(peer){
-  if(!S) return;
-  const pf = mtProfile(Object.keys(S.participants).length||2);
-  const set = async (sender, o)=>{ if(!sender) return; try{ const p = sender.getParameters(); if(!p.encodings || !p.encodings.length) p.encodings = [{}]; Object.assign(p.encodings[0], o); await sender.setParameters(p); }catch(e){} };
-  await set(peer.senders.cam, { maxBitrate:pf.cam, scaleResolutionDownBy:pf.camScale, maxFramerate:pf.camFps });
-  await set(peer.senders.scr, { maxBitrate:pf.scr, maxFramerate:pf.scrFps });
-  await set(peer.senders.mic, { maxBitrate:40e3 });
-}
-function mtApplyQuality(){ Object.values(S.peers).forEach(p=>{ if(p.pc && p.pc.connectionState==='connected') mtTune(p); }); }
-async function mtJoinRoom(){
-  if(!S) return;
-  if(S.me.guest){ const nm = ($id('ltName').value||'').trim(); if(!nm){ toast('Nhập tên','err'); $id('ltName').focus(); return; } S.me.name = nm.slice(0,40); }
-  const jb = $id('ltJoin'); jb.disabled = true; jb.textContent = 'Đang vào…';
-  try{
-    const pSnap = await db.ref('meetRoom/'+S.id+'/participants').once('value');
-    const max = S.meta.maxParticipants || 25;
-    if(!S.me.host && pSnap.numChildren() >= max){ toast('Phòng đã đầy','err'); jb.disabled=false; jb.textContent='Tham gia'; return; }
-    const meta = (await db.ref('meets/'+S.id).once('value')).val();
-    if(!meta || meta.status==='ended'){ toast('Cuộc họp đã kết thúc','err'); mtCloseLobby(); return; }
-    if(meta.locked && !S.me.host){ toast('Phòng bị khoá','err'); jb.disabled=false; jb.textContent='Tham gia'; return; }
-    S.meta = meta;
-    if(!S.me.host && meta.coHosts){
-      const k1 = S.me.uid, k2 = state.user && state.user.studentId;
-      if(meta.coHosts[k1] || (k2 && meta.coHosts[k2])) S.me.host = true;
-    }
-  }catch(e){ toast('Không vào được','err'); jb.disabled=false; jb.textContent='Tham gia'; return; }
-  S.peerId = (S.me.uid||'g').replace(/[^A-Za-z0-9_-]/g,'_').slice(0,24)+'_'+mtRand(5);
-  S.joinTs = serverNow();
-  try{ S.ac = new (window.AudioContext||window.webkitAudioContext)(); S.ac.resume().catch(()=>{}); }catch(e){}
-  mtBuildRoom();
-  const base = 'meetRoom/'+S.id+'/';
-  const on = (path, ev, fn, q)=>{ let ref = db.ref(base+path); if(q) ref = q(ref); const cb = ref.on(ev, fn); S.refs.push({ref, ev, cb}); return ref; };
-  S.sigRef = db.ref(base+'signals/'+S.peerId);
-  S.sigRef.on('child_added', snap=>{ const m = snap.val(); snap.ref.remove().catch(()=>{}); if(S && m && m.from) mtEnqueue(m); });
-  S.sigRef.onDisconnect().remove();
-  S.pRef = on('participants','value', snap=>mtOnParticipants(snap.val()||{}));
-  on('chat','child_added', snap=>mtOnChat(snap.key, snap.val()), r=>r.limitToLast(200));
-  on('polls','value', snap=>{ S.polls = snap.val()||{}; mtRenderPolls(); mtBadge(); });
-  on('votes','value', snap=>{ S.votes = snap.val()||{}; mtRenderPolls(); });
-  on('allow','value', snap=>{ S.allow = snap.val()||{}; mtEnforce(); mtUpdateBar(); mtRenderPeople(); });
-  on('ctl','value', snap=>mtOnCtl(snap.val()||{}));
-  on('react','child_added', snap=>mtOnReact(snap.val()));
-  const mRef = db.ref('meets/'+S.id); const mcb = mRef.on('value', snap=>{ const v = snap.val(); if(!S) return; if(!v || v.status==='ended'){ mtLeave('Cuộc họp đã kết thúc.'); return; } S.meta = v; mtEnforce(); mtUpdateBar(); mtRenderHostPanel(); });
-  S.refs.push({ref:mRef, ev:'value', cb:mcb});
-  S.joined = true;
-  mtRegister();
-  S.timers.push(setInterval(mtWatchdog, 4000), setInterval(mtClock, 1000), setInterval(mtSpeakLoop, 300));
-  const conn = db.ref('.info/connected'); const ccb = conn.on('value', s=>{ if(S && S.joined && s.val()===true) mtRegister(); }); S.refs.push({ref:conn, ev:'value', cb:ccb});
-  if(S.hand) S.hand = false;
-  mtPushTrack('mic'); mtPushTrack('cam');
-  mtUpdateBar(); mtRenderStage(); mtClock();
-}
-function mtRegister(){
-  if(!S || S.kicked || S.leaving) return;
-  const L = S.local, ref = db.ref('meetRoom/'+S.id+'/participants/'+S.peerId);
-  const entry = { uid:S.me.uid, name:S.me.name, host:!!S.me.host, guest:!!S.me.guest, joinedAt: S.participants[S.peerId] ? (S.participants[S.peerId].joinedAt||serverNow()) : serverNow(),
-    mic:!!(L.micOn&&L.mic), cam:!!(L.camOn&&L.cam), screen:!!L.scrOn, hand:!!S.hand };
-  ref.onDisconnect().remove();
-  ref.set(entry).catch(e=>console.warn('register',e));
-}
-function mtPeer(id){
-  let p = S.peers[id];
-  if(!p) p = S.peers[id] = { id, pc:null, sid:null, initiator:S.peerId<id, senders:{}, media:{}, pending:[], q:Promise.resolve(), tries:0, since:0, starting:false, offerAt:0, audioEls:{} };
-  return p;
-}
-function mtOnParticipants(map){
-  if(!S) return;
-  S.participants = map;
-  if(S.joined && !map[S.peerId] && !S.leaving && !S.kicked) mtRegister();
-  Object.keys(map).forEach(id=>{ if(id===S.peerId) return; const p = mtPeer(id); if(p.initiator && !p.pc && !p.starting) mtStartOffer(p); });
-  Object.keys(S.peers).forEach(id=>{ if(!map[id]) mtClosePeer(id); });
-  mtApplyQuality(); mtRenderStage(); mtRenderPeople(); mtUpdateTop();
-}
-function mtClosePeer(id){
-  const p = S.peers[id]; if(!p) return;
-  mtDisposePC(p);
-  Object.values(p.audioEls).forEach(a=>{ a.srcObject = null; a.remove(); }); p.audioEls = {};
-  delete S.peers[id]; delete S.analysers[id];
-  const nm = p.name; if(nm && S.joined) mtToast(nm+' đã rời phòng');
-}
-function mtDisposePC(p){
-  if(p.pc){ const pc = p.pc; p.pc = null; try{ pc.ontrack = pc.onicecandidate = pc.onconnectionstatechange = null; pc.close(); }catch(e){} }
-  p.senders = {}; p.media = {}; p.pending = []; p.sid = null;
-}
-function mtSignal(to, msg){ if(!S) return; db.ref('meetRoom/'+S.id+'/signals/'+to).push(clean(Object.assign({ from:S.peerId }, msg))).catch(()=>{}); }
-function mtEnqueue(m){ if(!S) return; const p = mtPeer(m.from); p.q = p.q.then(()=>mtHandle(p,m)).catch(e=>console.warn('signal',e)); }
-function mtCreatePC(peer, sid){
-  const pc = new RTCPeerConnection({ iceServers:S.ice });
-  peer.pc = pc; peer.sid = sid; peer.senders = {}; peer.media = {}; peer.pending = [];
-  pc.onicecandidate = e=>{ if(e.candidate && peer.pc===pc) mtSignal(peer.id, { type:'ice', sid, cand:e.candidate.toJSON() }); };
-  pc.ontrack = e=>{ if(peer.pc!==pc) return; const role = MT_ROLES[pc.getTransceivers().indexOf(e.transceiver)]; if(!role) return; peer.media[role] = new MediaStream([e.track]); mtOnRemoteTrack(peer, role); };
-  pc.onconnectionstatechange = ()=>{ if(peer.pc!==pc || !S) return; const st = pc.connectionState; if(st==='connected'){ peer.tries = 0; peer.since = 0; mtTune(peer); } mtRenderStage(); mtRenderPeople(); };
-  return pc;
-}
-async function mtAttachTracks(peer){
-  const L = S.local, s = peer.senders, jobs = [];
-  if(s.mic) jobs.push(s.mic.replaceTrack(L.mic||null));
-  if(s.cam) jobs.push(s.cam.replaceTrack(L.camOn&&L.cam ? L.cam : null));
-  if(s.scr) jobs.push(s.scr.replaceTrack(L.scr||null));
-  if(s.scrAudio) jobs.push(s.scrAudio.replaceTrack(L.scrAudio||null));
-  await Promise.allSettled(jobs);
-}
-async function mtStartOffer(peer){
-  if(!S || peer.starting) return; peer.starting = true;
-  try{
-    mtDisposePC(peer);
-    const sid = mtRand(8), pc = mtCreatePC(peer, sid);
-    MT_ROLES.forEach((r,i)=>{ peer.senders[r] = pc.addTransceiver(MT_KINDS[i], { direction:'sendrecv' }).sender; });
-    await mtAttachTracks(peer);
-    const offer = await pc.createOffer();
-    if(peer.pc!==pc) return;
-    await pc.setLocalDescription(offer);
-    peer.offerAt = Date.now(); peer.since = peer.since || Date.now();
-    mtSignal(peer.id, { type:'offer', sid, sdp:pc.localDescription.sdp });
-  }catch(e){ console.warn(e); } finally{ peer.starting = false; }
-}
-async function mtHandle(peer, m){
-  if(!S) return;
-  if(m.type==='offer'){
-    if(peer.initiator) return;
-    if(peer.pc && peer.sid===m.sid) return;
-    mtDisposePC(peer);
-    const pc = mtCreatePC(peer, m.sid);
-    await pc.setRemoteDescription({ type:'offer', sdp:m.sdp });
-    pc.getTransceivers().forEach((t,i)=>{ const r = MT_ROLES[i]; if(!r) return; t.direction = 'sendrecv'; peer.senders[r] = t.sender; });
-    await mtAttachTracks(peer);
-    const ans = await pc.createAnswer(); await pc.setLocalDescription(ans);
-    mtSignal(peer.id, { type:'answer', sid:m.sid, sdp:pc.localDescription.sdp });
-    peer.since = peer.since || Date.now();
-    await mtFlushIce(peer);
-  } else if(m.type==='answer'){
-    if(!peer.initiator || !peer.pc || peer.sid!==m.sid || peer.pc.signalingState!=='have-local-offer') return;
-    await peer.pc.setRemoteDescription({ type:'answer', sdp:m.sdp });
-    await mtFlushIce(peer);
-  } else if(m.type==='ice'){
-    if(!peer.pc || peer.sid!==m.sid) return;
-    if(!peer.pc.remoteDescription){ peer.pending.push(m.cand); return; }
-    try{ await peer.pc.addIceCandidate(m.cand); }catch(e){}
-  } else if(m.type==='need-offer'){
-    if(peer.initiator && S.participants[peer.id] && Date.now()-peer.offerAt>6000) mtStartOffer(peer);
-  }
-}
-async function mtFlushIce(peer){ const list = peer.pending; peer.pending = []; for(const c of list){ try{ await peer.pc.addIceCandidate(c); }catch(e){} } }
-function mtWatchdog(){
-  if(!S) return; const now = Date.now();
-  Object.values(S.peers).forEach(p=>{
-    if(!S.participants[p.id]) return;
-    const st = p.pc ? p.pc.connectionState : 'none';
-    if(st==='connected'){ p.since = 0; return; }
-    if(!p.since) p.since = now;
-    const age = now-p.since;
-    if(p.initiator){ if((st==='failed' || age>20000) && p.tries<5){ p.tries++; p.since = now; mtStartOffer(p); } }
-    else if((st==='failed' || age>12000) && p.tries<5){ p.tries++; p.since = now; mtSignal(p.id, { type:'need-offer' }); }
-  });
-}
-function mtOnRemoteTrack(peer, role){
-  if(role==='mic' || role==='scrAudio'){
-    let a = peer.audioEls[role];
-    if(!a){ a = document.createElement('audio'); a.autoplay = true; a.playsInline = true; $id('mtAudios').appendChild(a); peer.audioEls[role] = a; }
-    a.srcObject = peer.media[role];
-    if(S.dev.spk && a.setSinkId) a.setSinkId(S.dev.spk).catch(()=>{});
-    a.play().catch(()=>{});
-    if(role==='mic') mtWatchAudio(peer.id, peer.media[role]);
-  }
-  mtRenderStage();
-}
-function mtWatchAudio(key, stream){ if(!S || !S.ac) return; try{ const src = S.ac.createMediaStreamSource(stream), an = S.ac.createAnalyser(); an.fftSize = 256; src.connect(an); S.analysers[key] = { an, buf:new Uint8Array(an.frequencyBinCount) }; }catch(e){} }
-function mtSpeakLoop(){
-  if(!S) return;
-  Object.entries(S.analysers).forEach(([key,o])=>{
-    o.an.getByteFrequencyData(o.buf); let sum = 0; for(let i=0;i<o.buf.length;i++) sum += o.buf[i];
-    const id = key==='me' ? S.peerId : key, part = S.participants[id];
-    const talking = (sum/o.buf.length) > 14 && (!part || part.mic) && (key!=='me' || (S.local.micOn));
-    const el = S.tileEls[id+':cam']; if(el) el.classList.toggle('speaking', !!talking);
-  });
-}
-function mtBuildRoom(){
-  $id('meetOverlay').innerHTML = '<div class="mt-room on">'+
-    '<div class="mt-top"><div class="ttl" id="mtTitle"></div><span class="sub" id="mtClock"></span><div class="grow"></div><span class="sub hide-sm" id="mtCount"></span><button class="mini-btn" onclick="mtInfo()">Thông tin</button></div>'+
-    '<div class="mt-main"><div class="mt-stage" id="mtStage"></div>'+
-    '<div class="mt-side" id="mtSide"><div class="mt-tabs"><button data-t="chat" onclick="mtTab(\'chat\')">Trò chuyện<span class="dot" id="mtDotChat" style="display:none"></span></button><button data-t="people" onclick="mtTab(\'people\')">Mọi người</button><button data-t="polls" onclick="mtTab(\'polls\')">Bình chọn<span class="dot" id="mtDotPoll" style="display:none"></span></button><button style="flex:0 0 44px" onclick="mtTogglePanel(false)">✕</button></div>'+
-    '<div class="mt-pane" id="paneChat"><div class="mt-scroll" id="chatList"></div><div class="chat-in"><input id="chatInput" maxlength="1000" placeholder="Nhắn tin" onkeydown="if(event.key===\'Enter\')mtSendChat()"><button onclick="mtSendChat()">'+ic('send',17)+'</button></div></div>'+
-    '<div class="mt-pane" id="panePeople"><div class="mt-scroll" id="peopleList"></div></div>'+
-    '<div class="mt-pane" id="panePolls"><div class="mt-scroll"><div id="pollFormBox"></div><div id="pollCards"></div></div></div>'+
-    '</div><div id="mtFloat"></div></div>'+
-    '<div class="mt-bar" id="mtBar"></div>'+
-    '</div><div id="mtAudios" style="display:none"></div>';
-  S.chat.forEach(m=>mtAppendChat(m));
-  mtUpdateTop(); mtTab('chat'); mtTogglePanel(false); mtRenderPolls();
-}
-function mtUpdateTop(){
-  if(!S) return;
-  const t = $id('mtTitle'); if(t) t.textContent = S.meta.title || 'Cuộc họp';
-  const c = $id('mtCount'); if(c) c.textContent = Object.keys(S.participants).length+' người';
-}
-function mtClock(){ const el = $id('mtClock'); if(!el || !S) return; const s = Math.max(0, Math.floor((serverNow()-S.joinTs)/1000)), h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; el.textContent = (h?h+':'+pad2(m):pad2(m))+':'+pad2(x); }
-function mtUpdateBar(){
-  const bar = $id('mtBar'); if(!bar || !S) return;
-  const L = S.local, micOn = L.micOn && L.mic, camOn = L.camOn && L.cam;
-  const n = Object.keys(S.participants).length;
-  const btn = (cls, fn, icon, title, extra)=>'<button class="round-btn '+cls+'" onclick="'+fn+'" title="'+title+'">'+ic(icon,21)+(extra||'')+'</button>';
-  bar.innerHTML =
-    btn(micOn?'':'off','mtToggleMic()',micOn?'mic':'micOff', micOn?'Tắt micro':'Bật micro')+
-    btn(camOn?'':'off','mtToggleCam()',camOn?'video':'videoOff', camOn?'Tắt camera':'Bật camera')+
-    (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia ? btn(L.scrOn?'on':'','mtToggleShare()','screen', L.scrOn?'Dừng chia sẻ':'Chia sẻ màn hình') : '')+
-    btn(S.hand?'on':'','mtToggleHand()','hand', S.hand?'Hạ tay':'Giơ tay')+
-    btn(S.pop==='react'?'on':'','mtPop(\'react\')','smile','Biểu cảm')+
-    '<span class="sep"></span>'+
-    btn(S.panel&&S.tab==='chat'?'on':'','mtTab(\'chat\',true)','chat','Trò chuyện', S.unread?'<span class="badge">'+S.unread+'</span>':'')+
-    btn(S.panel&&S.tab==='people'?'on':'','mtTab(\'people\',true)','users','Mọi người','<span class="badge" style="background:#3E7EC2">'+n+'</span>')+
-    btn(S.panel&&S.tab==='polls'?'on':'','mtTab(\'polls\',true)','poll','Bình chọn')+
-    btn(S.pop==='more'?'on':'','mtPop(\'more\')','more','Thêm')+
-    '<button class="round-btn hang" onclick="mtHangup()" title="Rời">'+ic('phoneOff',22)+'</button>';
-  mtRenderPop(); mtBadge();
-}
-function mtBadge(){
-  if(!S) return;
-  const c = $id('mtDotChat'); if(c){ c.style.display = S.unread ? '' : 'none'; c.textContent = S.unread; }
-  const pend = Object.entries(S.polls||{}).filter(([id,p])=>!p.closed && !((S.votes[id]||{})[S.me.uid])).length;
-  const d = $id('mtDotPoll'); if(d){ d.style.display = pend ? '' : 'none'; d.textContent = pend; }
-}
-function mtPop(name){ S.pop = S.pop===name ? null : name; mtUpdateBar(); }
-function mtRenderPop(){
-  const bar = $id('mtBar'); if(!bar) return;
-  const old = bar.querySelector('.mt-pop'); if(old) old.remove();
-  if(!S || !S.pop) return;
-  const d = document.createElement('div'); d.className = 'mt-pop'; d.style.left = '50%'; d.style.transform = 'translateX(-50%)';
-  if(S.pop==='react'){ d.innerHTML = '<div class="react-row">'+['👍','👏','❤️','😂','😮','🎉'].map(e=>'<button onclick="mtReact(\''+e+'\')">'+e+'</button>').join('')+'</div>'; }
-  else if(S.pop==='more'){
-    const m = S.meta;
-    let h = '<button class="it" onclick="mtDevices()">'+ic('settings',17)+' Thiết bị</button>'+
-      '<button class="it" onclick="mtSetLayout()">'+ic('grid',17)+' Bố cục: '+(S.layout==='auto'?'Tự động':'Lưới đều')+'</button>'+
-      '<button class="it" onclick="mtFullscreen()">'+ic('maximize',17)+' Toàn màn hình</button>'+
-      '<button class="it" onclick="copyText('+attrStr(meetLink(S.id))+')">'+ic('link',17)+' Sao chép link</button>';
-    if(S.me.host){
-      h += '<div class="hd">Điều khiển của chủ trì</div>'+
-        '<button class="it" onclick="mtPolicy(\'chatPolicy\',\''+(m.chatPolicy==='off'?'all':'off')+'\')">'+ic('chat',17)+' Cho phép chat<span class="chk">'+(m.chatPolicy!=='off'?ic('check',16):'')+'</span></button>'+
-        '<button class="it" onclick="mtPolicy(\'sharePolicy\',\''+(m.sharePolicy==='all'?'host':'all')+'\')">'+ic('screen',17)+' Mọi người được chia sẻ màn hình<span class="chk">'+(m.sharePolicy==='all'?ic('check',16):'')+'</span></button>'+
-        '<button class="it" onclick="mtPolicy(\'micPolicy\',\''+(m.micPolicy==='host'?'free':'host')+'\')">'+ic('mic',17)+' Mọi người tự bật micro<span class="chk">'+(m.micPolicy!=='host'?ic('check',16):'')+'</span></button>'+
-        '<button class="it" onclick="mtPolicy(\'locked\','+(!m.locked)+')">'+ic('lock',17)+' Khoá phòng<span class="chk">'+(m.locked?ic('check',16):'')+'</span></button>'+
-        '<button class="it" onclick="mtMuteAll()">'+ic('micOff',17)+' Tắt micro mọi người</button>'+
-        '<button class="it" onclick="mtEditCoHosts()">'+ic('users',17)+' Thêm/bớt đồng quản trị</button>';
-    }
-    d.innerHTML = h;
-  } else if(S.pop==='leave'){ d.innerHTML = '<button class="it" onclick="mtLeave()">'+ic('phoneOff',17)+' Rời cuộc họp</button><button class="it" style="color:#F5A3B0" onclick="mtEndAll()">'+ic('x',17)+' Kết thúc cho tất cả</button>'; }
-  bar.appendChild(d);
-}
-function mtRenderHostPanel(){ if(S && S.pop==='more') mtRenderPop(); }
-async function mtPolicy(key, val){ try{ await db.ref('meets/'+S.id+'/'+key).set(val); }catch(e){ mtToast('Lỗi'); } }
-function mtMuteAll(){ db.ref('meetRoom/'+S.id+'/ctl/muteAll').set({ ts:serverNow(), by:S.peerId }).then(()=>mtToast('Đã yêu cầu tắt micro mọi người')); S.pop=null; mtUpdateBar(); }
-function mtSetLayout(){ S.layout = S.layout==='auto' ? 'grid' : 'auto'; S.pop = null; mtUpdateBar(); mtRenderStage(); }
-function mtFullscreen(){ const el = $id('meetOverlay'); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); else if(el.requestFullscreen) el.requestFullscreen().catch(()=>{}); S.pop = null; mtUpdateBar(); }
-function mtHangup(){ if(S.me.host){ S.pop = S.pop==='leave' ? null : 'leave'; mtUpdateBar(); } else mtLeave(); }
-async function mtEndAll(){ if(!confirm('Kết thúc cho tất cả?')) return; const id = S.id, cls = S.meta.kind==='class' ? S.meta.classId : null; try{ const up = { ['meets/'+id+'/status']:'ended', ['meetRoom/'+id+'/ctl/ended']:serverNow() }; if(cls) up['onlineClasses/'+cls+'/status'] = 'ended'; await db.ref().update(up); } catch(e){ mtToast('Lỗi'); return; } mtLeave('Đã kết thúc cuộc họp.'); }
-function mtInfo(){
-  const m = S.meta;
-  mtModal('<h3>'+esc(m.title||'Cuộc họp')+'</h3>'+(m.description?'<div style="color:#A9BCCE;white-space:pre-wrap;margin-bottom:12px;line-height:1.55">'+esc(m.description)+'</div>':'')+'<div style="color:#7E97AE;font-size:13px;margin-bottom:6px">Chủ trì: <b style="color:#fff">'+esc(m.hostName||'—')+'</b> · Mã: <span class="mono" style="color:#fff">'+esc(S.id)+'</span></div>'+(m.kind==='class'?'':'<div class="mt-form" style="padding:0"><label>Link cuộc họp</label><input readonly value="'+esc(meetLink(S.id))+'" onfocus="this.select()"></div>')+'<div class="row-btns">'+(m.kind==='class'?'':'<button class="mt-btn-ghost" onclick="copyText('+attrStr(meetLink(S.id))+')">Sao chép link</button>')+'<button class="mt-btn-join" style="padding:10px 24px" onclick="mtModalClose()">Đóng</button></div>');
-}
-function mtModal(html){ mtModalClose(); const d = document.createElement('div'); d.className = 'mt-modalbg'; d.id = 'mtModal'; d.innerHTML = '<div class="mt-modal">'+html+'</div>'; d.addEventListener('mousedown', e=>{ if(e.target===d) mtModalClose(); }); $id('meetOverlay').appendChild(d); }
-function mtModalClose(){ const m = $id('mtModal'); if(m) m.remove(); }
-function mtEditCoHosts(){
-  S.pop = null; mtUpdateBar();
-  const meta = S.meta, coHosts = meta.coHosts||{};
-  const parts = Object.entries(S.participants||{}).map(([pid,p])=>({ pid, uid:p.uid, name:p.name, host:p.host }));
-  const students = Object.values(state.students||{}).filter(s=>s.active!==false).sort(cmpStudentName);
-  let html = '<h3>Đồng quản trị</h3><div class="hint mb-12" style="color:#7E97AE;font-size:12.5px">Chọn người làm co-host: có quyền mời ra, tắt mic, tạo bình chọn...</div>';
-  if(parts.length){
-    html += '<div class="hd" style="font-size:11.5px;color:#7E97AE;font-weight:800;padding:6px 0;text-transform:uppercase;letter-spacing:.3px;">Người đang trong phòng</div>';
-    html += '<div class="mt-form" style="padding:0;max-height:180px;overflow-y:auto">'+parts.map(p=>{
-      const uid = p.uid;
-      const isMe = p.pid===S.peerId;
-      if(isMe) return '';
-      const checked = coHosts[uid] ? 'checked' : '';
-      return '<label class="chk-row" style="color:#E8EFF6"><input type="checkbox" class="mh_uid" data-uid="'+esc(uid)+'" data-name="'+esc(p.name)+'" '+checked+'> '+esc(p.name)+(p.host?' <span class="pill pill-green" style="font-size:10px">đang chủ trì</span>':'')+'</label>';
-    }).join('')+'</div>';
-  }
-  html += '<div class="hd" style="font-size:11.5px;color:#7E97AE;font-weight:800;padding:6px 0;margin-top:10px;text-transform:uppercase;letter-spacing:.3px;">Học sinh trong lớp</div>';
-  html += '<div class="mt-form" style="padding:0;max-height:200px;overflow-y:auto">'+students.map(s=>'<label class="chk-row" style="color:#E8EFF6"><input type="checkbox" class="mh_sid" value="'+esc(s.id)+'" '+(coHosts[s.id]?'checked':'')+'> '+esc(s.name)+' <span style="color:#7E97AE;font-size:11px">('+esc(s.id)+')</span></label>').join('')+'</div>';
-  html += '<div class="row-btns"><button class="mt-btn-ghost" onclick="mtModalClose()">Huỷ</button><button class="mt-btn-join" style="padding:10px 24px" onclick="mtSaveCoHosts()">Lưu</button></div>';
-  mtModal(html);
-}
-async function mtSaveCoHosts(){
-  const coHosts = {};
-  document.querySelectorAll('.mh_uid:checked').forEach(c=>{ coHosts[c.dataset.uid] = { name: c.dataset.name, addedAt: serverNow() }; });
-  document.querySelectorAll('.mh_sid:checked').forEach(c=>{ const s = state.students[c.value]; if(s) coHosts[c.value] = { name:s.name, addedAt: serverNow() }; });
-  try{ await db.ref('meets/'+S.id+'/coHosts').set(Object.keys(coHosts).length?coHosts:null); mtModalClose(); mtToast('Đã lưu danh sách đồng quản trị'); }
-  catch(e){ mtToast('Lỗi: '+e.message); }
-}
-function mtTogglePanel(on){
-  S.panel = on; $id('mtSide').classList.toggle('on', on);
-  if(on && S.tab==='chat'){ S.unread = 0; const l = $id('chatList'); if(l) l.scrollTop = l.scrollHeight; }
-  mtUpdateBar();
-}
-function mtTab(t, toggle){
-  if(toggle && S.panel && S.tab===t){ mtTogglePanel(false); return; }
-  S.tab = t;
-  document.querySelectorAll('#mtSide .mt-tabs button[data-t]').forEach(b=>b.classList.toggle('on', b.dataset.t===t));
-  ['chat','people','polls'].forEach(x=>{ const p = $id('pane'+x.charAt(0).toUpperCase()+x.slice(1)); if(p) p.classList.toggle('on', x===t); });
-  if(toggle || !S.panel) { if(toggle) mtTogglePanel(true); }
-  if(t==='chat'){ S.unread = 0; const l = $id('chatList'); if(l) setTimeout(()=>{ l.scrollTop = l.scrollHeight; }, 0); }
-  if(t==='people') mtRenderPeople();
-  if(t==='polls') mtRenderPolls();
-  mtBadge();
-}
-function mtLinkify(t){ return esc(t).replace(/(https?:\/\/[^\s<]+)/g, u=>'<a href="'+u+'" target="_blank" rel="noopener">'+u+'</a>'); }
-function mtAppendChat(m){
-  const l = $id('chatList'); if(!l) return;
-  const near = l.scrollHeight - l.scrollTop - l.clientHeight < 80;
-  const d = document.createElement('div'); d.className = 'chat-msg'+(m.uid===S.me.uid?' me':'');
-  d.innerHTML = '<div class="who">'+esc(m.uid===S.me.uid?'Bạn':m.name)+'<span class="when">'+fmtHM(m.ts||Date.now())+'</span></div><div class="tx">'+mtLinkify(m.text||'')+'</div>';
-  l.appendChild(d); if(near) l.scrollTop = l.scrollHeight;
-}
-function mtOnChat(key, m){
-  if(!S || !m || S.chat.some(x=>x.key===key)) return;
-  const item = Object.assign({key}, m); S.chat.push(item); mtAppendChat(item);
-  if(m.uid!==S.me.uid && (m.ts||0) >= S.joinTs-1000 && !(S.panel && S.tab==='chat')){ S.unread++; mtUpdateBar(); }
-}
-function mtSendChat(){
-  const inp = $id('chatInput'); const t = (inp.value||'').trim(); if(!t) return;
-  if(!mtCanChat()){ mtToast('Chat đang tắt'); return; }
-  db.ref('meetRoom/'+S.id+'/chat').push({ uid:S.me.uid, name:S.me.name, text:t.slice(0,1000), ts:serverNow() }).catch(e=>mtToast('Không gửi được'));
-  inp.value = '';
-}
-function mtRenderPeople(){
-  const box = $id('peopleList'); if(!box || !S) return;
-  const parts = S.participants, ids = Object.keys(parts).sort((a,b)=>(a===S.peerId?-1:b===S.peerId?1:(parts[a].joinedAt||0)-(parts[b].joinedAt||0)));
-  box.innerHTML = ids.map(id=>{
-    const p = parts[id], me = id===S.peerId, peer = S.peers[id];
-    const st = me ? '' : (peer && peer.pc && peer.pc.connectionState==='connected' ? '' : ' · đang kết nối');
-    let acts = '';
-    if(S.me.host && !me){
-      const allowed = !!S.allow[p.uid];
-      const isCoHost = S.meta.coHosts && (S.meta.coHosts[p.uid] || (p.uid && state.students[p.uid] && S.meta.coHosts[p.uid]));
-      acts = '<div class="acts">'+
-        (!isCoHost?'<button class="mini-btn gold" title="Cấp quyền đồng chủ trì" onclick="mtMakeCoHost('+attrStr(id)+','+attrStr(p.uid)+','+attrStr(p.name)+')">'+ic('crown',12)+' Co-host</button>':'<button class="mini-btn" onclick="mtRemoveCoHost('+attrStr(p.uid)+')" title="Thu hồi co-host">Thu hồi</button>')+
-        (S.meta.micPolicy==='host'?'<button class="mini-btn" onclick="mtAllow('+attrStr(p.uid)+','+(!allowed)+')">'+(allowed?'Thu quyền nói':'Cho nói')+'</button>':'')+
-        (p.mic?'<button class="mini-btn" onclick="mtMuteOne('+attrStr(id)+')">Tắt mic</button>':'')+
-        '<button class="mini-btn red" onclick="mtKick('+attrStr(id)+')">Mời ra</button></div>';
-    }
-    const isCoHostTag = S.meta.coHosts && S.meta.coHosts[p.uid] ? ' <span class="pill pill-accent" style="font-size:10px">Co-host</span>' : '';
-    return '<div class="ppl"><div class="avatar">'+esc(initialsOf(p.name))+'</div><div class="nm">'+esc(p.name||'?')+(me?' (Bạn)':'')+isCoHostTag+'<small>'+(p.host?'Chủ trì':(p.guest?'Khách':'Thành viên'))+st+'</small></div><div class="ic">'+(p.hand?'<span class="hand">'+ic('hand',16)+'</span>':'')+(p.screen?ic('screen',16):'')+(p.mic?ic('mic',16):'<span class="red">'+ic('micOff',16)+'</span>')+'</div>'+acts+'</div>';
-  }).join('');
-}
-function mtAllow(uid, v){ db.ref('meetRoom/'+S.id+'/allow/'+uid).set(v?true:null); }
-function mtMuteOne(peerId){ db.ref('meetRoom/'+S.id+'/ctl/mute/'+peerId).set(serverNow()); }
-async function mtMakeCoHost(peerId, uid, name){
-  if(!S.me.host) return;
-  const coHosts = Object.assign({}, S.meta.coHosts||{});
-  coHosts[uid] = { name, addedAt: serverNow() };
-  try{ await db.ref('meets/'+S.id+'/coHosts').set(coHosts); mtToast(name+' đã được cấp quyền đồng chủ trì'); }
-  catch(e){ mtToast('Lỗi'); }
-}
-async function mtRemoveCoHost(uid){
-  if(!S.me.host) return;
-  const coHosts = Object.assign({}, S.meta.coHosts||{});
-  delete coHosts[uid];
-  try{ await db.ref('meets/'+S.id+'/coHosts').set(Object.keys(coHosts).length?coHosts:null); mtToast('Đã thu hồi co-host'); }
-  catch(e){ mtToast('Lỗi'); }
-}
-async function mtKick(peerId){
-  const p = S.participants[peerId]; if(!p || !confirm('Mời '+p.name+' ra khỏi phòng?')) return;
-  try{ await db.ref('meetRoom/'+S.id+'/ctl/kick/'+peerId).set(serverNow()); await db.ref('meetRoom/'+S.id+'/participants/'+peerId).remove(); }catch(e){ mtToast('Lỗi'); }
-}
-function mtOnCtl(ctl){
-  if(!S) return;
-  if(ctl.ended && ctl.ended > S.joinTs){ mtLeave('Chủ trì đã kết thúc cuộc họp.'); return; }
-  if(ctl.kick && ctl.kick[S.peerId] && ctl.kick[S.peerId] > S.joinTs){ S.kicked = true; mtLeave('Bạn đã được mời ra khỏi phòng.'); return; }
-  const mt = ctl.mute && ctl.mute[S.peerId];
-  if(mt && mt > S.joinTs && mt > (S.lastMute||0)){ S.lastMute = mt; mtForceMute('Chủ trì đã tắt micro của bạn'); }
-  const ma = ctl.muteAll && ctl.muteAll.ts;
-  if(ma && ma > S.joinTs && ma > (S.lastMuteAll||0)){ S.lastMuteAll = ma; if(!S.me.host) mtForceMute('Chủ trì đã tắt micro mọi người'); }
-}
-function mtForceMute(msg){
-  if(S.local.micOn){ S.local.micOn = false; if(S.local.mic) S.local.mic.enabled = false; mtSyncMe(); mtUpdateBar(); mtRenderStage(); }
-  mtToast(msg);
-}
-function mtEnforce(){
-  if(!S) return;
-  if(S.local.micOn && !mtCanUnmute()) mtForceMute('Chủ trì đã giới hạn micro');
-  if(S.local.scrOn && !mtCanShare()) { mtStopShare(); mtToast('Đã giới hạn chia sẻ màn hình'); }
-  const i = $id('chatInput'); if(i){ i.disabled = !mtCanChat(); i.placeholder = mtCanChat() ? 'Nhắn tin' : 'Chat đang tắt'; }
-}
-function mtReact(emoji){
-  S.pop = null; mtUpdateBar();
-  const ref = db.ref('meetRoom/'+S.id+'/react').push({ name:S.me.name, emoji, ts:serverNow() });
-  setTimeout(()=>{ try{ ref.remove(); }catch(e){} }, 6000);
-}
-function mtOnReact(v){
-  if(!S || !v || (v.ts||0) < serverNow()-5000) return;
-  const f = $id('mtFloat'); if(!f) return;
-  const d = document.createElement('div'); d.className = 'fl'; d.style.left = (10+Math.random()*160)+'px';
-  d.innerHTML = esc(v.emoji)+'<small>'+esc(v.name||'')+'</small>'; f.appendChild(d); setTimeout(()=>d.remove(), 3900);
-}
-function mtPollNew(){
-  if(!S.me.host) return;
-  S.tab = 'polls'; mtTab('polls',false); if(!S.panel) mtTogglePanel(true);
-  $id('pollFormBox').innerHTML = '<div class="poll mt-form" style="padding:12px 13px"><label>Câu hỏi</label><input id="pq" maxlength="200"><label>Các lựa chọn</label><div id="popts"></div><button class="mini-btn" onclick="mtPollAddOpt()">+ Thêm lựa chọn</button><label class="chk-row" style="color:#C5D3E0"><input type="checkbox" id="pmulti" style="width:auto"> Cho phép chọn nhiều</label><div style="display:flex;gap:8px;justify-content:flex-end"><button class="mini-btn" onclick="mtPollCancel()">Huỷ</button><button class="mini-btn" style="background:#3E7EC2;color:#fff" onclick="mtPollCreate()">Đăng</button></div></div>';
-  mtPollAddOpt(); mtPollAddOpt(); $id('pq').focus();
-}
-function mtPollAddOpt(){ const b = $id('popts'); if(!b || b.children.length>=6) return; const i = document.createElement('input'); i.className = 'po'; i.maxLength = 100; i.placeholder = 'Lựa chọn '+(b.children.length+1); i.style.marginBottom = '6px'; b.appendChild(i); }
-function mtPollCancel(){ $id('pollFormBox').innerHTML = ''; mtRenderPolls(); }
-async function mtPollCreate(){
-  const q = $id('pq').value.trim(), opts = Array.from(document.querySelectorAll('#popts .po')).map(x=>x.value.trim()).filter(Boolean);
-  if(!q || opts.length<2){ mtToast('Cần câu hỏi và ít nhất 2 lựa chọn'); return; }
-  try{ await db.ref('meetRoom/'+S.id+'/polls').push({ q, options:opts, multi:$id('pmulti').checked, by:S.me.name, ts:serverNow(), closed:false }); $id('pollFormBox').innerHTML = ''; } catch(e){ mtToast('Không đăng được'); }
-}
-function mtRenderPolls(){
-  const box = $id('pollCards'); if(!box || !S) return;
-  const ents = Object.entries(S.polls||{}).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
-  let head = S.me.host ? '<button class="mini-btn" style="margin-bottom:12px;background:#3E7EC2;color:#fff;padding:8px 14px" onclick="mtPollNew()">+ Tạo bình chọn</button>' : '';
-  if(!ents.length){ box.innerHTML = head+'<div style="color:#7E97AE;font-size:13px;padding:8px 2px">Chưa có bình chọn.</div>'; return; }
-  box.innerHTML = head + ents.map(([pid,p])=>{
-    const opts = toArr(p.options), votes = S.votes[pid]||{}, mine = (votes[S.me.uid]&&toArr(votes[S.me.uid].sel))||[];
-    const counts = opts.map(()=>0); let voters = 0;
-    Object.values(votes).forEach(v=>{ const s = toArr(v.sel); if(s.length) voters++; s.forEach(i=>{ if(counts[i]!=null) counts[i]++; }); });
-    const showRes = p.closed || mine.length || S.me.host;
-    return '<div class="poll"><div class="q">'+esc(p.q)+'</div>'+opts.map((o,i)=>{
-      const pc = voters ? Math.round(counts[i]*100/voters) : 0;
-      return '<label class="opt '+(mine.includes(i)?'mine':'')+'">'+(showRes?'<span class="bar" style="width:'+pc+'%"></span>':'')+'<span class="in"><input type="'+(p.multi?'checkbox':'radio')+'" name="pl_'+pid+'" '+(mine.includes(i)?'checked':'')+' '+(p.closed?'disabled':'')+' onchange="mtVote('+attrStr(pid)+','+i+')"><span>'+esc(o)+'</span>'+(showRes?'<span class="pc">'+counts[i]+' · '+pc+'%</span>':'')+'</span></label>';
-    }).join('')+'<div class="foot"><span>'+voters+' người bình chọn'+(p.closed?' · đã đóng':'')+' · '+esc(p.by||'')+'</span>'+(S.me.host?'<button class="mini-btn" onclick="mtPollClose('+attrStr(pid)+','+(!p.closed)+')">'+(p.closed?'Mở lại':'Đóng')+'</button><button class="mini-btn red" onclick="mtPollDel('+attrStr(pid)+')">Xoá</button>':'')+'</div></div>';
-  }).join('');
-}
-function mtVote(pid, idx){
-  const p = S.polls[pid]; if(!p || p.closed) return;
-  const cur = ((S.votes[pid]||{})[S.me.uid] && toArr(S.votes[pid][S.me.uid].sel)) || [];
-  let sel;
-  if(p.multi) sel = cur.includes(idx) ? cur.filter(x=>x!==idx) : cur.concat([idx]);
-  else sel = [idx];
-  const ref = db.ref('meetRoom/'+S.id+'/votes/'+pid+'/'+S.me.uid);
-  (sel.length ? ref.set({ sel, name:S.me.name }) : ref.remove()).catch(e=>mtToast('Không ghi được'));
-}
-function mtPollClose(pid, v){ db.ref('meetRoom/'+S.id+'/polls/'+pid+'/closed').set(!!v); }
-function mtPollDel(pid){ if(!confirm('Xoá bình chọn?')) return; db.ref().update({ ['meetRoom/'+S.id+'/polls/'+pid]:null, ['meetRoom/'+S.id+'/votes/'+pid]:null }); }
-function mtTilesInfo(){
-  const parts = S.participants;
-  const ids = Object.keys(parts).sort((a,b)=>(a===S.peerId?-1:b===S.peerId?1:(parts[a].joinedAt||0)-(parts[b].joinedAt||0)));
-  const list = [];
-  ids.forEach(id=>list.push({ key:id+':cam', id, kind:'cam', p:parts[id], mine:id===S.peerId }));
-  ids.forEach(id=>{ if(parts[id].screen) list.push({ key:id+':scr', id, kind:'scr', p:parts[id], mine:id===S.peerId }); });
-  return list;
-}
-function mtTileEl(t){
-  let el = S.tileEls[t.key];
-  if(!el){
-    el = document.createElement('div'); el.className = 'mt-tile '+(t.kind==='scr'?'scr ':'')+(t.mine?'mine':''); el.dataset.key = t.key;
-    el.innerHTML = '<video class="'+(t.kind==='cam'?'cam':'')+'" autoplay playsinline muted></video><div class="avatar-wrap"><div class="avatar"></div></div><div class="conn"></div><div class="flags"></div><div class="lbl"></div><button class="pin" title="Ghim">'+ic('pin',15)+'</button>';
-    el.querySelector('video').muted = true;
-    el.querySelector('.pin').addEventListener('click', e=>{ e.stopPropagation(); mtPin(t.key); });
-    el.addEventListener('dblclick', ()=>mtPin(t.key));
-    S.tileEls[t.key] = el;
-  }
-  return el;
-}
-function mtPin(key){ S.pinned = S.pinned===key ? null : key; mtRenderStage(); }
-function mtUpdateTile(t, el){
-  const p = t.p, peer = S.peers[t.id], v = el.querySelector('video');
-  let stream = null, showVideo = false;
-  if(t.kind==='cam'){ if(t.mine){ stream = S.local.camOn ? S.local.camStream : null; showVideo = !!stream; } else { stream = (peer && peer.media.cam) || null; showVideo = !!(p.cam && stream); } }
-  else { stream = t.mine ? S.local.scrStream : ((peer && peer.media.scr) || null); showVideo = !!stream; }
-  if(v.srcObject !== stream) v.srcObject = stream;
-  v.style.display = showVideo ? '' : 'none';
-  if(showVideo && v.paused) v.play().catch(()=>{});
-  const av = el.querySelector('.avatar-wrap'); av.style.display = (t.kind==='cam' && !showVideo) ? '' : 'none';
-  el.querySelector('.avatar').textContent = initialsOf(p.name);
-  el.querySelector('.lbl').innerHTML = (t.kind==='cam' && !p.mic ? ic('micOff',13) : '')+'<span>'+esc(p.name||'?')+(t.mine?' (Bạn)':'')+(t.kind==='scr'?' — đang trình chiếu':'')+'</span>';
-  el.querySelector('.flags').innerHTML = (p.hand && t.kind==='cam' ? '<span class="flag hand" title="Đang giơ tay">'+ic('hand',14)+'</span>' : '');
-  const st = peer && peer.pc ? peer.pc.connectionState : (t.mine ? 'connected' : 'new');
-  el.querySelector('.conn').textContent = (!t.mine && t.kind==='cam' && st!=='connected') ? (st==='failed'?'Mất kết nối':'Đang kết nối…') : '';
-  el.querySelector('.conn').style.display = el.querySelector('.conn').textContent ? '' : 'none';
-  el.classList.toggle('pinned', S.pinned===t.key);
-}
-let mtRenderQ = 0;
-function mtRenderStage(){ if(!S || !S.joined) return; if(mtRenderQ) return; mtRenderQ = requestAnimationFrame(()=>{ mtRenderQ = 0; mtRenderStageNow(); }); }
-function mtRenderStageNow(){
-  if(!S) return; const stage = $id('mtStage'); if(!stage) return;
-  const tiles = mtTilesInfo();
-  Object.keys(S.tileEls).forEach(k=>{ if(!tiles.some(t=>t.key===k)){ const e = S.tileEls[k]; const v = e.querySelector('video'); if(v) v.srcObject = null; e.remove(); delete S.tileEls[k]; } });
-  tiles.forEach(t=>mtUpdateTile(t, mtTileEl(t)));
-  const scr = tiles.filter(t=>t.kind==='scr');
-  let big = S.pinned ? tiles.find(t=>t.key===S.pinned) : null;
-  if(!big && S.layout==='auto' && scr.length) big = scr[0];
-  const wrap = document.createElement('div');
-  if(big){
-    wrap.className = 'mt-pres';
-    const b = document.createElement('div'); b.className = 'big'; b.appendChild(S.tileEls[big.key]);
-    const strip = document.createElement('div'); strip.className = 'strip';
-    tiles.filter(t=>t.key!==big.key).forEach(t=>strip.appendChild(S.tileEls[t.key]));
-    wrap.appendChild(b); wrap.appendChild(strip);
-  } else {
-    const n = tiles.length; const cols = n<=1?1:(n<=4?2:(n<=9?3:(n<=16?4:(n<=25?5:6))));
-    wrap.className = 'mt-grid'; wrap.style.setProperty('--cols', window.innerWidth<560 ? Math.min(cols,2) : cols);
-    tiles.forEach(t=>wrap.appendChild(S.tileEls[t.key]));
-  }
-  stage.replaceChildren(wrap);
-  tiles.forEach(t=>{ const v = S.tileEls[t.key].querySelector('video'); if(v && v.srcObject && v.paused) v.play().catch(()=>{}); });
-}
-window.addEventListener('resize', debounce(()=>{ if(S && S.joined) mtRenderStage(); }, 120));
-async function mtDevices(){
-  S.pop = null; mtUpdateBar();
-  let devs = []; try{ devs = await navigator.mediaDevices.enumerateDevices(); }catch(e){}
-  const sel = (kind, cur, id)=>{ const l = devs.filter(d=>d.kind===kind); return '<select id="'+id+'" onchange="mtPickDevice(\''+id+'\',this.value)"><option value="">Mặc định</option>'+l.map((d,i)=>'<option value="'+esc(d.deviceId)+'" '+(d.deviceId===cur?'selected':'')+'>'+esc(d.label||('Thiết bị '+(i+1)))+'</option>').join('')+'</select>'; };
-  mtModal('<h3>Thiết bị &amp; âm thanh</h3><div class="mt-form" style="padding:0"><label>Camera</label>'+sel('videoinput',S.dev.cam,'dvCam')+'<label>Micro</label>'+sel('audioinput',S.dev.mic,'dvMic')+(('setSinkId' in HTMLMediaElement.prototype)?'<label>Loa</label>'+sel('audiooutput',S.dev.spk,'dvSpk'):'')+'</div><div class="row-btns"><button class="mt-btn-join" style="padding:10px 24px" onclick="mtModalClose()">Xong</button></div>');
-}
-async function mtPickDevice(id, val){
-  if(id==='dvCam'){ S.dev.cam = val; localStorage.setItem('mt_cam', val); if(S.local.camOn){ mtStopTrack('cam'); if(await mtAcquire('cam')){ mtPushTrack('cam'); } else S.local.camOn = false; mtSyncMe(); mtUpdateBar(); mtRenderStage(); } }
-  else if(id==='dvMic'){ S.dev.mic = val; localStorage.setItem('mt_mic', val); if(S.local.mic){ const was = S.local.micOn; mtStopTrack('mic'); if(await mtAcquire('mic')){ S.local.mic.enabled = was; mtPushTrack('mic'); } else S.local.micOn = false; mtSyncMe(); mtUpdateBar(); } }
-  else if(id==='dvSpk'){ S.dev.spk = val; localStorage.setItem('mt_spk', val); Object.values(S.peers).forEach(p=>Object.values(p.audioEls).forEach(a=>{ if(a.setSinkId) a.setSinkId(val).catch(()=>{}); })); }
-}
-function mtLeave(msg){
-  if(!S || S.leaving) return;
-  S.leaving = true;
-  const id = S.id, peerId = S.peerId, joined = S.joined;
-  S.timers.forEach(t=>clearInterval(t));
-  S.refs.forEach(r=>{ try{ r.ref.off(r.ev, r.cb); }catch(e){} });
-  try{ if(S.sigRef) S.sigRef.off(); }catch(e){}
-  if(joined){ db.ref('meetRoom/'+id+'/participants/'+peerId).remove().catch(()=>{}); db.ref('meetRoom/'+id+'/signals/'+peerId).remove().catch(()=>{}); }
-  Object.values(S.peers).forEach(p=>{ mtDisposePC(p); Object.values(p.audioEls).forEach(a=>{ a.srcObject = null; a.remove(); }); });
-  ['cam','mic','scr'].forEach(k=>mtStopTrack(k));
-  try{ if(S.ac) S.ac.close(); }catch(e){}
-  Object.values(S.tileEls).forEach(e=>{ const v = e.querySelector('video'); if(v) v.srcObject = null; });
-  S = null;
-  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
-  const ov = $id('meetOverlay'); ov.classList.remove('on'); ov.innerHTML = ''; document.body.style.overflow = '';
-  if(msg) toast(msg, 'ok');
-}
-window.addEventListener('pagehide', ()=>{ if(S && S.joined && !S.leaving){ try{ db.ref('meetRoom/'+S.id+'/participants/'+S.peerId).remove(); }catch(e){} } });
-
-/* =========================================================================
-   BOOT + DEEP LINK + GUEST
-========================================================================= */
-function extHandleDeepLink(){
-  const params = new URLSearchParams(location.search);
-  const oc = params.get('online'), mt = params.get('meet');
-  if(!oc && !mt) return;
-  let tries = 0;
-  const tryRoute = ()=>{ tries++; if(oc){ if(!state.onlineClassesLoaded && tries<40) return false; openOnlineJoin(oc); return true; } if(mt){ meetOpen(mt); return true; } return true; };
-  if(!tryRoute()){ const iv = setInterval(()=>{ if(tryRoute()) clearInterval(iv); }, 300); setTimeout(()=>clearInterval(iv), 15000); }
-}
-window.__guestOnly = false;
-function meetCodeFrom(v){
-  v = (v||'').trim(); if(!v) return '';
-  try{ const u = new URL(v); const c = u.searchParams.get('meet'); if(c) v = c; }catch(e){}
-  return v.replace(/[^A-Za-z0-9_-]/g,'');
-}
-function guestJoinFromLogin(){ const c = meetCodeFrom(document.getElementById('guestCode').value); if(!c){ toast('Nhập link/mã','err'); return; } startGuestMeet(c); }
-function guestScreen(html){ const g = $id('guestScreen'); $id('guestCard').innerHTML = html; g.classList.add('on'); }
-function guestScreenOff(){ $id('guestScreen').classList.remove('on'); }
-function guestBye(code, title, msg){
-  const ico = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>';
-  guestScreen('<div class="gi">'+ico+'</div><h2>'+esc(title)+'</h2><p>'+esc(msg)+'</p><button class="btn primary" onclick="startGuestMeet('+attrStr(code)+')">Vào lại</button><button class="btn outline" onclick="guestToLogin()">Đăng nhập</button>');
-}
-function guestToLogin(){ window.__guestOnly = false; guestScreenOff(); history.replaceState(null,'',location.pathname); document.getElementById('loginScreen').style.display = 'flex'; }
-async function startGuestMeet(code){
-  window.__guestOnly = true; window.__guestCode = code;
-  document.getElementById('loginScreen').style.display = 'none';
-  guestScreen('<div class="gi">…</div><h2>Đang kết nối</h2><p>Vui lòng chờ.</p>');
-  if(!state.user){ const n = localStorage.getItem('mt_guest_name'); if(n) state.user = { guest:true, id:'guest_'+mtRand(6), name:n }; }
-  await meetOpen(code, { guestLink:true });
-  if(S) guestScreenOff();
-}
-(function(){
-  const _open = meetOpen, _leave = mtLeave, _close = mtCloseLobby, _join = mtJoinRoom;
-  meetOpen = async function(id, ctx){ await _open(id, ctx); if(window.__guestOnly && !S) guestBye(id,'Không thể vào','Cuộc họp không tồn tại hoặc không cho phép khách.'); };
-  mtLeave = function(msg){ const code = S && S.id; _leave(msg); if(window.__guestOnly && !S) guestBye(code,'Đã rời', msg || 'Cảm ơn.'); };
-  mtCloseLobby = function(){ const code = S && S.id; _close(); if(window.__guestOnly) guestBye(code,'Chưa vào','Bấm "Vào lại" khi sẵn sàng.'); };
-  mtJoinRoom = async function(){ if(S && S.me.guest){ const el = $id('ltName'); if(el && el.value.trim()) localStorage.setItem('mt_guest_name', el.value.trim().slice(0,40)); } return _join(); };
-})();
 const LEAVE_REASONS = { off:['Ốm / sức khoẻ không tốt','Khám bệnh theo lịch','Việc gia đình','Đi thi / hoạt động ngoại khoá'], late:['Kẹt xe / sự cố giao thông','Ốm, đến muộn sau khi khám','Việc gia đình đột xuất'] };
 function injectReasonChips(){
   [['leaveOffReason','off'],['leaveLateReason','late']].forEach(([id,k])=>{
@@ -5881,8 +5280,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
   window.addEventListener('resize', ()=>{ document.getElementById('hamburgerBtn').style.display = window.innerWidth<880 ? 'inline-flex':'none'; });
   document.getElementById('loginPass').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
   renderLogos();
-  const code = meetCodeFrom(qp.get('meet')||'');
-  if(code && !localStorage.getItem('d2_session')){ startGuestMeet(code); return; }
   if(!tryRestoreSession()){ REF.config.once('value', snap=>{ state.classCfg = snap.val()||{}; renderLogos(); }); }
 });
 </script>
