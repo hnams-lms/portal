@@ -1210,6 +1210,66 @@ table.plain td .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
   box-shadow:var(--shadow-xs);
 }
 .lv-count{background:linear-gradient(135deg,#2563A8,#1A4A7A);color:#fff;border-radius:99px;font-size:10.5px;padding:2px 8px;margin-left:8px;font-weight:800;}
+/* ============================================================
+   HOMEWORK (BÀI TẬP VỀ NHÀ)
+============================================================ */
+.hw-toolbar{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:4px;}
+.hw-toolbar .field{margin-bottom:0;}
+.hw-toolbar input[type=date]{min-width:168px;}
+.hw-sub-nav{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.hw-sub-nav button{
+  border:1.5px solid var(--line-strong);background:#fff;color:var(--ink-soft);
+  padding:9px 16px;border-radius:10px;font-size:13px;font-weight:700;transition:var(--transition);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.hw-sub-nav button:hover{border-color:var(--blue-light);color:var(--blue);}
+.hw-sub-nav button.on{background:linear-gradient(135deg,#0F2137,#1A4A7A);border-color:#0F2137;color:#fff;box-shadow:0 6px 16px -6px rgba(15,33,55,.5);}
+.hw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:4px;}
+.hw-card{
+  position:relative;background:var(--subj-bg,#F5F8FB);border:1.5px solid var(--line);border-radius:var(--radius-lg);
+  padding:16px 16px 14px;overflow:hidden;transition:var(--transition);
+}
+.hw-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--subj-accent,var(--blue));}
+.hw-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.hw-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;}
+.hw-card-badges{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.hw-tiet-badge{
+  display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:22px;padding:0 6px;
+  border-radius:7px;background:var(--subj-accent,var(--blue));color:#fff;font-size:11.5px;font-weight:800;
+}
+.hw-subject-name{font-size:14.5px;font-weight:800;color:var(--navy);letter-spacing:-.01em;}
+.hw-card-actions{display:flex;gap:4px;opacity:0;transition:var(--transition);}
+.hw-card:hover .hw-card-actions{opacity:1;}
+.hw-card-actions button{
+  width:26px;height:26px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.7);color:var(--ink-soft);transition:var(--transition);
+}
+.hw-card-actions button:hover{background:#fff;color:var(--blue);}
+.hw-card-actions button.danger:hover{color:var(--rose);}
+.hw-card-body{font-size:13px;line-height:1.6;color:var(--ink);white-space:pre-wrap;word-break:break-word;margin-bottom:12px;min-height:20px;}
+.hw-card-foot{display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px dashed var(--line-strong);}
+.hw-meta-row{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);font-weight:600;}
+.hw-meta-row .svg-ic{flex-shrink:0;color:var(--ink-faint);}
+.hw-meta-row b{color:var(--ink);font-weight:800;}
+.hw-week-table td, .hw-week-table th{white-space:normal;}
+.hw-week-table .hw-daygroup td{
+  background:linear-gradient(135deg,#0F2137,#1A3A5C)!important;color:#fff;font-weight:800;font-size:12.5px;
+  padding:9px 14px;letter-spacing:.01em;
+}
+.hw-week-table .hw-daygroup.today td{background:linear-gradient(135deg,#2563A8,#1A4A7A)!important;}
+.hw-week-table td.hw-subj-cell{font-weight:800;color:var(--navy);}
+.hw-week-table td.hw-content-cell{white-space:pre-wrap;max-width:340px;}
+.hw-overdue-row td{background:#FDF3F4!important;}
+.hw-period-picker{display:flex;flex-direction:column;gap:10px;}
+.hw-period-block{border:1.5px solid var(--line);border-radius:12px;overflow:hidden;transition:var(--transition);background:#fff;}
+.hw-period-block:has(.hw-chk:checked){border-color:var(--blue-light);box-shadow:0 6px 18px -10px rgba(37,99,168,.35);}
+.hw-period-block .lv-period{border:none;border-radius:0;}
+.hw-period-fields{display:none;padding:2px 16px 16px;border-top:1px dashed var(--line);}
+.hw-period-block:has(.hw-chk:checked) .hw-period-fields{display:block;padding-top:14px;}
+.hw-deadline-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.hw-deadline-row .field{margin-bottom:0;flex:1;min-width:150px;}
+.hw-auto-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-soft);padding:3px 9px;border-radius:99px;white-space:nowrap;}
+.hw-nolesson-note{font-size:12.5px;color:var(--ink-soft);padding:14px;background:#F7F9FB;border-radius:10px;border:1.5px dashed var(--line-strong);}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:-2px 0 14px;}
 .chips .chip{
   border:1.5px solid var(--line-strong);background:#fff;border-radius:99px;
@@ -1316,6 +1376,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="nav-item" data-view="dashboard" onclick="goView('dashboard')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span> Tổng quan</div>
       <div class="nav-item" data-view="schedule" onclick="goView('schedule')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span> Thời khoá biểu &amp; Sự kiện</div>
       <div class="nav-item" data-view="duty" onclick="goView('duty')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4L10 13"/><path d="M6 21l3-3"/><path d="M10 13l-6 2 2 6 6-2z"/><path d="M14 8l3 3"/></svg></span> Lịch trực nhật</div>
+      <div class="nav-item" data-view="homework" onclick="goView('homework')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 13l2 2 4-4"/><path d="M9 18h6"/></svg></span> Bài tập về nhà</div>
       <div class="nav-item student-only" data-view="lookup" onclick="goView('lookup')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span> Tra cứu lịch trực của tôi</div>
       <div class="nav-item student-only" data-view="classList" onclick="goView('classList')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span> Danh sách lớp</div>
       <div class="nav-item student-only" data-view="attClass" onclick="goView('attClass')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></span> Điểm danh lớp</div>
@@ -1421,6 +1482,21 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
         </div>
         <div class="item-card-grid" id="itemFullList"></div>
       </div>
+    </div>
+
+    <!-- HOMEWORK -->
+    <div class="view" id="view-homework">
+      <div class="view-head">
+        <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div>
+            <div class="lead">Bài tập về nhà</div>
+            <div class="sub" style="font-size:12.5px;color:var(--ink-soft);margin-top:3px;font-weight:500;">Mọi học sinh, giáo viên và quản trị viên đều có thể giao và chỉnh sửa bài tập.</div>
+          </div>
+          <button class="btn primary" onclick="openHomeworkModal()">+ Giao bài tập về nhà</button>
+        </div>
+      </div>
+      <div class="tabs-inline mb-16" id="hwMainTabs"></div>
+      <div id="hwMainBody"></div>
     </div>
 
     <!-- DUTY -->
@@ -1962,7 +2038,7 @@ const db = firebase.database();
 const REF = {
   students: db.ref('students'), items: db.ref('scheduleItems'), duty: db.ref('duty'), taskTypes: db.ref('dutyTaskTypes'),
   zaloCfg: db.ref('zaloConfig'), notifs: db.ref('zaloNotifications'), zaloLog: db.ref('zaloLog'),
-  config: db.ref('classConfig'), admins: db.ref('admins'), leaves: db.ref('leaveRequests')
+  config: db.ref('classConfig'), admins: db.ref('admins'), leaves: db.ref('leaveRequests'), homework: db.ref('homework')
 };
 const DEFAULT_ZALO_PROXY_URL = 'https://us-central1-' + firebaseConfig.projectId + '.cloudfunctions.net/zaloSendProxy';
 const SUPERADMIN = { user: 'admin123', pass: 'ams2629' };
@@ -2053,7 +2129,7 @@ const DEFAULT_PERIODS = [
 
 let state = {
   user:null, students:{}, items:{}, duty:{}, taskTypes:{}, zaloCfg:{}, notifs:{}, zaloLogs:{},
-  classCfg:{}, admins:{}, leaves:{}, weekStart:getMonday(new Date()), currentView:'dashboard',
+  classCfg:{}, admins:{}, leaves:{}, homework:{}, weekStart:getMonday(new Date()), currentView:'dashboard',
   remindersFired:{}
 };
 function periods(){ return (state.classCfg && state.classCfg.periods && state.classCfg.periods.length) ? state.classCfg.periods : DEFAULT_PERIODS; }
@@ -2318,6 +2394,7 @@ function attachListeners(){
   REF.notifs.on('value', snap=>{ state.notifs = snap.val()||{}; if(state.currentView==='zalo') renderNotifList(); });
   REF.zaloLog.on('value', snap=>{ state.zaloLogs = snap.val()||{}; if(state.currentView==='zalo') renderZaloLog(); });
   REF.admins.on('value', snap=>{ state.admins = snap.val()||{}; if(state.currentView==='admins') renderAdminsTable(); });
+  REF.homework.on('value', snap=>{ state.homework = snap.val()||{}; if(state.currentView==='homework') renderHomeworkView(); if(state.currentView==='dashboard' && typeof renderDashboardExt==='function') renderDashboardExt(); });
   REF.leaves.on('value', snap=>{
     state.leaves = snap.val()||{};
     if(state.currentView==='leaveApply') renderMyLeaveList();
@@ -2367,7 +2444,7 @@ function goView(v){
     lookup:'Tra cứu lịch trực của tôi', students:'Học sinh & tài khoản', tasktypes:'Đầu việc trực nhật',
     zalo:'Zalo Bot & Thông báo', settings:'Cài đặt lớp',
     leaveApply:'Đơn từ', leaveApprove:'Duyệt đơn từ', admins:'Quản trị viên',
-    classList:'Danh sách lớp', attClass:'Điểm danh lớp'
+    classList:'Danh sách lớp', attClass:'Điểm danh lớp', homework:'Bài tập về nhà'
   };
   document.getElementById('topbarTitle').textContent = titles[v]||(typeof EXT_TITLES!=='undefined'?EXT_TITLES[v]:null)||'—';
   document.getElementById('topbarDate').textContent = 'Hôm nay ' + fmtFull(new Date());
@@ -2389,6 +2466,7 @@ function refreshCurrentView(){
     case 'admins': renderAdminsTable(); renderSuperadminForm(); break;
     case 'classList': renderClassListView(); break;
     case 'attClass': renderAttClassView(); break;
+    case 'homework': renderHomeworkView(); break;
     default: if(typeof extRefreshView==='function') extRefreshView(state.currentView); break;
   }
 }
@@ -2669,6 +2747,328 @@ function deleteItem(id){
   if(!hasPerm('schedule')) return;
   if(!confirm('Xoá mục lịch này?')) return;
   REF.items.child(id).remove().then(()=> toast('Đã xoá','ok'));
+}
+
+/* =========================================================================
+   HOMEWORK (BÀI TẬP VỀ NHÀ)
+   - Mọi HS, GV/QTV (bất kỳ ai đăng nhập) đều có thể tạo/sửa/xoá.
+   - "Ngày giao" (assignedDate) và "Hạn nộp" (deadlineDate) LUÔN được lưu và
+     xử lý tách biệt: xem BTVN được giao lọc theo assignedDate, tra cứu
+     deadline lọc theo deadlineDate. Không được trộn lẫn hai khái niệm này.
+========================================================================= */
+function periodIndexMap(){ const P = periods(); const m = {}; P.forEach((p,i)=> m[p.id]=i); return m; }
+function periodById(pid){ return periods().find(p=>p.id===pid); }
+function periodLabelShort(p){ return p ? ('Tiết '+p.tiet+' · '+p.start+(p.end?'–'+p.end:'')) : '—'; }
+function periodLabelFull(p){ return p ? ('Tiết '+p.tiet+' ('+p.buoi+') · '+p.start+(p.end?'–'+p.end:'')) : '—'; }
+function hwCreatorTag(h){ return h && h.createdByRole==='student' ? ' <span class="pill pill-nam" style="padding:2px 8px;font-size:10px;">HS</span>' : ' <span class="pill pill-purple" style="padding:2px 8px;font-size:10px;">GV/QTV</span>'; }
+
+// Tự động tra cứu: tìm lần tới môn học này còn diễn ra ở BẤT KỲ tiết học nào (không chỉ đúng
+// tiết vừa giao), kể từ sau ngày giao. Quét từng ngày kể từ ngày kế tiếp, và trong mỗi ngày
+// quét lần lượt các tiết theo đúng thứ tự thời khoá biểu (tiết sớm nhất trước), để không bỏ sót
+// trường hợp môn đó có một tiết học sớm hơn (ở tiết khác) trước khi tới đúng tiết cũ của tuần sau.
+// Duyệt tối đa 60 ngày tới để né các trường hợp lịch thay đổi/nghỉ lễ theo tuần.
+// Trả về {date, periodId} của lần diễn ra gần nhất tìm được.
+function computeAutoDeadline(assignedDateKey, periodId, subject){
+  const subj = (subject||'').trim().toLowerCase();
+  const base = dateFromKey(assignedDateKey);
+  const P = periods().filter(p=>!p.isBreak);
+  if(subj){
+    for(let i=1; i<=60; i++){
+      const cand = addDays(base, i);
+      const dow = (cand.getDay()+6)%7;
+      const wk = getMonday(cand);
+      for(const p of P){
+        const it = itemForSlot(dow, p.id, wk);
+        if(it && it.type==='lesson' && (it.subject||'').trim().toLowerCase()===subj){
+          return { date: dateKey(cand), periodId: p.id };
+        }
+      }
+    }
+  }
+  return { date: dateKey(addDays(base,7)), periodId: periodId }; // fallback: đúng 1 tuần sau, cùng tiết, nếu không tra được
+}
+// Tìm BTVN đã tồn tại (nếu có) cho đúng ngày giao + tiết học đó, bất kể homework đó được
+// tạo trong lượt mở modal nào. Dùng để modal "Giao bài tập" cũng hiển thị lại BTVN đã giao
+// trước đó cho cùng ngày/tiết, thay vì để trống như đang giao bài mới.
+function hwExistingForDatePeriod(dateVal, periodId){
+  const list = Object.entries(state.homework||{}).map(([id,h])=>({id,...h}));
+  return list.find(h=> h.assignedDate===dateVal && h.periodId===periodId) || null;
+}
+function lessonPeriodsForDate(dateVal){
+  const d = dateFromKey(dateVal), dow = (d.getDay()+6)%7, wk = getMonday(d);
+  return periods().filter(p=>!p.isBreak).map(p=>({p, item: itemForSlot(dow, p.id, wk)})).filter(x=>x.item && x.item.type==='lesson');
+}
+function hwDeadlineStatusHTML(dk){
+  const today = todayKey();
+  if(dk < today) return '<span class="pill pill-red">Quá hạn</span>';
+  if(dk === today) return '<span class="pill pill-amber">Hạn hôm nay</span>';
+  const days = Math.round((dateFromKey(dk) - dateFromKey(today)) / 86400000);
+  return '<span class="pill pill-green">Còn '+days+' ngày</span>';
+}
+
+let HW = { mainTab:'assigned', assignedDate:null, deadlineMode:'week', deadlineDate:null, deadlineWeekStart:null, deadlineSubject:'' };
+function hwInitDefaults(){
+  if(!HW.assignedDate) HW.assignedDate = todayKey();
+  if(!HW.deadlineDate) HW.deadlineDate = todayKey();
+  if(!HW.deadlineWeekStart) HW.deadlineWeekStart = getMonday(new Date());
+}
+function renderHomeworkView(){
+  hwInitDefaults();
+  const tabsEl = document.getElementById('hwMainTabs');
+  if(tabsEl){
+    tabsEl.innerHTML = [['assigned','BTVN được giao'],['deadline','Tra cứu deadline']]
+      .map(t=>'<button class="'+(HW.mainTab===t[0]?'on':'')+'" onclick="hwSetMainTab(\''+t[0]+'\')">'+t[1]+'</button>').join('');
+  }
+  const body = document.getElementById('hwMainBody'); if(!body) return;
+  if(HW.mainTab==='assigned'){
+    body.innerHTML = hwAssignedShellHTML();
+    document.getElementById('hwAssignedDate').value = HW.assignedDate;
+    hwRenderAssignedList();
+  } else {
+    body.innerHTML = '<div class="hw-sub-nav" id="hwSubNav"></div><div id="hwDeadlineBody"></div>';
+    hwRenderDeadlineBody();
+  }
+}
+function hwSetMainTab(t){ HW.mainTab = t; renderHomeworkView(); }
+
+/* ---------- TAB 1: BTVN ĐƯỢC GIAO (lọc theo NGÀY GIAO) ---------- */
+function hwAssignedShellHTML(){
+  return '<div class="panel"><div class="hw-toolbar mb-16">'+
+    '<div class="field"><label>Xem bài tập được giao vào ngày</label><input type="date" id="hwAssignedDate" onchange="hwAssignedDateChange()"></div>'+
+    '<button class="btn outline small" onclick="hwGoToday()">Hôm nay</button>'+
+    '<div class="grow"></div><div class="small muted" id="hwAssignedCount"></div>'+
+    '</div><div id="hwAssignedGrid"></div></div>';
+}
+function hwAssignedDateChange(){ HW.assignedDate = document.getElementById('hwAssignedDate').value || todayKey(); hwRenderAssignedList(); }
+function hwGoToday(){ HW.assignedDate = todayKey(); const el=document.getElementById('hwAssignedDate'); if(el) el.value = HW.assignedDate; hwRenderAssignedList(); }
+function hwRenderAssignedList(){
+  const grid = document.getElementById('hwAssignedGrid'); if(!grid) return;
+  const idx = periodIndexMap();
+  const list = Object.entries(state.homework||{})
+    .filter(([id,h])=> h.assignedDate===HW.assignedDate)
+    .map(([id,h])=>({id,...h}))
+    .sort((a,b)=> (idx[a.periodId]!=null?idx[a.periodId]:99) - (idx[b.periodId]!=null?idx[b.periodId]:99));
+  const cntEl = document.getElementById('hwAssignedCount'); if(cntEl) cntEl.textContent = list.length ? (list.length+' bài tập được giao') : '';
+  const d = dateFromKey(HW.assignedDate), dowLabel = WEEKDAYS[(d.getDay()+6)%7];
+  if(!list.length){ grid.innerHTML = '<div class="empty-box">Chưa có bài tập nào được giao vào '+dowLabel+', ngày '+fmtFull(d)+'.</div>'; return; }
+  grid.innerHTML = '<div class="hw-grid">'+list.map(h=>hwCardHTML(h)).join('')+'</div>';
+}
+function hwCardHTML(h){
+  const p = periodById(h.periodId), dp = periodById(h.deadlinePeriodId||h.periodId), c = subjectColor(h.subject);
+  const actions = state.user ? ('<div class="hw-card-actions"><button onclick="openHomeworkModal('+attrStr(h.id)+')" title="Sửa">'+ic('edit',13)+'</button><button class="danger" onclick="deleteHomework('+attrStr(h.id)+')" title="Xoá">'+ic('trash',13)+'</button></div>') : '';
+  return '<div class="hw-card" style="--subj-bg:'+c.bg+';--subj-accent:'+c.accent+';">'+
+    '<div class="hw-card-top"><div class="hw-card-badges"><span class="hw-tiet-badge">'+(p?p.tiet:'?')+'</span><span class="hw-subject-name">'+esc(h.subject||'—')+'</span></div>'+actions+'</div>'+
+    '<div class="hw-card-body">'+esc(h.content||'(Không có nội dung)')+'</div>'+
+    '<div class="hw-card-foot">'+
+      '<div class="hw-meta-row">'+ic('calendar',12)+'<span>Giao: <b>'+periodLabelShort(p)+', '+fmtFull(dateFromKey(h.assignedDate))+'</b></span></div>'+
+      '<div class="hw-meta-row">'+ic('alarm',12)+'<span>Hạn nộp: <b>'+periodLabelShort(dp)+', '+fmtFull(dateFromKey(h.deadlineDate))+'</b> '+hwDeadlineStatusHTML(h.deadlineDate)+'</span></div>'+
+      '<div class="hw-meta-row">'+ic('userCheck',12)+'<span>Người giao: <b>'+esc(h.createdByName||'—')+'</b>'+hwCreatorTag(h)+(h.updatedByName && h.updatedAt && h.updatedByName!==h.createdByName ? ' · sửa gần nhất bởi <b>'+esc(h.updatedByName)+'</b>':'')+'</span></div>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ---------- TAB 2: TRA CỨU DEADLINE (lọc theo HẠN NỘP) ---------- */
+function hwRenderDeadlineBody(){
+  const nav = document.getElementById('hwSubNav');
+  nav.innerHTML = [['week','Theo tuần'],['day','Theo ngày'],['subject','Theo môn học']]
+    .map(t=>'<button class="'+(HW.deadlineMode===t[0]?'on':'')+'" onclick="hwSetDeadlineMode(\''+t[0]+'\')">'+t[1]+'</button>').join('');
+  const body = document.getElementById('hwDeadlineBody');
+  if(HW.deadlineMode==='week'){ body.innerHTML = hwWeekViewHTML(); document.getElementById('hwWeekPick').value = isoWeekValue(HW.deadlineWeekStart); }
+  else if(HW.deadlineMode==='day'){ body.innerHTML = hwDayViewHTML(); document.getElementById('hwDayPick').value = HW.deadlineDate; }
+  else body.innerHTML = hwSubjectViewHTML();
+}
+function hwSetDeadlineMode(m){ HW.deadlineMode = m; hwRenderDeadlineBody(); }
+
+function hwWeekViewHTML(){
+  const ws = HW.deadlineWeekStart, days = [...Array(7)].map((_,i)=>addDays(ws,i)), idx = periodIndexMap();
+  const list = Object.entries(state.homework||{}).map(([id,h])=>({id,...h}));
+  const todayK = todayKey();
+  let rows = '', total = 0;
+  days.forEach(d=>{
+    const dk = dateKey(d), dow = (d.getDay()+6)%7;
+    const items = list.filter(h=>h.deadlineDate===dk).sort((a,b)=>{
+      const ia = idx[a.deadlinePeriodId||a.periodId], ib = idx[b.deadlinePeriodId||b.periodId];
+      return (ia!=null?ia:99)-(ib!=null?ib:99);
+    });
+    total += items.length;
+    rows += '<tr class="hw-daygroup'+(dk===todayK?' today':'')+'"><td colspan="5">'+WEEKDAYS[dow]+' · '+fmtFull(d)+(dk===todayK?' (Hôm nay)':'')+'</td></tr>';
+    rows += items.length ? items.map(h=>{
+      const dp = periodById(h.deadlinePeriodId||h.periodId);
+      return '<tr class="'+(dk<todayK?'hw-overdue-row':'')+'"><td>'+periodLabelShort(dp)+'</td><td class="hw-subj-cell">'+esc(h.subject||'—')+'</td><td class="hw-content-cell">'+esc(h.content||'')+'</td><td class="nowrap">'+fmtShort(dateFromKey(h.assignedDate))+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty-box" style="padding:14px;">Không có deadline.</td></tr>';
+  });
+  return '<div class="panel"><div class="hw-toolbar mb-16">'+
+    '<div class="field"><label>Chọn tuần</label><input type="week" id="hwWeekPick" onchange="hwWeekPickChange()"></div>'+
+    '<button class="btn outline small" onclick="hwWeekGoCurrent()">Tuần này</button>'+
+    '<div class="week-range-label">Tuần: '+fmtShort(ws)+' – '+fmtFull(addDays(ws,6))+'</div>'+
+    '<div class="grow"></div><div class="small muted">'+total+' deadline trong tuần</div>'+
+    '</div><div class="tbl-scroll"><table class="plain hw-week-table"><tr><th style="width:150px">Tiết</th><th style="width:150px">Môn học</th><th>Bài tập về nhà</th><th style="width:90px">Ngày giao</th><th style="width:160px">Người giao</th></tr>'+rows+'</table></div></div>';
+}
+function hwWeekPickChange(){ const v=document.getElementById('hwWeekPick').value; const m=v?mondayFromISOWeek(v):null; if(m) HW.deadlineWeekStart=m; hwRenderDeadlineBody(); }
+function hwWeekGoCurrent(){ HW.deadlineWeekStart = getMonday(new Date()); hwRenderDeadlineBody(); }
+
+function hwDayViewHTML(){
+  const dk = HW.deadlineDate, d = dateFromKey(dk), dow = (d.getDay()+6)%7, idx = periodIndexMap();
+  const list = Object.entries(state.homework||{}).map(([id,h])=>({id,...h})).filter(h=>h.deadlineDate===dk)
+    .sort((a,b)=>{ const ia=idx[a.deadlinePeriodId||a.periodId], ib=idx[b.deadlinePeriodId||b.periodId]; return (ia!=null?ia:99)-(ib!=null?ib:99); });
+  const rows = list.length ? list.map(h=>{
+    const dp = periodById(h.deadlinePeriodId||h.periodId);
+    return '<tr><td>'+periodLabelShort(dp)+'</td><td class="hw-subj-cell">'+esc(h.subject||'—')+'</td><td class="hw-content-cell">'+esc(h.content||'')+'</td><td class="nowrap">'+fmtFull(dateFromKey(h.assignedDate))+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
+  }).join('') : '<tr><td colspan="5" class="empty-box">Không có bài tập nào có hạn nộp vào ngày này.</td></tr>';
+  return '<div class="panel"><div class="hw-toolbar mb-16">'+
+    '<div class="field"><label>Chọn ngày</label><input type="date" id="hwDayPick" onchange="hwDayPickChange()"></div>'+
+    '<button class="btn outline small" onclick="hwDayGoToday()">Hôm nay</button>'+
+    '<div class="week-range-label">'+WEEKDAYS[dow]+', '+fmtFull(d)+'</div>'+
+    '<div class="grow"></div><div class="small muted">'+list.length+' bài tập đến hạn</div>'+
+    '</div><div class="tbl-scroll"><table class="plain hw-week-table"><tr><th style="width:150px">Tiết</th><th style="width:150px">Môn học</th><th>Bài tập về nhà</th><th style="width:110px">Ngày giao</th><th style="width:160px">Người giao</th></tr>'+rows+'</table></div></div>';
+}
+function hwDayPickChange(){ HW.deadlineDate = document.getElementById('hwDayPick').value || todayKey(); hwRenderDeadlineBody(); }
+function hwDayGoToday(){ HW.deadlineDate = todayKey(); hwRenderDeadlineBody(); }
+
+function hwSubjectList(){
+  const set = new Set(); Object.values(state.homework||{}).forEach(h=>{ if(h.subject) set.add(h.subject.trim()); });
+  return Array.from(set).sort((a,b)=>a.localeCompare(b,'vi'));
+}
+function hwSubjectViewHTML(){
+  const subjects = hwSubjectList();
+  if(!HW.deadlineSubject || !subjects.includes(HW.deadlineSubject)) HW.deadlineSubject = subjects[0] || '';
+  const idx = periodIndexMap(), todayK = todayKey();
+  const list = Object.entries(state.homework||{}).map(([id,h])=>({id,...h}))
+    .filter(h=> HW.deadlineSubject && (h.subject||'').trim()===HW.deadlineSubject)
+    .sort((a,b)=>{ const c=(a.deadlineDate||'').localeCompare(b.deadlineDate||''); if(c) return c; const ia=idx[a.deadlinePeriodId||a.periodId], ib=idx[b.deadlinePeriodId||b.periodId]; return (ia!=null?ia:99)-(ib!=null?ib:99); });
+  const rows = list.length ? list.map(h=>{
+    const dp = periodById(h.deadlinePeriodId||h.periodId), d = dateFromKey(h.deadlineDate), dow = WEEKDAYS[(d.getDay()+6)%7];
+    return '<tr class="'+(h.deadlineDate<todayK?'hw-overdue-row':'')+'"><td class="nowrap">'+dow+', '+fmtFull(d)+'</td><td>'+periodLabelShort(dp)+'</td><td class="hw-content-cell">'+esc(h.content||'')+'</td><td>'+hwDeadlineStatusHTML(h.deadlineDate)+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
+  }).join('') : '<tr><td colspan="5" class="empty-box">Chưa có bài tập nào cho môn học này.</td></tr>';
+  return '<div class="panel"><div class="hw-toolbar mb-16">'+
+    '<div class="field"><label>Môn học</label><select id="hwSubjectSelect" onchange="hwSubjectChange()">'+(subjects.length?subjects.map(s=>'<option value="'+esc(s)+'" '+(s===HW.deadlineSubject?'selected':'')+'>'+esc(s)+'</option>').join(''):'<option value="">— Chưa có môn học nào —</option>')+'</select></div>'+
+    '<div class="grow"></div><div class="small muted">'+list.length+' bài tập</div>'+
+    '</div><div class="tbl-scroll"><table class="plain hw-week-table"><tr><th style="width:150px">Hạn nộp</th><th style="width:110px">Tiết</th><th>Bài tập về nhà</th><th style="width:130px">Trạng thái</th><th style="width:160px">Người giao</th></tr>'+rows+'</table></div></div>';
+}
+function hwSubjectChange(){ HW.deadlineSubject = document.getElementById('hwSubjectSelect').value || ''; hwRenderDeadlineBody(); }
+
+/* ---------- MODAL: TẠO / CHỈNH SỬA BTVN ---------- */
+let hwModalState = { editId:null, date:null };
+function openHomeworkModal(id){
+  const h = id ? state.homework[id] : null;
+  hwModalState = { editId: id||null, date: h ? h.assignedDate : todayKey() };
+  const html = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>'+(id?'Sửa bài tập về nhà':'Giao bài tập về nhà')+'</h3><button class="close-x" onclick="closeModal()">✕</button></div>'+
+    '<div class="modal-body">'+
+    '<div class="field"><label>Ngày giao bài tập</label><input type="date" id="hwm_date" value="'+hwModalState.date+'" onchange="hwModalDateChange()"></div>'+
+    '<div id="hwm_periods"></div>'+
+    '</div>'+
+    '<div class="modal-foot">'+(id?'<button class="btn danger" onclick="deleteHomework('+attrStr(id)+');closeModal();">Xoá</button>':'')+'<button class="btn outline" onclick="closeModal()">Huỷ</button><button class="btn primary" onclick="saveHomework()">Lưu</button></div>'+
+    '</div></div>';
+  document.getElementById('modalRoot').innerHTML = html;
+  hwRenderModalPeriods(h, null);
+}
+function hwCaptureDraft(){
+  const draft = {};
+  document.querySelectorAll('.hw-chk').forEach(cb=>{
+    const pid = cb.dataset.pid;
+    const contentEl = document.getElementById('hwm_content_'+pid);
+    const ddEl = document.getElementById('hwm_deadlineDate_'+pid);
+    const dpEl = document.getElementById('hwm_deadlinePeriod_'+pid);
+    if(cb.checked || (contentEl && contentEl.value.trim())){
+      draft[pid] = { checked:cb.checked, content: contentEl?contentEl.value:'', deadlineDate: ddEl?ddEl.value:'', deadlinePeriod: dpEl?dpEl.value:'', auto: ddEl?ddEl.dataset.auto:'1' };
+    }
+  });
+  return draft;
+}
+function hwModalDateChange(){
+  const draft = hwCaptureDraft();
+  hwModalState.date = document.getElementById('hwm_date').value || todayKey();
+  hwRenderModalPeriods(hwModalState.editId ? state.homework[hwModalState.editId] : null, draft);
+}
+function hwRenderModalPeriods(existing, draft){
+  draft = draft || {};
+  const dateVal = hwModalState.date, d = dateFromKey(dateVal), dow = (d.getDay()+6)%7;
+  const box = document.getElementById('hwm_periods');
+  const lessonPeriods = lessonPeriodsForDate(dateVal);
+  if(!lessonPeriods.length){
+    box.innerHTML = '<div class="hw-nolesson-note">Không tìm thấy tiết học nào trong Thời khoá biểu vào '+WEEKDAYS[dow]+', ngày '+fmtFull(d)+'. Vui lòng kiểm tra lại Thời khoá biểu, hoặc chọn một ngày khác.</div>';
+    return;
+  }
+  box.innerHTML = '<div class="field" style="margin-bottom:8px;"><label>Chọn (các) tiết học để giao bài tập</label></div><div class="hw-period-picker">'+
+    lessonPeriods.map(({p,item})=>{
+      const dft = draft[p.id];
+      // Ưu tiên bản ghi đang sửa (mở qua nút "Sửa"); nếu không, tra theo đúng ngày+tiết để
+      // phát hiện BTVN đã được giao trước đó cho tiết này, kể cả khi modal đang mở ở chế độ
+      // "Giao bài tập" (tạo mới) chứ không phải mở qua nút Sửa.
+      const existingRec = (existing && existing.periodId===p.id) ? existing : hwExistingForDatePeriod(dateVal, p.id);
+      const isExisting = !!existingRec && !dft;
+      const checked = dft ? (dft.checked?'checked':'') : (isExisting?'checked':'');
+      const autoDeadline = computeAutoDeadline(dateVal, p.id, item.subject);
+      const deadlineVal = dft ? (dft.deadlineDate||autoDeadline.date) : (isExisting? existingRec.deadlineDate : autoDeadline.date);
+      const deadlinePeriodVal = dft ? (dft.deadlinePeriod||autoDeadline.periodId) : (isExisting ? (existingRec.deadlinePeriodId||existingRec.periodId) : autoDeadline.periodId);
+      const contentVal = dft ? (dft.content||'') : (isExisting ? (existingRec.content||'') : '');
+      const isAuto = dft ? (dft.auto!=='0') : (isExisting ? (existingRec.deadlineAuto!==false && existingRec.deadlineDate===autoDeadline.date) : true);
+      const autoPeriod = periodById(autoDeadline.periodId);
+      const existingNote = (isExisting && !(hwModalState.editId && existingRec===existing)) ?
+        '<div class="hint" style="color:var(--accent,#2563eb);">'+ic('check',11)+' Tiết này đã có bài tập được giao trước đó — nội dung bên dưới là bài đã giao, có thể chỉnh sửa lại.</div>' : '';
+      return '<div class="hw-period-block">'+
+        '<label class="lv-period selected"><input type="checkbox" class="hw-chk" data-pid="'+p.id+'" data-existing-id="'+(existingRec?esc(existingRec.id):'')+'" '+checked+' onchange="hwPeriodCheckboxChanged(this)"><span class="chk"></span><span class="info"><b>Tiết '+p.tiet+' · '+esc(item.subject||'')+'</b><small>'+esc(p.buoi)+' · '+p.start+(p.end?'–'+p.end:'')+(item.teacher?' · GV: '+esc(item.teacher):'')+'</small></span></label>'+
+        '<div class="hw-period-fields">'+
+          existingNote+
+          '<div class="field"><label>Nội dung bài tập về nhà</label><textarea id="hwm_content_'+p.id+'" placeholder="VD: Làm bài 1–5 trang 20 SGK, học thuộc công thức...">'+esc(contentVal)+'</textarea></div>'+
+          '<div class="hw-deadline-row">'+
+            '<div class="field"><label>Hạn nộp (ngày)</label><input type="date" id="hwm_deadlineDate_'+p.id+'" value="'+deadlineVal+'" data-auto="'+(isAuto?'1':'0')+'" oninput="this.dataset.auto=\'0\';document.getElementById(\'hwm_autotag_'+p.id+'\').style.display=\'none\';"></div>'+
+            '<div class="field"><label>Hạn nộp (tiết)</label><select id="hwm_deadlinePeriod_'+p.id+'" onchange="document.getElementById(\'hwm_deadlineDate_'+p.id+'\').dataset.auto=\'0\';document.getElementById(\'hwm_autotag_'+p.id+'\').style.display=\'none\';">'+periods().filter(x=>!x.isBreak).map(x=>'<option value="'+x.id+'" '+(x.id===deadlinePeriodVal?'selected':'')+'>Tiết '+x.tiet+' ('+x.buoi+')</option>').join('')+'</select></div>'+
+            '<span class="hw-auto-tag" id="hwm_autotag_'+p.id+'" style="'+(isAuto?'':'display:none;')+'">'+ic('check',11)+' Tự động tính</span>'+
+          '</div>'+
+          '<div class="hint">Hệ thống tự tra cứu: môn <b>'+esc(item.subject||'')+'</b> sẽ diễn ra tiếp theo vào <b>'+fmtFull(dateFromKey(autoDeadline.date))+(autoPeriod?' (Tiết '+autoPeriod.tiet+')':'')+'</b>. Hãy kiểm tra và chỉnh lại nếu thời khoá biểu có thay đổi.</div>'+
+        '</div>'+
+      '</div>';
+    }).join('')+
+  '</div>';
+}
+function hwPeriodCheckboxChanged(cb){
+  if(hwModalState.editId && cb.checked){
+    document.querySelectorAll('.hw-chk').forEach(el=>{ if(el!==cb) el.checked=false; });
+  }
+}
+function saveHomework(){
+  if(!state.user){ toast('Vui lòng đăng nhập','err'); return; }
+  const checked = Array.from(document.querySelectorAll('.hw-chk')).filter(cb=>cb.checked);
+  if(!checked.length){ toast('Vui lòng chọn ít nhất một tiết học để giao bài tập','err'); return; }
+  const assignedDate = hwModalState.date, isEdit = !!hwModalState.editId;
+  const dow = (dateFromKey(assignedDate).getDay()+6)%7, wk = getMonday(dateFromKey(assignedDate));
+  const now = serverNow(), userId = state.user.id, userName = state.user.name;
+  const role = isStudentUser() ? 'student' : 'admin';
+  let missing = false, ops = [];
+  checked.forEach(cb=>{
+    const pid = cb.dataset.pid;
+    const existingId = cb.dataset.existingId || '';
+    const content = (document.getElementById('hwm_content_'+pid).value||'').trim();
+    const deadlineDate = document.getElementById('hwm_deadlineDate_'+pid).value;
+    const deadlinePeriodId = document.getElementById('hwm_deadlinePeriod_'+pid).value;
+    const autoFlag = document.getElementById('hwm_deadlineDate_'+pid).dataset.auto;
+    if(!content || !deadlineDate){ missing = true; return; }
+    const it = itemForSlot(dow, pid, wk);
+    // Nếu tiết này đã có sẵn BTVN (cùng ngày giao + tiết), cập nhật đè lên bản ghi cũ đó
+    // (dù modal đang mở ở chế độ "Giao bài tập") để tránh tạo bản ghi trùng lặp.
+    const targetId = isEdit ? hwModalState.editId : (existingId || uid());
+    const old = isEdit ? state.homework[hwModalState.editId] : (existingId ? state.homework[existingId] : null);
+    const payload = {
+      assignedDate, periodId: pid,
+      subject: (it&&it.subject)||(old&&old.subject)||'', teacher: (it&&it.teacher)||(old&&old.teacher)||'',
+      content, deadlineDate, deadlinePeriodId, deadlineAuto: autoFlag!=='0',
+      createdBy: old ? (old.createdBy||userId) : userId,
+      createdByName: old ? (old.createdByName||userName) : userName,
+      createdByRole: old ? (old.createdByRole||role) : role,
+      createdAt: old ? (old.createdAt||now) : now,
+      updatedBy: userId, updatedByName: userName, updatedAt: now
+    };
+    const key = targetId;
+    ops.push(REF.homework.child(key).set(clean(payload)));
+  });
+  if(missing){ toast('Vui lòng nhập đầy đủ nội dung và hạn nộp cho các tiết đã chọn','err'); return; }
+  if(!ops.length) return;
+  Promise.all(ops).then(()=>{ toast('Đã lưu bài tập về nhà','ok'); closeModal(); }).catch(err=> toast('Lỗi: '+(err&&err.message||err),'err'));
+}
+function deleteHomework(id){
+  if(!confirm('Xoá bài tập về nhà này?')) return;
+  REF.homework.child(id).remove().then(()=> toast('Đã xoá','ok')).catch(()=> toast('Lỗi','err'));
 }
 
 /* =========================================================================
