@@ -1335,6 +1335,99 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
 }
+
+/* ============================================================
+   UI V4 — GIAO DIỆN TRỰC QUAN HƠN + TÍNH NĂNG MỚI
+============================================================ */
+body{
+  background:
+    radial-gradient(1100px 480px at 88% -8%,#D9E8F9 0,transparent 62%),
+    radial-gradient(800px 380px at -8% 0,#E9E4F7 0,transparent 58%),
+    linear-gradient(180deg,#EDF1F7 0,#F4F7FB 420px);
+  background-attachment:fixed;
+}
+.view-head .lead{background:linear-gradient(90deg,var(--navy) 30%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.panel{border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);}
+.panel:hover{box-shadow:var(--shadow-md);}
+.nav-item{border-radius:10px;}
+.nav-item.active{background:linear-gradient(90deg,rgba(140,193,245,.22),rgba(140,193,245,.06));}
+.tabs-inline button,.hw-sub-nav button{border-radius:99px;}
+table.plain thead th,table.plain tr:first-child th{letter-spacing:.05em;}
+table.plain tbody tr:nth-child(even) td{background:#FBFCFE;}
+.stat-card{border-radius:16px;}
+.field input,.field select,.field textarea{border-radius:10px;}
+.modal{border-radius:20px;}
+.modal-head{background:linear-gradient(180deg,#F8FAFD,#fff);}
+.toast-item{border-radius:12px;box-shadow:var(--shadow-lg);}
+
+/* ---- Thẻ BTVN ---- */
+.hw-card{background:linear-gradient(135deg,var(--subj-bg,#F5F8FB) 0,#fff 88%);box-shadow:var(--shadow-xs);}
+.hw-card-foot{background:rgba(255,255,255,.65);margin:0 -16px -14px;padding:12px 16px 14px;}
+.hw-dow{margin-top:6px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--blue-dark);background:var(--blue-soft);padding:4px 11px;border-radius:99px;}
+.hw-deadline-row select{max-width:100%;text-overflow:ellipsis;}
+.hw-deadline-row .field{min-width:200px;}
+@media(hover:none){.hw-card-actions{opacity:1;}}
+
+/* ---- Tệp đính kèm BTVN ---- */
+.hw-files{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;}
+.hw-file-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:6px 11px;border-radius:99px;background:#fff;border:1.5px solid var(--line-strong);font-size:12px;font-weight:700;color:var(--blue-dark);transition:var(--transition);}
+.hw-file-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px;}
+.hw-file-chip small{color:var(--ink-faint);font-weight:600;}
+.hw-file-chip:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-1px);}
+.hw-file-chip:hover small{color:#DCEBFA;}
+.hw-content-cell .hw-files{margin:8px 0 0;}
+.hw-files-box{margin-top:14px;padding:14px;border:1.5px dashed var(--line-strong);border-radius:14px;background:#F8FAFD;}
+.hw-files-box>label:first-child{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+.hw-files-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.hw-file-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;}
+.hw-file-row.new{border-color:#BBD3EA;background:#F1F7FD;}
+.hw-file-row .svg-ic{color:var(--blue);flex-shrink:0;}
+.hw-file-row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;}
+.hw-file-row .sz{color:var(--ink-faint);font-size:11.5px;white-space:nowrap;}
+.hw-file-row button{width:28px;height:28px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-soft);flex-shrink:0;}
+.hw-file-row .dl:hover{background:var(--blue-soft);color:var(--blue);}
+.hw-file-row .rm:hover{background:var(--rose-soft);color:var(--rose);}
+.hw-upload-btn{cursor:pointer;}
+
+/* ---- Lịch trực nhật & TKB: xem đủ nội dung trên điện thoại (cuộn ngang + ghim cột đầu) ---- */
+table.duty{min-width:860px;border-collapse:separate;border-spacing:0;}
+table.duty th,table.duty td{border:none;border-right:1px solid var(--line);border-bottom:1px solid var(--line-strong);}
+table.duty thead th:first-child,table.duty td.tasklbl{position:sticky;left:0;z-index:3;}
+table.duty thead th:first-child{background:linear-gradient(180deg,#0F2137,#071322);}
+table.duty td.tasklbl{box-shadow:3px 0 6px -3px rgba(7,19,34,.18);}
+table.duty td.dutycell{overflow-wrap:anywhere;}
+table.duty .chip{white-space:normal;max-width:100%;line-height:1.3;}
+.scroll-hint{display:none;font-size:11.5px;font-weight:700;color:var(--ink-faint);text-align:center;margin:0 0 8px;}
+@media(max-width:900px){
+  .scroll-hint{display:block;}
+  .sched-scroll{-webkit-overflow-scrolling:touch;}
+  table.duty{min-width:780px;}
+  table.duty thead th:first-child{width:112px!important;}
+  table.duty td.tasklbl{width:112px;font-size:12px;padding:10px 8px;}
+  table.duty td.dutycell{min-width:124px;padding:8px;}
+  table.duty .chip{font-size:11.5px;padding:4px 8px 4px 10px;}
+}
+
+/* ---- Đổi mật khẩu ---- */
+.pw-who{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--blue-soft);color:var(--blue-dark);border-radius:10px;font-size:12.5px;margin-bottom:14px;}
+.pw-err{color:var(--rose);font-size:12.5px;font-weight:700;min-height:18px;margin:4px 0 10px;}
+.pw-meter{height:5px;border-radius:99px;background:#EBF0F5;margin-top:8px;overflow:hidden;}
+.pw-meter i{display:block;height:100%;width:0;border-radius:99px;transition:width .25s,background .25s;}
+.pw-meter-txt{font-size:11.5px;font-weight:700;margin-top:4px;min-height:14px;}
+.force-pw{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto;
+  background:radial-gradient(900px 500px at 15% 5%,#1F5A94 0,transparent 60%),linear-gradient(160deg,#071322,#0F2137);}
+.force-pw-card{width:420px;max-width:100%;background:#fff;border-radius:22px;padding:30px 28px;box-shadow:var(--shadow-xl);margin:auto;}
+.force-pw-card .fp-ic{width:58px;height:58px;border-radius:17px;background:linear-gradient(135deg,#2563A8,#1A4A7A);color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 10px 22px -8px var(--blue-glow);}
+.force-pw-card h2{font-size:21px;margin-bottom:8px;}
+.force-pw-card p{font-size:13px;color:var(--ink-soft);line-height:1.65;margin-bottom:18px;}
+
+/* ---- Nhật ký đăng nhập ---- */
+.log-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px;}
+.log-filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:14px;}
+.log-filters .field{margin-bottom:0;}
+.log-table{min-width:760px;}
+.log-table tr.log-fail td{background:#FDF3F4!important;}
+@media(max-width:900px){.log-filters{grid-template-columns:1fr 1fr;}.log-filters .btn{grid-column:1/-1;justify-content:center;}}
 </style>
 </head>
 <body>
@@ -1388,6 +1481,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
       <div class="nav-item admin-only" data-view="tasktypes" data-perm="tasktypes" onclick="goView('tasktypes')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 4H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-3"/><path d="M9 12h6M9 16h6M9 8h2"/></svg></span> Đầu việc trực nhật</div>
       <div class="nav-item admin-only" data-view="zalo" data-perm="zalo" onclick="goView('zalo')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.5 8.5 8.5 0 01-4-1L3 21l1-5.5A8.5 8.5 0 1121 11.5z"/></svg></span> Zalo Bot &amp; Thông báo</div>
       <div class="nav-item admin-only" data-view="admins" data-perm="__super__" onclick="goView('admins')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19h20M3 8l4 4 5-7 5 7 4-4-2 11H5z"/></svg></span> Quản trị viên</div>
+      <div class="nav-item admin-only" data-view="loginLogs" data-perm="__super__" onclick="goView('loginLogs')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span> Nhật ký đăng nhập</div>
       <div class="nav-item admin-only" data-view="settings" data-perm="settings" onclick="goView('settings')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span> Cài đặt lớp</div>
       <div class="nav-group-label admin-only" data-perm="attendance">Điểm danh</div>
       <div class="nav-item admin-only" data-view="attStatus" data-perm="attendance" onclick="goView('attStatus')"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></span> Trạng thái hôm nay</div>
@@ -1406,7 +1500,8 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
           <div class="u-role" id="sbRole">—</div>
         </div>
       </div>
-      <div class="nav-item" onclick="logout()" style="margin-top:6px;"><span class="ic">&#8630;</span> Đăng xuất</div>
+      <div class="nav-item" onclick="openChangePwModal()" style="margin-top:6px;"><span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Đổi mật khẩu</div>
+      <div class="nav-item" onclick="logout()"><span class="ic">&#8630;</span> Đăng xuất</div>
     </div>
   </div>
 
@@ -1470,7 +1565,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
           <input type="file" id="scheduleUploadInput" accept=".xlsx,.xls" onchange="handleScheduleUpload(this.files[0])">
         </div>
         <div id="scheduleUploadResult" class="xlsx-result"></div>
-        <div class="sched-scroll"><table class="sched" id="schedTable"></table></div>
+        <div class="scroll-hint">← Vuốt ngang để xem đủ các ngày trong tuần →</div><div class="sched-scroll"><table class="sched" id="schedTable"></table></div>
       </div>
       <div class="panel">
         <div class="panel-head">
@@ -1541,7 +1636,7 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
           <input type="file" id="dutyUploadMonthInput" accept=".xlsx,.xls" onchange="handleDutyUploadMonth(this.files[0])">
         </div>
         <div id="dutyUploadMonthResult" class="xlsx-result"></div>
-        <div class="sched-scroll"><table class="duty" id="dutyTable"></table></div>
+        <div class="scroll-hint">← Vuốt ngang để xem đủ các ngày · cột đầu việc được ghim cố định →</div><div class="sched-scroll"><table class="duty" id="dutyTable"></table></div>
       </div>
     </div>
 
@@ -1707,6 +1802,31 @@ tr.row-leave td:first-child{box-shadow:inset 3px 0 0 #D9A03A;}
           <div class="field"><label>Mật khẩu Super Admin mới</label><input id="suPass" placeholder="Để trống nếu không đổi mật khẩu"></div>
         </div>
         <button class="btn primary" onclick="saveSuperadminAuth()">Lưu tài khoản Super Admin</button>
+      </div>
+    </div>
+
+    <!-- LOGIN LOGS (SUPER ADMIN) -->
+    <div class="view" id="view-loginLogs">
+      <div class="view-head">
+        <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div>
+            <div class="lead">Nhật ký đăng nhập</div>
+            <div class="sub" style="font-size:12.5px;color:var(--ink-soft);margin-top:3px;font-weight:500;">Ghi lại đăng nhập, đăng nhập sai, đăng xuất và đổi mật khẩu của mọi tài khoản. Chỉ Super Admin xem được.</div>
+          </div>
+          <button class="btn outline" onclick="clearOldLogs()">Xoá log cũ hơn 90 ngày</button>
+        </div>
+      </div>
+      <div class="log-stats" id="logStats"></div>
+      <div class="panel">
+        <div class="log-filters">
+          <div class="field"><label>Tìm người dùng</label><input id="logQ" placeholder="Tên hoặc mã đăng nhập…" oninput="logFilterChange()"></div>
+          <div class="field"><label>Sự kiện</label><select id="logAction" onchange="logFilterChange()"><option value="">Tất cả</option><option value="login">Đăng nhập</option><option value="login_fail">Đăng nhập lỗi</option><option value="logout">Đăng xuất</option><option value="pw_change">Đổi mật khẩu</option><option value="pw_first">Đổi MK lần đầu</option></select></div>
+          <div class="field"><label>Vai trò</label><select id="logRole" onchange="logFilterChange()"><option value="">Tất cả</option><option>Super Admin</option><option>Quản trị viên</option><option>Học sinh kiêm QTV</option><option>Học sinh</option></select></div>
+          <div class="field"><label>Ngày</label><input type="date" id="logDate" onchange="logFilterChange()"></div>
+          <button class="btn outline small" onclick="logFilterReset()">Xoá lọc</button>
+        </div>
+        <div class="tbl-scroll"><table class="plain log-table" id="logTable"></table></div>
+        <div class="small muted" id="logFoot" style="margin-top:10px;"></div>
       </div>
     </div>
 
@@ -2038,7 +2158,8 @@ const db = firebase.database();
 const REF = {
   students: db.ref('students'), items: db.ref('scheduleItems'), duty: db.ref('duty'), taskTypes: db.ref('dutyTaskTypes'),
   zaloCfg: db.ref('zaloConfig'), notifs: db.ref('zaloNotifications'), zaloLog: db.ref('zaloLog'),
-  config: db.ref('classConfig'), admins: db.ref('admins'), leaves: db.ref('leaveRequests'), homework: db.ref('homework')
+  config: db.ref('classConfig'), admins: db.ref('admins'), leaves: db.ref('leaveRequests'), homework: db.ref('homework'),
+  hwFiles: db.ref('homeworkFiles'), loginLogs: db.ref('loginLogs')
 };
 const DEFAULT_ZALO_PROXY_URL = 'https://us-central1-' + firebaseConfig.projectId + '.cloudfunctions.net/zaloSendProxy';
 const SUPERADMIN = { user: 'admin123', pass: 'ams2629' };
@@ -2302,7 +2423,7 @@ function doLogin(){
   const suUser = suCfg.username || SUPERADMIN.user;
   const suPass = suCfg.password || SUPERADMIN.pass;
   if(u.toLowerCase() === suUser.toLowerCase() && p === suPass){
-    setSession({ id:'superadmin', name:'Super Admin', role:'admin', hasAdminAccess:true, isSuperadmin:true, permissions:['*'], gender:null });
+    loginSuccess({ id:'superadmin', name:'Super Admin', role:'admin', hasAdminAccess:true, isSuperadmin:true, permissions:['*'], gender:null });
     return;
   }
   REF.admins.once('value', asnap=>{
@@ -2310,7 +2431,7 @@ function doLogin(){
     const amatch = Object.entries(adata).find(([k,a]) => (a.username||'').toLowerCase()===u.toLowerCase() && a.password===p && a.active!==false);
     if(amatch){
       const [akey, a] = amatch;
-      setSession({ id: akey, adminId: akey, name: a.name, role:'admin', hasAdminAccess:true, isSuperadmin:false, permissions: a.permissions||[], position: a.position||'', gender:null });
+      loginSuccess({ id: akey, adminId: akey, name: a.name, role:'admin', hasAdminAccess:true, isSuperadmin:false, permissions: a.permissions||[], position: a.position||'', gender:null });
       return;
     }
     REF.students.once('value', snap=>{
@@ -2325,21 +2446,180 @@ function doLogin(){
           sess.permissions = aa.permissions || [];
           sess.position = aa.position || '';
         }
-        setSession(sess);
+        sess.mustChangePw = !match.pwChangedAt;   // chưa từng đổi mật khẩu → bắt buộc đổi lần đầu
+        loginSuccess(sess);
       } else {
+        logAuthEvent('login_fail', { attempted:u, success:false, name:'', userId:'', role:'' });
         errEl.textContent = 'Sai tên đăng nhập hoặc mật khẩu.';
         errEl.style.display='block';
       }
     });
   });
 }
+function roleLabel(u){
+  if(u.isSuperadmin) return 'Super Admin';
+  if(u.role==='admin') return 'Quản trị viên';
+  return u.hasAdminAccess ? 'Học sinh kiêm QTV' : 'Học sinh';
+}
+function loginSuccess(sess){
+  logAuthEvent('login', { userId:sess.id, name:sess.name, role:roleLabel(sess), success:true });
+  setSession(sess);
+}
 function setSession(u){ state.user = u; localStorage.setItem('d2_session', JSON.stringify(u)); enterApp(); }
 function logout(){
+  if(state.user) logAuthEvent('logout', { userId:state.user.id, name:state.user.name, role:roleLabel(state.user), success:true });
+  const fpo = document.getElementById('forcePwOverlay'); if(fpo) fpo.remove();
   localStorage.removeItem('d2_session'); state.user = null;
   document.getElementById('app').classList.remove('active');
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('loginUser').value=''; document.getElementById('loginPass').value='';
 }
+
+/* =========================================================================
+   NHẬT KÝ ĐĂNG NHẬP · ĐỔI MẬT KHẨU · ĐỔI MẬT KHẨU LẦN ĐẦU
+========================================================================= */
+function deviceInfo(){
+  const ua = navigator.userAgent || '';
+  let os = 'Khác';
+  if(/Windows/i.test(ua)) os = 'Windows'; else if(/Android/i.test(ua)) os = 'Android'; else if(/iPhone|iPad|iPod/i.test(ua)) os = 'iOS'; else if(/Mac OS X/i.test(ua)) os = 'macOS'; else if(/Linux/i.test(ua)) os = 'Linux';
+  let br = 'Khác';
+  if(/Edg\//.test(ua)) br = 'Edge'; else if(/OPR\/|Opera/.test(ua)) br = 'Opera'; else if(/CriOS|Chrome\//.test(ua)) br = 'Chrome'; else if(/Firefox|FxiOS/.test(ua)) br = 'Firefox'; else if(/Safari\//.test(ua)) br = 'Safari';
+  return { os, browser:br, device: /Mobi|Android|iPhone|iPad/i.test(ua) ? 'Điện thoại' : 'Máy tính', screen:(screen.width||0)+'×'+(screen.height||0) };
+}
+// Ghi log sự kiện xác thực (đăng nhập, đăng nhập lỗi, đăng xuất, đổi mật khẩu). KHÔNG bao giờ lưu mật khẩu.
+function logAuthEvent(action, info){
+  try{
+    const rec = Object.assign({ ts: firebase.database.ServerValue.TIMESTAMP, action }, deviceInfo(), info||{});
+    REF.loginLogs.push(clean(rec));
+  }catch(e){ console.warn('log failed', e); }
+}
+
+function pwFieldsHTML(pre, needCurrent){
+  return (needCurrent ? '<div class="field"><label>Mật khẩu hiện tại</label><input type="password" id="'+pre+'_cur" autocomplete="current-password"></div>' : '')+
+    '<div class="field"><label>Mật khẩu mới</label><input type="password" id="'+pre+'_new" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự" oninput="pwStrength(\''+pre+'\')"><div class="pw-meter"><i id="'+pre+'_bar"></i></div><div class="pw-meter-txt" id="'+pre+'_bartxt"></div></div>'+
+    '<div class="field"><label>Nhập lại mật khẩu mới</label><input type="password" id="'+pre+'_cfm" autocomplete="new-password"></div>'+
+    '<label class="chk-row" style="margin-bottom:6px;"><input type="checkbox" onchange="pwToggleShow(\''+pre+'\',this.checked)"> <span>Hiện mật khẩu</span></label>'+
+    '<div class="pw-err" id="'+pre+'_err"></div>';
+}
+function pwToggleShow(pre,on){ ['cur','new','cfm'].forEach(k=>{ const el = document.getElementById(pre+'_'+k); if(el) el.type = on ? 'text' : 'password'; }); }
+function pwStrength(pre){
+  const v = document.getElementById(pre+'_new').value; let sc = 0;
+  if(v.length>=6) sc++; if(v.length>=9) sc++; if(/[a-z]/.test(v)&&/[A-Z]/.test(v)) sc++; if(/\d/.test(v)) sc++; if(/[^A-Za-z0-9]/.test(v)) sc++;
+  const lv = [['#C0405A','Quá yếu'],['#C0405A','Yếu'],['#C47A1A','Trung bình'],['#2563A8','Khá'],['#1E8A5A','Mạnh'],['#1E8A5A','Rất mạnh']][v ? sc : 0];
+  const bar = document.getElementById(pre+'_bar'), txt = document.getElementById(pre+'_bartxt');
+  bar.style.width = (v ? Math.max(12, sc*20) : 0)+'%'; bar.style.background = lv[0];
+  txt.textContent = v ? 'Độ mạnh: '+lv[1] : ''; txt.style.color = lv[0];
+}
+function getStoredPassword(){
+  const u = state.user;
+  if(isSuperadmin()){ const c = (state.classCfg && state.classCfg.superadminAuth) || {}; return Promise.resolve(c.password || SUPERADMIN.pass); }
+  if(u.adminId && u.role==='admin') return REF.admins.child(u.adminId).once('value').then(sn=> (sn.val()||{}).password || '');
+  return REF.students.child(u.studentId).once('value').then(sn=> (sn.val()||{}).password || '');
+}
+function applyNewPassword(np){
+  const u = state.user, T = firebase.database.ServerValue.TIMESTAMP;
+  if(isSuperadmin()){ const c = (state.classCfg && state.classCfg.superadminAuth) || {}; return REF.config.child('superadminAuth').update({ username: c.username || SUPERADMIN.user, password: np }); }
+  if(u.adminId && u.role==='admin') return REF.admins.child(u.adminId).update({ password: np, pwChangedAt: T });
+  return REF.students.child(u.studentId).update({ password: np, pwChangedAt: T });
+}
+function pwValidate(pre, needCurrent, stored){
+  const nw = document.getElementById(pre+'_new').value, cf = document.getElementById(pre+'_cfm').value;
+  if(needCurrent && document.getElementById(pre+'_cur').value !== stored) return 'Mật khẩu hiện tại không đúng.';
+  if(nw.length < 6) return 'Mật khẩu mới cần tối thiểu 6 ký tự.';
+  if(nw === stored) return 'Mật khẩu mới phải khác mật khẩu hiện tại.';
+  if(state.user.studentId && normName(nw) === normName(state.user.studentId)) return 'Mật khẩu không được trùng với tên đăng nhập.';
+  if(nw !== cf) return 'Hai lần nhập mật khẩu mới chưa khớp.';
+  return '';
+}
+function submitPwChange(pre, needCurrent, first){
+  const errEl = document.getElementById(pre+'_err'), btn = document.getElementById(pre+'_btn');
+  errEl.textContent = ''; btn.disabled = true;
+  getStoredPassword().then(stored=>{
+    const msg = pwValidate(pre, needCurrent, stored);
+    if(msg){ errEl.textContent = msg; btn.disabled = false; return; }
+    return applyNewPassword(document.getElementById(pre+'_new').value).then(()=>{
+      logAuthEvent(first ? 'pw_first' : 'pw_change', { userId:state.user.id, name:state.user.name, role:roleLabel(state.user), success:true });
+      state.user.mustChangePw = false; localStorage.setItem('d2_session', JSON.stringify(state.user));
+      toast('Đã đổi mật khẩu thành công','ok');
+      if(first){ const ov = document.getElementById('forcePwOverlay'); if(ov) ov.remove(); goView('dashboard'); } else closeModal();
+    });
+  }).catch(e=>{ errEl.textContent = 'Không thể đổi mật khẩu: '+((e&&e.message)||e); btn.disabled = false; });
+}
+function openChangePwModal(){
+  if(!state.user) return;
+  document.getElementById('modalRoot').innerHTML = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal"><div class="modal-head"><h3>Đổi mật khẩu</h3><button class="close-x" onclick="closeModal()">✕</button></div><div class="modal-body">'+
+    '<div class="pw-who">'+ic('lock',16)+'<span>Tài khoản: <b>'+esc(state.user.name)+'</b> · '+esc(roleLabel(state.user))+'</span></div>'+pwFieldsHTML('cp', true)+
+    '</div><div class="modal-foot"><button class="btn outline" onclick="closeModal()">Huỷ</button><button class="btn primary" id="cp_btn" onclick="submitPwChange(\'cp\',true,false)">Đổi mật khẩu</button></div></div></div>';
+}
+// Học sinh đăng nhập lần đầu bằng mật khẩu mặc định: khoá toàn bộ hệ thống cho tới khi đặt mật khẩu mới.
+function openForcePwOverlay(){
+  if(document.getElementById('forcePwOverlay') || !state.user) return;
+  const el = document.createElement('div'); el.id = 'forcePwOverlay'; el.className = 'force-pw';
+  el.innerHTML = '<div class="force-pw-card"><div class="fp-ic">'+ic('lock',26)+'</div><h2>Đổi mật khẩu lần đầu</h2>'+
+    '<p>Chào <b>'+esc(state.user.name)+'</b>! Bạn đang dùng mật khẩu mặc định do quản trị viên cấp. Vui lòng đặt mật khẩu mới để bảo vệ tài khoản — bạn cần hoàn tất bước này trước khi sử dụng các tính năng khác.</p>'+
+    pwFieldsHTML('fp', false)+
+    '<button class="btn primary" id="fp_btn" style="width:100%;justify-content:center;padding:13px;" onclick="submitPwChange(\'fp\',false,true)">Đặt mật khẩu mới</button>'+
+    '<button class="btn ghost" style="width:100%;justify-content:center;margin-top:8px;" onclick="logout()">Đăng xuất</button></div>';
+  document.body.appendChild(el);
+}
+function checkForcePw(){
+  if(!isStudentUser()) return;
+  REF.students.child(state.user.studentId).once('value').then(sn=>{
+    const v = sn.val(); if(!v || !state.user) return;
+    const must = !v.pwChangedAt;
+    if(must !== !!state.user.mustChangePw){ state.user.mustChangePw = must; localStorage.setItem('d2_session', JSON.stringify(state.user)); }
+    if(must) openForcePwOverlay();
+  });
+}
+
+/* ---------- Trang nhật ký đăng nhập (chỉ Super Admin) ---------- */
+const LOGF = { q:'', action:'', role:'', date:'' };
+function logActionPill(a){
+  const m = { login:['pill-green','Đăng nhập'], login_fail:['pill-red','Đăng nhập lỗi'], logout:['pill-muted','Đăng xuất'], pw_change:['pill-purple','Đổi mật khẩu'], pw_first:['pill-teal','Đổi MK lần đầu'] }[a] || ['pill-muted', a||'—'];
+  return '<span class="pill '+m[0]+'">'+m[1]+'</span>';
+}
+function logFilterChange(){
+  LOGF.q = document.getElementById('logQ').value; LOGF.action = document.getElementById('logAction').value;
+  LOGF.role = document.getElementById('logRole').value; LOGF.date = document.getElementById('logDate').value;
+  renderLoginLogs();
+}
+function logFilterReset(){ ['logQ','logAction','logRole','logDate'].forEach(id=>{ document.getElementById(id).value=''; }); logFilterChange(); }
+function renderLoginLogs(){
+  if(!isSuperadmin()) return;
+  const t = document.getElementById('logTable'); if(!t) return;
+  const all = state.loginLogs || [], tk = todayKey(), q = normName(LOGF.q);
+  const isTodayTs = l => l.ts && dateKey(new Date(l.ts))===tk;
+  const today = all.filter(isTodayTs);
+  document.getElementById('logStats').innerHTML =
+    '<div class="stat-card ok"><div class="lbl">Đăng nhập hôm nay</div><div class="val">'+today.filter(l=>l.action==='login').length+'</div><div class="foot">'+new Set(today.filter(l=>l.action==='login').map(l=>l.userId)).size+' người dùng khác nhau</div></div>'+
+    '<div class="stat-card bad"><div class="lbl">Đăng nhập sai hôm nay</div><div class="val">'+today.filter(l=>l.action==='login_fail').length+'</div><div class="foot">Cần theo dõi nếu tăng đột biến</div></div>'+
+    '<div class="stat-card info"><div class="lbl">Đổi mật khẩu hôm nay</div><div class="val">'+today.filter(l=>l.action==='pw_change'||l.action==='pw_first').length+'</div><div class="foot">Gồm cả đổi lần đầu</div></div>'+
+    '<div class="stat-card"><div class="lbl">Bản ghi đang tải</div><div class="val">'+all.length+'</div><div class="foot">Tối đa 1000 bản ghi gần nhất</div></div>';
+  const list = all.filter(l=>{
+    if(LOGF.action && l.action!==LOGF.action) return false;
+    if(LOGF.role && l.role!==LOGF.role) return false;
+    if(LOGF.date && !(l.ts && dateKey(new Date(l.ts))===LOGF.date)) return false;
+    if(q && !normName((l.name||'')+' '+(l.userId||'')+' '+(l.attempted||'')).includes(q)) return false;
+    return true;
+  });
+  const shown = list.slice(0, 300);
+  t.innerHTML = '<tr><th style="width:150px">Thời gian</th><th>Người dùng</th><th style="width:130px">Vai trò</th><th style="width:150px">Sự kiện</th><th style="width:210px">Thiết bị</th></tr>'+
+    (shown.length ? shown.map(l=>{
+      const d = l.ts ? new Date(l.ts) : null;
+      const who = l.action==='login_fail' ? '<b>'+esc(l.attempted||'—')+'</b><div class="sub">Tên đăng nhập đã nhập</div>' : '<b>'+esc(l.name||'—')+'</b><div class="sub">'+esc(l.userId||'')+'</div>';
+      return '<tr class="'+(l.action==='login_fail'?'log-fail':'')+'"><td class="nowrap">'+(d ? '<b>'+pad2(d.getHours())+':'+pad2(d.getMinutes())+':'+pad2(d.getSeconds())+'</b><div class="sub">'+WEEKDAYS[(d.getDay()+6)%7]+', '+fmtFull(d)+'</div>' : '—')+'</td><td>'+who+'</td><td>'+esc(l.role||'—')+'</td><td>'+logActionPill(l.action)+'</td><td><div>'+esc(l.device||'')+' · '+esc(l.os||'')+'</div><div class="sub">'+esc(l.browser||'')+(l.screen?' · '+esc(l.screen):'')+'</div></td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty-box">Không có bản ghi phù hợp.</td></tr>');
+  document.getElementById('logFoot').textContent = 'Hiển thị '+shown.length+' / '+list.length+' bản ghi phù hợp'+(list.length>300?' (chỉ hiện 300 bản ghi mới nhất — hãy lọc thêm để xem cũ hơn)':'');
+}
+function clearOldLogs(){
+  if(!isSuperadmin()) return;
+  if(!confirm('Xoá các bản ghi nhật ký cũ hơn 90 ngày?')) return;
+  const cut = Date.now() - 90*86400000, ups = {};
+  (state.loginLogs||[]).forEach(l=>{ if(l.ts && l.ts < cut) ups[l.id] = null; });
+  if(!Object.keys(ups).length){ toast('Không có bản ghi nào cũ hơn 90 ngày'); return; }
+  REF.loginLogs.update(ups).then(()=> toast('Đã xoá '+Object.keys(ups).length+' bản ghi','ok'));
+}
+
 function tryRestoreSession(){
   const raw = localStorage.getItem('d2_session');
   if(raw){ try{ state.user = JSON.parse(raw); enterApp(); return true; }catch(e){} }
@@ -2359,6 +2639,8 @@ function enterApp(){
   document.getElementById('sbAvatar').textContent = (state.user.name||'?').trim().charAt(0).toUpperCase();
   initWeekPickers(); populateWeeklyDaySelect(); goView('dashboard'); attachListeners();
   if(typeof extHandleDeepLink==='function') extHandleDeepLink();
+  if(state.user.mustChangePw) openForcePwOverlay();
+  if(isStudentUser()) checkForcePw();
 }
 function applyNavVisibility(){
   document.querySelectorAll('.admin-only').forEach(el=>{
@@ -2410,6 +2692,14 @@ function attachListeners(){
     if(state.currentView==='settings') renderSettingsForm();
     if(state.currentView==='schedule') renderScheduleView();
   });
+  if(isSuperadmin() && !window._logListener){
+    window._logListener = true;
+    REF.loginLogs.limitToLast(1000).on('value', snap=>{
+      const arr = []; snap.forEach(c=>{ arr.push(Object.assign({id:c.key}, c.val())); });
+      state.loginLogs = arr.reverse();
+      if(state.currentView==='loginLogs') renderLoginLogs();
+    });
+  }
   if(typeof attachExtListeners==='function') attachExtListeners();
 }
 function seedTaskTypes(){
@@ -2427,10 +2717,11 @@ function seedTaskTypes(){
    NAVIGATION
 ========================================================================= */
 function goView(v){
+  if(state.user && state.user.mustChangePw){ openForcePwOverlay(); return; }
   const permMap = { students:'students', tasktypes:'tasktypes', zalo:'zalo', settings:'settings', leaveApprove:'leaves',
     attStatus:'attendance', attHistory:'attendance', attFace:'attsettings', attQR:'attsettings', attSched:'attsettings', attDoor:'attsettings' };
   if(permMap[v] && !hasPerm(permMap[v])) return;
-  if(v==='admins' && !isSuperadmin()) return;
+  if((v==='admins' || v==='loginLogs') && !isSuperadmin()) return;
   if((v==='lookup' || v==='leaveApply' || v==='classList' || v==='attClass') && !isStudentUser()) return;
   if(typeof extBeforeView==='function') extBeforeView(v);
   state.currentView = v;
@@ -2444,7 +2735,7 @@ function goView(v){
     lookup:'Tra cứu lịch trực của tôi', students:'Học sinh & tài khoản', tasktypes:'Đầu việc trực nhật',
     zalo:'Zalo Bot & Thông báo', settings:'Cài đặt lớp',
     leaveApply:'Đơn từ', leaveApprove:'Duyệt đơn từ', admins:'Quản trị viên',
-    classList:'Danh sách lớp', attClass:'Điểm danh lớp', homework:'Bài tập về nhà'
+    classList:'Danh sách lớp', attClass:'Điểm danh lớp', homework:'Bài tập về nhà', loginLogs:'Nhật ký đăng nhập'
   };
   document.getElementById('topbarTitle').textContent = titles[v]||(typeof EXT_TITLES!=='undefined'?EXT_TITLES[v]:null)||'—';
   document.getElementById('topbarDate').textContent = 'Hôm nay ' + fmtFull(new Date());
@@ -2467,6 +2758,7 @@ function refreshCurrentView(){
     case 'classList': renderClassListView(); break;
     case 'attClass': renderAttClassView(); break;
     case 'homework': renderHomeworkView(); break;
+    case 'loginLogs': renderLoginLogs(); break;
     default: if(typeof extRefreshView==='function') extRefreshView(state.currentView); break;
   }
 }
@@ -2767,9 +3059,12 @@ function hwCreatorTag(h){ return h && h.createdByRole==='student' ? ' <span clas
 // quét lần lượt các tiết theo đúng thứ tự thời khoá biểu (tiết sớm nhất trước), để không bỏ sót
 // trường hợp môn đó có một tiết học sớm hơn (ở tiết khác) trước khi tới đúng tiết cũ của tuần sau.
 // Duyệt tối đa 60 ngày tới để né các trường hợp lịch thay đổi/nghỉ lễ theo tuần.
+// Chỉ tính là "cùng lớp" khi đúng MÔN và (nếu tiết giao có ghi GV) đúng cả GIÁO VIÊN — ví dụ lớp có
+// 2 GV Địa lí (Cô Ngân, Thầy Hà): BTVN giao ở tiết của Cô Ngân chỉ tính hạn vào tiết kế tiếp của Cô Ngân.
 // Trả về {date, periodId} của lần diễn ra gần nhất tìm được.
-function computeAutoDeadline(assignedDateKey, periodId, subject){
+function computeAutoDeadline(assignedDateKey, periodId, subject, teacher){
   const subj = (subject||'').trim().toLowerCase();
+  const teacherN = normName(teacher||'');
   const base = dateFromKey(assignedDateKey);
   const P = periods().filter(p=>!p.isBreak);
   if(subj){
@@ -2779,7 +3074,7 @@ function computeAutoDeadline(assignedDateKey, periodId, subject){
       const wk = getMonday(cand);
       for(const p of P){
         const it = itemForSlot(dow, p.id, wk);
-        if(it && it.type==='lesson' && (it.subject||'').trim().toLowerCase()===subj){
+        if(it && it.type==='lesson' && (it.subject||'').trim().toLowerCase()===subj && (!teacherN || normName(it.teacher||'')===teacherN)){
           return { date: dateKey(cand), periodId: p.id };
         }
       }
@@ -2858,7 +3153,7 @@ function hwCardHTML(h){
   const actions = state.user ? ('<div class="hw-card-actions"><button onclick="openHomeworkModal('+attrStr(h.id)+')" title="Sửa">'+ic('edit',13)+'</button><button class="danger" onclick="deleteHomework('+attrStr(h.id)+')" title="Xoá">'+ic('trash',13)+'</button></div>') : '';
   return '<div class="hw-card" style="--subj-bg:'+c.bg+';--subj-accent:'+c.accent+';">'+
     '<div class="hw-card-top"><div class="hw-card-badges"><span class="hw-tiet-badge">'+(p?p.tiet:'?')+'</span><span class="hw-subject-name">'+esc(h.subject||'—')+'</span></div>'+actions+'</div>'+
-    '<div class="hw-card-body">'+esc(h.content||'(Không có nội dung)')+'</div>'+
+    '<div class="hw-card-body">'+esc(h.content||'(Không có nội dung)')+'</div>'+hwFilesHTML(h)+
     '<div class="hw-card-foot">'+
       '<div class="hw-meta-row">'+ic('calendar',12)+'<span>Giao: <b>'+periodLabelShort(p)+', '+fmtFull(dateFromKey(h.assignedDate))+'</b></span></div>'+
       '<div class="hw-meta-row">'+ic('alarm',12)+'<span>Hạn nộp: <b>'+periodLabelShort(dp)+', '+fmtFull(dateFromKey(h.deadlineDate))+'</b> '+hwDeadlineStatusHTML(h.deadlineDate)+'</span></div>'+
@@ -2894,7 +3189,7 @@ function hwWeekViewHTML(){
     rows += '<tr class="hw-daygroup'+(dk===todayK?' today':'')+'"><td colspan="5">'+WEEKDAYS[dow]+' · '+fmtFull(d)+(dk===todayK?' (Hôm nay)':'')+'</td></tr>';
     rows += items.length ? items.map(h=>{
       const dp = periodById(h.deadlinePeriodId||h.periodId);
-      return '<tr class="'+(dk<todayK?'hw-overdue-row':'')+'"><td>'+periodLabelShort(dp)+'</td><td class="hw-subj-cell">'+esc(h.subject||'—')+'</td><td class="hw-content-cell">'+esc(h.content||'')+'</td><td class="nowrap">'+fmtShort(dateFromKey(h.assignedDate))+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
+      return '<tr class="'+(dk<todayK?'hw-overdue-row':'')+'"><td>'+periodLabelShort(dp)+'</td><td class="hw-subj-cell">'+esc(h.subject||'—')+'</td><td class="hw-content-cell">'+esc(h.content||'')+hwFilesHTML(h)+'</td><td class="nowrap">'+fmtShort(dateFromKey(h.assignedDate))+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
     }).join('') : '<tr><td colspan="5" class="empty-box" style="padding:14px;">Không có deadline.</td></tr>';
   });
   return '<div class="panel"><div class="hw-toolbar mb-16">'+
@@ -2913,7 +3208,7 @@ function hwDayViewHTML(){
     .sort((a,b)=>{ const ia=idx[a.deadlinePeriodId||a.periodId], ib=idx[b.deadlinePeriodId||b.periodId]; return (ia!=null?ia:99)-(ib!=null?ib:99); });
   const rows = list.length ? list.map(h=>{
     const dp = periodById(h.deadlinePeriodId||h.periodId);
-    return '<tr><td>'+periodLabelShort(dp)+'</td><td class="hw-subj-cell">'+esc(h.subject||'—')+'</td><td class="hw-content-cell">'+esc(h.content||'')+'</td><td class="nowrap">'+fmtFull(dateFromKey(h.assignedDate))+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
+    return '<tr><td>'+periodLabelShort(dp)+'</td><td class="hw-subj-cell">'+esc(h.subject||'—')+'</td><td class="hw-content-cell">'+esc(h.content||'')+hwFilesHTML(h)+'</td><td class="nowrap">'+fmtFull(dateFromKey(h.assignedDate))+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
   }).join('') : '<tr><td colspan="5" class="empty-box">Không có bài tập nào có hạn nộp vào ngày này.</td></tr>';
   return '<div class="panel"><div class="hw-toolbar mb-16">'+
     '<div class="field"><label>Chọn ngày</label><input type="date" id="hwDayPick" onchange="hwDayPickChange()"></div>'+
@@ -2938,7 +3233,7 @@ function hwSubjectViewHTML(){
     .sort((a,b)=>{ const c=(a.deadlineDate||'').localeCompare(b.deadlineDate||''); if(c) return c; const ia=idx[a.deadlinePeriodId||a.periodId], ib=idx[b.deadlinePeriodId||b.periodId]; return (ia!=null?ia:99)-(ib!=null?ib:99); });
   const rows = list.length ? list.map(h=>{
     const dp = periodById(h.deadlinePeriodId||h.periodId), d = dateFromKey(h.deadlineDate), dow = WEEKDAYS[(d.getDay()+6)%7];
-    return '<tr class="'+(h.deadlineDate<todayK?'hw-overdue-row':'')+'"><td class="nowrap">'+dow+', '+fmtFull(d)+'</td><td>'+periodLabelShort(dp)+'</td><td class="hw-content-cell">'+esc(h.content||'')+'</td><td>'+hwDeadlineStatusHTML(h.deadlineDate)+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
+    return '<tr class="'+(h.deadlineDate<todayK?'hw-overdue-row':'')+'"><td class="nowrap">'+dow+', '+fmtFull(d)+'</td><td>'+periodLabelShort(dp)+'</td><td class="hw-content-cell">'+esc(h.content||'')+hwFilesHTML(h)+'</td><td>'+hwDeadlineStatusHTML(h.deadlineDate)+'</td><td>'+esc(h.createdByName||'—')+hwCreatorTag(h)+'</td></tr>';
   }).join('') : '<tr><td colspan="5" class="empty-box">Chưa có bài tập nào cho môn học này.</td></tr>';
   return '<div class="panel"><div class="hw-toolbar mb-16">'+
     '<div class="field"><label>Môn học</label><select id="hwSubjectSelect" onchange="hwSubjectChange()">'+(subjects.length?subjects.map(s=>'<option value="'+esc(s)+'" '+(s===HW.deadlineSubject?'selected':'')+'>'+esc(s)+'</option>').join(''):'<option value="">— Chưa có môn học nào —</option>')+'</select></div>'+
@@ -2947,14 +3242,125 @@ function hwSubjectViewHTML(){
 }
 function hwSubjectChange(){ HW.deadlineSubject = document.getElementById('hwSubjectSelect').value || ''; hwRenderDeadlineBody(); }
 
+/* ---------- TIỆN ÍCH DEADLINE (THỨ + MÔN THEO NGÀY) & TỆP ĐÍNH KÈM ---------- */
+const HW_MAX_FILES = 5, HW_MAX_BYTES = 10*1024*1024;
+let hwFileState = { pending:{}, removed:{} };
+function hwDowText(dateVal){ if(!dateVal) return 'Chưa chọn ngày'; const d = dateFromKey(dateVal); return WEEKDAYS[(d.getDay()+6)%7]+', '+fmtFull(d); }
+function hwSlotLabelForDate(dateVal, p){
+  const d = dateFromKey(dateVal), dow = (d.getDay()+6)%7, it = itemForSlot(dow, p.id, getMonday(d));
+  if(!it) return '';
+  return it.type==='lesson' ? ((it.subject||'')+(it.teacher?' – '+it.teacher:'')) : (it.title||'Sự kiện');
+}
+function hwDeadlinePeriodOptions(dateVal, selectedId){
+  return periods().filter(x=>!x.isBreak).map(x=>{
+    const lb = dateVal ? hwSlotLabelForDate(dateVal, x) : '';
+    return '<option value="'+x.id+'" '+(x.id===selectedId?'selected':'')+'>Tiết '+x.tiet+' ('+x.buoi+') · '+(lb?esc(lb):'— trống')+'</option>';
+  }).join('');
+}
+function hwMarkManual(pid){
+  const dEl = document.getElementById('hwm_deadlineDate_'+pid); if(dEl) dEl.dataset.auto = '0';
+  const tag = document.getElementById('hwm_autotag_'+pid); if(tag) tag.style.display = 'none';
+}
+function hwDeadlinePeriodChanged(pid){ hwMarkManual(pid); }
+function hwDeadlineChanged(pid){
+  const dEl = document.getElementById('hwm_deadlineDate_'+pid), sel = document.getElementById('hwm_deadlinePeriod_'+pid);
+  if(!dEl) return;
+  hwMarkManual(pid);
+  const dowEl = document.getElementById('hwm_dow_'+pid); if(dowEl) dowEl.innerHTML = ic('calendar',12)+' '+hwDowText(dEl.value);
+  if(!sel || !dEl.value) return;
+  // Khi đổi ngày: nếu tiết đang chọn không còn đúng môn + GV thì tự chuyển sang tiết đúng môn + GV của ngày mới (nếu có).
+  const cb = document.querySelector('.hw-chk[data-pid="'+pid+'"]');
+  const subj = ((cb&&cb.dataset.subj)||'').trim().toLowerCase(), teacherN = normName((cb&&cb.dataset.teacher)||'');
+  const d = dateFromKey(dEl.value), dow = (d.getDay()+6)%7, wk = getMonday(d);
+  const match = it => it && it.type==='lesson' && (it.subject||'').trim().toLowerCase()===subj && (!teacherN || normName(it.teacher||'')===teacherN);
+  let chosen = sel.value;
+  if(!match(itemForSlot(dow, chosen, wk))){
+    const f = periods().filter(x=>!x.isBreak).find(x=>match(itemForSlot(dow, x.id, wk)));
+    if(f) chosen = f.id;
+  }
+  sel.innerHTML = hwDeadlinePeriodOptions(dEl.value, chosen);
+}
+
+function hwFmtSize(n){ return n>=1048576 ? (n/1048576).toFixed(1)+' MB' : Math.max(1,Math.round((n||0)/1024))+' KB'; }
+function hwFilesOf(rec){ return Object.entries((rec&&rec.files)||{}).map(([fid,f])=>Object.assign({fid},f)); }
+function hwFilesEditorHTML(pid, rec){
+  const ex = hwFilesOf(rec).filter(f=>!hwFileState.removed[f.fid]);
+  const pend = hwFileState.pending[pid]||[];
+  if(!ex.length && !pend.length) return '<div class="empty-note">Chưa có tệp đính kèm.</div>';
+  return ex.map(f=>'<div class="hw-file-row">'+ic('doc',15)+'<span class="nm">'+esc(f.name)+'</span><span class="sz">'+hwFmtSize(f.size)+'</span><button type="button" class="dl" onclick="hwDownloadFile('+attrStr(rec.id)+','+attrStr(f.fid)+')" title="Tải về">'+ic('download',13)+'</button><button type="button" class="rm" onclick="hwRemoveExistingFile('+attrStr(pid)+','+attrStr(f.fid)+')" title="Gỡ tệp">'+ic('x',13)+'</button></div>').join('')
+    + pend.map(f=>'<div class="hw-file-row new">'+ic('doc',15)+'<span class="nm">'+esc(f.name)+'</span><span class="sz">'+hwFmtSize(f.size)+' · mới</span><button type="button" class="rm" onclick="hwRemovePendingFile('+attrStr(pid)+','+attrStr(f.fid)+')" title="Bỏ">'+ic('x',13)+'</button></div>').join('');
+}
+function hwRecForPid(pid){
+  const cb = document.querySelector('.hw-chk[data-pid="'+pid+'"]'), id = cb && cb.dataset.existingId;
+  return (id && state.homework[id]) ? Object.assign({id}, state.homework[id]) : null;
+}
+function hwRefreshFiles(pid){ const el = document.getElementById('hwm_files_'+pid); if(el) el.innerHTML = hwFilesEditorHTML(pid, hwRecForPid(pid)); }
+function hwRemoveExistingFile(pid, fid){ hwFileState.removed[fid] = true; hwRefreshFiles(pid); }
+function hwRemovePendingFile(pid, fid){ hwFileState.pending[pid] = (hwFileState.pending[pid]||[]).filter(f=>f.fid!==fid); hwRefreshFiles(pid); }
+function hwReadFile(file){
+  return new Promise((resolve, reject)=>{
+    const fr = new FileReader();
+    fr.onerror = ()=> reject(new Error('read'));
+    fr.onload = ()=>{
+      const raw = { dataUrl: fr.result, type: file.type, size: file.size };
+      if(!/^image\/(jpeg|png|webp)$/.test(file.type)) return resolve(raw);
+      const img = new Image();
+      img.onerror = ()=> resolve(raw);
+      img.onload = ()=>{
+        const r = Math.min(1, 1600/Math.max(img.width, img.height)), w = Math.round(img.width*r), h = Math.round(img.height*r);
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,w,h); x.drawImage(img,0,0,w,h);
+        const out = c.toDataURL('image/jpeg', 0.82);
+        const size = Math.round((out.length - out.indexOf(',') - 1)*3/4);
+        resolve(size < file.size ? { dataUrl: out, type:'image/jpeg', size, renamed:true } : raw);
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+async function hwPickFiles(pid, input){
+  const files = Array.from(input.files||[]); input.value = '';
+  for(const f of files){
+    const cur = hwFilesOf(hwRecForPid(pid)).filter(x=>!hwFileState.removed[x.fid]).length + (hwFileState.pending[pid]||[]).length;
+    if(cur >= HW_MAX_FILES){ toast('Tối đa '+HW_MAX_FILES+' tệp cho mỗi bài tập','err'); break; }
+    if(f.size > 40*1024*1024){ toast('«'+f.name+'» quá lớn (tối đa 10 MB)','err'); continue; }
+    try{
+      const r = await hwReadFile(f);
+      if(r.size > HW_MAX_BYTES){ toast('«'+f.name+'» vượt quá 10 MB','err'); continue; }
+      (hwFileState.pending[pid] = hwFileState.pending[pid]||[]).push({ fid:'f'+uid(), name: r.renamed ? f.name.replace(/\.[^.]+$/,'')+'.jpg' : f.name, type: r.type||'application/octet-stream', size:r.size, dataUrl:r.dataUrl });
+    }catch(e){ toast('Không đọc được «'+f.name+'»','err'); }
+  }
+  hwRefreshFiles(pid);
+}
+function hwDownloadFile(hid, fid){
+  const meta = ((state.homework[hid]||{}).files||{})[fid] || {};
+  toast('Đang tải tệp…');
+  REF.hwFiles.child(hid).child(fid).once('value').then(snap=>{
+    const v = snap.val();
+    if(!v || !v.data){ toast('Không tìm thấy nội dung tệp','err'); return; }
+    return fetch(v.data).then(r=>r.blob()).then(b=>{
+      const url = URL.createObjectURL(b), a = document.createElement('a');
+      a.href = url; a.download = meta.name || v.name || 'tep-dinh-kem';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    });
+  }).catch(()=> toast('Không tải được tệp','err'));
+}
+function hwFilesHTML(h){
+  const fs = hwFilesOf(h); if(!fs.length) return '';
+  return '<div class="hw-files">'+fs.map(f=>'<button type="button" class="hw-file-chip" onclick="hwDownloadFile('+attrStr(h.id)+','+attrStr(f.fid)+')" title="Tải về">'+ic('download',12)+'<span>'+esc(f.name)+'</span><small>'+hwFmtSize(f.size)+'</small></button>').join('')+'</div>';
+}
+
 /* ---------- MODAL: TẠO / CHỈNH SỬA BTVN ---------- */
 let hwModalState = { editId:null, date:null };
 function openHomeworkModal(id){
+  hwFileState = { pending:{}, removed:{} };
   const h = id ? state.homework[id] : null;
   hwModalState = { editId: id||null, date: h ? h.assignedDate : todayKey() };
   const html = '<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal wide"><div class="modal-head"><h3>'+(id?'Sửa bài tập về nhà':'Giao bài tập về nhà')+'</h3><button class="close-x" onclick="closeModal()">✕</button></div>'+
     '<div class="modal-body">'+
-    '<div class="field"><label>Ngày giao bài tập</label><input type="date" id="hwm_date" value="'+hwModalState.date+'" onchange="hwModalDateChange()"></div>'+
+    '<div class="field"><label>Ngày giao bài tập</label><input type="date" id="hwm_date" value="'+hwModalState.date+'" onchange="hwModalDateChange()"><div class="hw-dow" id="hwm_date_dow">'+ic('calendar',12)+' '+hwDowText(hwModalState.date)+'</div></div>'+
     '<div id="hwm_periods"></div>'+
     '</div>'+
     '<div class="modal-foot">'+(id?'<button class="btn danger" onclick="deleteHomework('+attrStr(id)+');closeModal();">Xoá</button>':'')+'<button class="btn outline" onclick="closeModal()">Huỷ</button><button class="btn primary" onclick="saveHomework()">Lưu</button></div>'+
@@ -2978,6 +3384,7 @@ function hwCaptureDraft(){
 function hwModalDateChange(){
   const draft = hwCaptureDraft();
   hwModalState.date = document.getElementById('hwm_date').value || todayKey();
+  const dowEl = document.getElementById('hwm_date_dow'); if(dowEl) dowEl.innerHTML = ic('calendar',12)+' '+hwDowText(hwModalState.date);
   hwRenderModalPeriods(hwModalState.editId ? state.homework[hwModalState.editId] : null, draft);
 }
 function hwRenderModalPeriods(existing, draft){
@@ -2995,28 +3402,29 @@ function hwRenderModalPeriods(existing, draft){
       // Ưu tiên bản ghi đang sửa (mở qua nút "Sửa"); nếu không, tra theo đúng ngày+tiết để
       // phát hiện BTVN đã được giao trước đó cho tiết này, kể cả khi modal đang mở ở chế độ
       // "Giao bài tập" (tạo mới) chứ không phải mở qua nút Sửa.
-      const existingRec = (existing && existing.periodId===p.id) ? existing : hwExistingForDatePeriod(dateVal, p.id);
+      const existingRec = (existing && existing.periodId===p.id) ? Object.assign({id:hwModalState.editId}, existing) : hwExistingForDatePeriod(dateVal, p.id);
       const isExisting = !!existingRec && !dft;
       const checked = dft ? (dft.checked?'checked':'') : (isExisting?'checked':'');
-      const autoDeadline = computeAutoDeadline(dateVal, p.id, item.subject);
+      const autoDeadline = computeAutoDeadline(dateVal, p.id, item.subject, item.teacher);
       const deadlineVal = dft ? (dft.deadlineDate||autoDeadline.date) : (isExisting? existingRec.deadlineDate : autoDeadline.date);
       const deadlinePeriodVal = dft ? (dft.deadlinePeriod||autoDeadline.periodId) : (isExisting ? (existingRec.deadlinePeriodId||existingRec.periodId) : autoDeadline.periodId);
       const contentVal = dft ? (dft.content||'') : (isExisting ? (existingRec.content||'') : '');
       const isAuto = dft ? (dft.auto!=='0') : (isExisting ? (existingRec.deadlineAuto!==false && existingRec.deadlineDate===autoDeadline.date) : true);
       const autoPeriod = periodById(autoDeadline.periodId);
-      const existingNote = (isExisting && !(hwModalState.editId && existingRec===existing)) ?
+      const existingNote = (isExisting && !(hwModalState.editId && existingRec.id===hwModalState.editId)) ?
         '<div class="hint" style="color:var(--accent,#2563eb);">'+ic('check',11)+' Tiết này đã có bài tập được giao trước đó — nội dung bên dưới là bài đã giao, có thể chỉnh sửa lại.</div>' : '';
       return '<div class="hw-period-block">'+
-        '<label class="lv-period selected"><input type="checkbox" class="hw-chk" data-pid="'+p.id+'" data-existing-id="'+(existingRec?esc(existingRec.id):'')+'" '+checked+' onchange="hwPeriodCheckboxChanged(this)"><span class="chk"></span><span class="info"><b>Tiết '+p.tiet+' · '+esc(item.subject||'')+'</b><small>'+esc(p.buoi)+' · '+p.start+(p.end?'–'+p.end:'')+(item.teacher?' · GV: '+esc(item.teacher):'')+'</small></span></label>'+
+        '<label class="lv-period selected"><input type="checkbox" class="hw-chk" data-pid="'+p.id+'" data-subj="'+esc(item.subject||'')+'" data-teacher="'+esc(item.teacher||'')+'" data-existing-id="'+(existingRec?esc(existingRec.id):'')+'" '+checked+' onchange="hwPeriodCheckboxChanged(this)"><span class="chk"></span><span class="info"><b>Tiết '+p.tiet+' · '+esc(item.subject||'')+'</b><small>'+esc(p.buoi)+' · '+p.start+(p.end?'–'+p.end:'')+(item.teacher?' · GV: '+esc(item.teacher):'')+'</small></span></label>'+
         '<div class="hw-period-fields">'+
           existingNote+
           '<div class="field"><label>Nội dung bài tập về nhà</label><textarea id="hwm_content_'+p.id+'" placeholder="VD: Làm bài 1–5 trang 20 SGK, học thuộc công thức...">'+esc(contentVal)+'</textarea></div>'+
           '<div class="hw-deadline-row">'+
-            '<div class="field"><label>Hạn nộp (ngày)</label><input type="date" id="hwm_deadlineDate_'+p.id+'" value="'+deadlineVal+'" data-auto="'+(isAuto?'1':'0')+'" oninput="this.dataset.auto=\'0\';document.getElementById(\'hwm_autotag_'+p.id+'\').style.display=\'none\';"></div>'+
-            '<div class="field"><label>Hạn nộp (tiết)</label><select id="hwm_deadlinePeriod_'+p.id+'" onchange="document.getElementById(\'hwm_deadlineDate_'+p.id+'\').dataset.auto=\'0\';document.getElementById(\'hwm_autotag_'+p.id+'\').style.display=\'none\';">'+periods().filter(x=>!x.isBreak).map(x=>'<option value="'+x.id+'" '+(x.id===deadlinePeriodVal?'selected':'')+'>Tiết '+x.tiet+' ('+x.buoi+')</option>').join('')+'</select></div>'+
+            '<div class="field"><label>Hạn nộp (ngày)</label><input type="date" id="hwm_deadlineDate_'+p.id+'" value="'+deadlineVal+'" data-auto="'+(isAuto?'1':'0')+'" oninput="hwDeadlineChanged(\''+p.id+'\')"><div class="hw-dow" id="hwm_dow_'+p.id+'">'+ic('calendar',12)+' '+hwDowText(deadlineVal)+'</div></div>'+
+            '<div class="field"><label>Hạn nộp (tiết · môn học của ngày đã chọn)</label><select id="hwm_deadlinePeriod_'+p.id+'" onchange="hwDeadlinePeriodChanged(\''+p.id+'\')">'+hwDeadlinePeriodOptions(deadlineVal, deadlinePeriodVal)+'</select></div>'+
             '<span class="hw-auto-tag" id="hwm_autotag_'+p.id+'" style="'+(isAuto?'':'display:none;')+'">'+ic('check',11)+' Tự động tính</span>'+
           '</div>'+
-          '<div class="hint">Hệ thống tự tra cứu: môn <b>'+esc(item.subject||'')+'</b> sẽ diễn ra tiếp theo vào <b>'+fmtFull(dateFromKey(autoDeadline.date))+(autoPeriod?' (Tiết '+autoPeriod.tiet+')':'')+'</b>. Hãy kiểm tra và chỉnh lại nếu thời khoá biểu có thay đổi.</div>'+
+          '<div class="hw-files-box"><label>Tệp đính kèm <span class="muted" style="text-transform:none;font-weight:500;">(tuỳ chọn)</span></label><div class="hw-files-list" id="hwm_files_'+p.id+'">'+hwFilesEditorHTML(p.id, existingRec)+'</div><label class="btn small outline hw-upload-btn">'+ic('link',13)+' Chọn tệp<input type="file" multiple hidden onchange="hwPickFiles(\''+p.id+'\',this)"></label><span class="small muted" style="margin-left:8px;">Tối đa '+HW_MAX_FILES+' tệp · mỗi tệp ≤ 10 MB · ảnh tự động nén</span></div>'+
+          '<div class="hint">Hệ thống tự tra cứu: môn <b>'+esc(item.subject||'')+'</b>'+(item.teacher?' (GV '+esc(item.teacher)+')':'')+' sẽ diễn ra tiếp theo vào <b>'+fmtFull(dateFromKey(autoDeadline.date))+(autoPeriod?' (Tiết '+autoPeriod.tiet+')':'')+'</b>. Hãy kiểm tra và chỉnh lại nếu thời khoá biểu có thay đổi.</div>'+
         '</div>'+
       '</div>';
     }).join('')+
@@ -3060,15 +3468,23 @@ function saveHomework(){
       updatedBy: userId, updatedByName: userName, updatedAt: now
     };
     const key = targetId;
-    ops.push(REF.homework.child(key).set(clean(payload)));
+    // Tệp đính kèm: giữ tệp cũ chưa bị gỡ + thêm tệp mới; nội dung tệp lưu ở nhánh riêng homeworkFiles/{id}/{fileId}
+    const oldFiles = (old && old.files) || {}, filesMeta = {}, fileOps = [];
+    Object.entries(oldFiles).forEach(([fid,f])=>{ if(hwFileState.removed[fid]) fileOps.push(REF.hwFiles.child(key).child(fid).remove()); else filesMeta[fid] = f; });
+    (hwFileState.pending[pid]||[]).forEach(f=>{
+      filesMeta[f.fid] = { name:f.name, type:f.type, size:f.size, at:now, by:userName };
+      fileOps.push(REF.hwFiles.child(key).child(f.fid).set({ name:f.name, type:f.type, data:f.dataUrl }));
+    });
+    payload.files = Object.keys(filesMeta).length ? filesMeta : null;
+    ops.push(Promise.all(fileOps).then(()=> REF.homework.child(key).set(clean(payload))));
   });
   if(missing){ toast('Vui lòng nhập đầy đủ nội dung và hạn nộp cho các tiết đã chọn','err'); return; }
   if(!ops.length) return;
-  Promise.all(ops).then(()=>{ toast('Đã lưu bài tập về nhà','ok'); closeModal(); }).catch(err=> toast('Lỗi: '+(err&&err.message||err),'err'));
+  Promise.all(ops).then(()=>{ hwFileState = { pending:{}, removed:{} }; toast('Đã lưu bài tập về nhà','ok'); closeModal(); }).catch(err=> toast('Lỗi: '+(err&&err.message||err),'err'));
 }
 function deleteHomework(id){
   if(!confirm('Xoá bài tập về nhà này?')) return;
-  REF.homework.child(id).remove().then(()=> toast('Đã xoá','ok')).catch(()=> toast('Lỗi','err'));
+  REF.hwFiles.child(id).remove(); REF.homework.child(id).remove().then(()=> toast('Đã xoá','ok')).catch(()=> toast('Lỗi','err'));
 }
 
 /* =========================================================================
@@ -3726,7 +4142,10 @@ function saveStudent(oldId){
   const password = document.getElementById('s_pass').value.trim() || Math.random().toString(36).slice(2,8);
   if(!id || !name){ toast('Vui lòng nhập mã và họ tên','err'); return; }
   if(!oldId && state.students[id]){ toast('Mã đã tồn tại','err'); return; }
-  REF.students.child(id).set({ id, name, gender, active, password }).then(()=>{ toast('Đã lưu','ok'); closeModal(); });
+  const old = state.students[id] || null;
+  const payload = Object.assign({}, old||{}, { id, name, gender, active, password });
+  if(!old || old.password !== password) payload.pwChangedAt = null;   // admin đặt/reset mật khẩu → HS phải đổi lại khi đăng nhập
+  REF.students.child(id).set(clean(payload)).then(()=>{ toast('Đã lưu','ok'); closeModal(); });
 }
 function deleteStudent(id){ if(!confirm('Xoá học sinh này?')) return; REF.students.child(id).remove().then(()=> toast('Đã xoá','ok')); }
 function permCheckboxesHTML(selected, idPrefix){
@@ -4252,7 +4671,7 @@ function parseStudentRows(rows){
     const activeRaw = (row[4]||'').toString().trim().toLowerCase();
     const active = !(activeRaw.includes('vô hiệu')||activeRaw.includes('vo hieu')||activeRaw==='false'||activeRaw==='inactive');
     if(state.students[id]) updated++; else created++;
-    updates[id] = { id, name, gender, password, active, adminAccess: (state.students[id]&&state.students[id].adminAccess)||null };
+    updates[id] = { id, name, gender, password, active, adminAccess: (state.students[id]&&state.students[id].adminAccess)||null, pwChangedAt: (state.students[id] && state.students[id].password===password) ? (state.students[id].pwChangedAt||null) : null };
   });
   const ops = Object.entries(updates).map(([id,val])=> REF.students.child(id).set(val));
   Promise.all(ops).then(()=>{ document.getElementById('studentUploadResult').textContent = `Tạo ${created}, cập nhật ${updated}.`; refreshCurrentView(); });
